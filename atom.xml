@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 <title>Hachioji.pm</title>
-<link rel="alternate" href="http://hachiojipm.github.io/blog/" />
+<link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
-<id>tag:hachiojipm.github.io,2013-09-07:blog:</id>
+<id>tag:hachiojipm.github.io,2013-09-07:</id>
 <updated>2013-09-07T23:57:36+09:00</updated>
 <entry>
 <title type="text">ハチピーブログかも知れない何か</title>
-<link href="http://hachiojipm.github.io/blog/entry/start.html" />
+<link href="http://hachiojipm.github.io/entry/start.html" />
 <author>
 <name>Masayuki Matsuki</name>
 </author>
@@ -16,7 +16,7 @@
 
 <p>建設予定地(Web1.0感)</p>
 ]]></content>
-<id>tag:hachiojipm.github.io,2013-09-07:blog:entry-start.html</id>
+<id>tag:hachiojipm.github.io,2013-09-07:entry-start.html</id>
 <published>2013-09-07T57:57:36+0900</published>
 <updated>2013-09-07T23:57:36+09:00</updated>
 </entry>
