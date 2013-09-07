@@ -1,3 +1,4 @@
 author:   'Uzulla'
 title:    "Hachioji.pm"
 site_url: 'http://hachiojipm.github.io/blog/'
+publish_dir: '.'
