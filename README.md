@@ -1,25 +1,15 @@
-1st step
---------
+## Rijiのインストール
 
-Edit your 'riji.yml'.
+    % cpanm Riji
 
-2nd step
---------
+## 記事の作成
 
-Edit your blog entry by markdown notation, save into 'article/entry' and git commit it.
+artcle/entry 以下に適当に、markdownファイルを拡張子.mdで配置して編集してコミットして下さい。
 
-3rd step
---------
+面倒臭かったら、`% riji new-entry hoge` とかやって下さい。
 
-You can see the blog at local environment by using built in server as following step.
+## 構築と配信
 
-    % riji server
+    % riji publish && git commit -am "publish" && git push
 
-4th step
---------
-
-You can publish static blog directory as follows.
-
-    % riji publish
-
-'blog/' directory is created. Now, you can publish it to any servers.
+とか。
