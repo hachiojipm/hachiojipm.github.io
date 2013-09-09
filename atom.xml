@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-09T23:47:09+09:00</updated>
+<updated>2013-09-10T01:36:26+09:00</updated>
 <entry>
 <title type="text">｢Perl入学式 第3回｣の復習問題, vote.plを解いてみよう!</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-02.html" />
@@ -193,19 +193,5 @@ for my $votes (sort { $b &lt;=&gt; $a } keys %{$sort}) {
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
 <updated>2013-09-09T23:47:09+09:00</updated>
-</entry>
-<entry>
-<title type="text">ハチピーブログかも知れない何か</title>
-<link href="http://hachiojipm.github.io/entry/start.html" />
-<author>
-<name>Masayuki Matsuki</name>
-</author>
-<content><![CDATA[<h2>ハチピーブログかも知れない何か</h2>
-
-<p>建設予定地(Web1.0感)</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-07:entry-start.html</id>
-<published>2013-09-07T57:57:36+0900</published>
-<updated>2013-09-07T23:57:36+09:00</updated>
 </entry>
 </feed>
