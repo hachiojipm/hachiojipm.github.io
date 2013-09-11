@@ -7,7 +7,7 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <link href="http://hachiojipm.github.io/share/css/main.css" rel="stylesheet">
   <title>
-｢Perl入学式 第3回｣の復習問題, vote.plを解いてみよう! | Hachioji.pm
+「Perl入学式 第3回」の復習問題, vote.plを解いてみよう! | Hachioji.pm
   </title>
 </head>
 <body>
@@ -30,35 +30,107 @@
     </ul>
   </aside>
   <div class="entry">
-    <h1>｢Perl入学式 第3回｣の復習問題, vote.plを解いてみよう!</h1>
+    <h1>「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</h1>
 
-<p>皆様こんにちは.
-｢Perl入学式 in 東京 #3 補講｣の待ち時間に, プロジェクターに映しながら艦これで3-2-1へ1回出撃したら, 那珂ちゃんがドロップして超爆笑したりしたpapixです.</p>
+<p>皆様こんにちは.<br/>
+「Perl入学式 in 東京 #3 補講」の待ち時間に, プロジェクターに映しながら艦これで3-2-1へ1回出撃したら, <a href="http://instagram.com/p/d8eIcioDya/">那珂ちゃんがドロップして超爆笑</a>したりした<a href="http://twitter.com/__papix__">papix</a>です.</p>
 
-<p>...というわけで, 突如始まった｢Hachioji.pm 日めくりテックトーク｣の第一陣を務めさせて頂きます.
-このテックトークは, Hachioji.pmらしく(?), 割と"何でもアリ"な感じでゆるふわにやって行きたいと思っています.
-多分, 今後songmuさんがRijiの話をしたり(このブログもRijiで作られています!), ytnobodyさんがNephiaの話をしたり, mackee_wさんがヘリの話をしたり, moznionくんがXMLモジュールの話をしたり, xtetsujiさんがmod_perlの話をしたり, boolfoolがVimの話をしたり, あとはHachioji.pmは｢Hachioji PHP Monster｣の略なので, 総帥のuzullさんがPHPの話をしたりすると思います.</p>
+<p>...というわけで, 突如始まった「Hachioji.pm 日めくりテックトーク」の第一陣を務めさせて頂きます.<br/>
+このテックトークは, Hachioji.pmらしく(?), 割と"何でもアリ"な感じでゆるふわにやって行きたいと思っています.</p>
 
-<p>そんな｢日めくりテックトーク｣の記念すべき第1回ですが, 最初からガチな感じで行くと身構えられてしまうかもしれないので, 今回はゆるふわに, 以前開催した｢Perl入学式 #3｣の復習問題の｢vote.pl｣をネタとして取り上げてみたいと思います.</p>
+<p>多分, 今後songmuさんがRijiの話をしたり(このブログもRijiで作られています!), ytnobodyさんがNephiaの話をしたり, mackee_wさんがヘリの話をしたり, moznionくんがXMLモジュールの話をしたり, xtetsujiさんがmod_perlの話をしたり, boolfoolがVimの話をしたり, あとはHachioji.pmは「Hachioji PHP Monster」の略なので, 総帥のuzullさんがPHPの話をしたりすると思います.</p>
 
-<p>｢Perl入学式 #3｣では, ハッシュやリファレンスといった, Perlのキモとも言うべき部分にチャレンジしました.
-復習問題の｢vote.pl｣も, それらの要素がゴロゴロ入ったいい問題に仕上がっています.</p>
+<h2>今日のネタ「vote.pl」</h2>
+
+<p>そんな「日めくりテックトーク」の記念すべき第1回ですが, 最初からガチなネタを投下してしまうと身構えられてしまうかもしれないので, 今回はゆるふわに, 以前開催した「Perl入学式 #3」の復習問題の「vote.pl」をネタとして取り上げてみたいと思います.</p>
+
+<p>さて, 「Perl入学式 #3」では, ハッシュやリファレンスといった, Perlのキモとも言うべき部分にチャレンジしました.<br/>
+復習問題の「vote.pl」も, それらの要素がゴロゴロ入ったいい問題に仕上がっています.</p>
 
 <ol>
-<li>「自分の名前 (name)」と「好きな食べ物の配列のリファレンス (favorite_foods)」を持ったハッシュリファレンスを作成しましょう (つまり、好きな食べ物は複数個書いてください)</li>
-<li>同様のハッシュリファレンスを2, 3個作ってみましょう (周りの人のリアルデータを使ってハッシュrefを作ると良いかもしれません)</li>
-<li>作成した複数のハッシュリファレンスを1つの配列に格納しましょう (配列を操作する関数を使っても良いですし、直で代入しても良いです)</li>
-<li>どんな方法でも良いので、好きな食べ物のランキングを作って表示してみて下さい</li>
+<li>「自分の名前 (name)」と「好きな食べ物の配列のリファレンス (favorite_foods)」を持ったハッシュリファレンスを作成しましょう (つまり, 好きな食べ物は複数個書いてください)</li>
+<li>同様のハッシュリファレンスを2, 3個作ってみましょう (周りの人のリアルデータを使ってハッシュリファレンスを作ると良いかもしれません)</li>
+<li>作成した複数のハッシュリファレンスを1つの配列に格納しましょう (配列を操作する関数を使っても良いですし, 直で代入しても良いです)</li>
+<li>どんな方法でも良いので, 好きな食べ物のランキングを作って表示してみて下さい</li>
 </ol>
 
 
-<h2>解答例</h2>
+<h2>解説</h2>
 
-<p>...さあ, どういうコードが出来上がったでしょうか?
-というわけで, いきなりですが解答例を見てみましょう.</p>
+<p>...さあ, コードを書いていきましょう!<br/>
+都合のいいことに問題が4つに分かれているので, 1つずつ消化して行くことにします.</p>
 
-<p>あくまでpapixが考えた｢解答例｣なので, この通りに書いていないとダメ! という訳ではありません.
-あえて言えば, 結果が同じであれば, 自分の書き方とpapixの書き方のどちらが書きやすいか見比べてみて, ｢こっちの方が理解できる! わかりやすい!｣と思う方が(あなたにとっての)正解, と言えると思います.</p>
+<h3>1. ハッシュリファレンスを作る</h3>
+
+<p>まずは, 「名前」と「好きな食べ物」というデータを持つ, ハッシュリファレンスを作る所からですね.</p>
+
+<pre><code>my $papix = {
+    name           =&gt; 'papix',
+    favorite_foods =&gt; [qw/ sushi niku ramen onigiri /],
+};
+</code></pre>
+
+<p>...こんな感じのデータ構造になるはずです.</p>
+
+<p>まず, <code>my $papix</code>でスカラ変数「papix」を宣言して, そこに<code>{ ... }</code>という形で, ハッシュのリファレンスを作り出して代入しています.</p>
+
+<p>そのハッシュには, 「name」というキーに「papix」という要素が, 「favorite_foods」というキーに, <code>[ ... ]</code>という形で生成した, 好きな食べ物が格納されている配列のリファレンスが格納されています.<br/>
+配列のリファレンス内の要素は, qwショートカットを使って, シンプルに表現しています.</p>
+
+<p>...さて, このコードは, 次のコードの省略形と言うことができます.</p>
+
+<pre><code>my @papix_favorite_food = qw/ sushi niku ramen orinigi /;
+my %papix_data = (
+    name           =&gt; 'papix',
+    favorite_foods =&gt; \@papix_favorite_food,
+); 
+my $papix = \%papix_data;
+</code></pre>
+
+<p>それぞれ, <code>{ ... }</code>と<code>[ ... ]</code>でハッシュ/配列のリファレンスを直接生成するのではなく, 一度<code>%papix_data</code>と<code>@papix_favorite_food</code>というハッシュ/配列を作っています.<br/>
+ここからリファレンスを取る事で, 先ほどの例の<code>$papix</code>と同じデータ構造を生成しているわけです.</p>
+
+<p>ただ, <code>%papix_data</code>や<code>@papix_favorite_food</code>は, <code>$papix</code>を生成してしまえば, それらのデータは<code>$papix</code>から<code>%{$papix}</code>だったり<code>@{$papix-&gt;{favorite_foods}}</code>だったりという形で参照できるので, 邪魔になってきますよね?</p>
+
+<p>その為, <code>{ ... }</code>や<code>[ ... ]</code>といった記法で, 直接ハッシュや配列のリファレンスを生成する機能が必要になってくる訳ですね.</p>
+
+<h3>2. ハッシュリファレンスを複数個作る</h3>
+
+<pre><code>my $macopy = {
+    name =&gt; 'macopy',
+    favorite_foods =&gt; [qw/ sushi niku /],
+};
+
+my $moznion = {
+    name =&gt; 'moznion',
+    favorite_foods =&gt; [qw/ sushi ramen /],
+};
+</code></pre>
+
+<p><code>$papix</code>と同様に, <code>$macopy</code>と<code>$moznion</code>を用意しました.</p>
+
+<h3>3. ハッシュリファレンスを配列に格納する</h3>
+
+<p>ここまでに作ってきた, <code>$papix</code>, <code>$macopy</code>, <code>$moznion</code>という3つのハッシュリファレンスを, 配列に格納しましょう.<br/>
+それぞれ個人のデータが格納されているので, 配列の名前は<code>@people</code>とします.</p>
+
+<pre><code>my @people = ($papix, $macopy, $moznion);
+</code></pre>
+
+<p>リファレンスはスカラなので, このようにシンプルに, 配列に格納することができます.
+もちろん,</p>
+
+<pre><code>my @people;
+push @people, $papix;
+push @people, $macopy;
+push @people, $moznion;
+</code></pre>
+
+<p>のように書いても問題はありませんが, ちょっとタイプ数が多くて辛くなりますね.</p>
+
+<h3>4. 好きな食べ物のランキングを作る</h3>
+
+<p>...の前に, ここまで書いてきたコードを確認してみましょう.</p>
 
 <pre><code>use strict;
 use warnings;
@@ -79,22 +151,69 @@ my $moznion = {
 };
 
 my @people = ($papix, $macopy, $moznion);
-
-my $ranking;
-for my $person ( @people ) {
-    for my $food ( @{$person-&gt;{favorite_foods}} ) {
-        $ranking-&gt;{$food}++; 
-    }
-}
-
-use Data::Dumper;
-warn Dumper $ranking;
 </code></pre>
 
-<p>この場合, 出力はこんな感じになるはずです(それぞれの要素が出現する順番が変わっているかもしれませんが...).</p>
+<p>3人それぞれの個人情報が格納されたハッシュリファレンスを作り, それを<code>@people</code>という配列に格納しました.<br/>
+ここから, この<code>@people</code>を使って, 好きな食べ物のランキングを作っていきます.</p>
 
-<pre><code>$ perl vote.pl
-$VAR1 = {
+<p>方針としては... そうですね, まず<code>%ranking</code>というハッシュを作って, そこにキーを「食べ物の名前」, 要素を「その食べ物が好きな人の数」という形で格納していきましょう.<br/>
+これで, ある食べ物を好きな人は何人いるか? というのが一目でわかるようになるはずです.</p>
+
+<p>というわけで, まずは3人の好きな食べ物が格納された配列を取り出しましょう.<br/>
+ついでに, <code>%ranking</code>の宣言も忘れずに.</p>
+
+<pre><code>my %ranking;
+for my $person (@people) {
+    my $favorite_foods = $person-&gt;{favorite_foods};
+}
+</code></pre>
+
+<p><code>@people</code>に格納されているハッシュリファレンスが<code>$person</code>に格納されながらループが回っていきます.<br/>
+その為, <code>$favorite_foods</code>には, <code>$person</code>というハッシュリファレンスの「favorite_foods」というキーが格納している, 好きな食べ物が格納された配列のリファレンスが代入されるはずです.</p>
+
+<p>確認の為, <code>Data::Dumper</code>モジュールでダンプしてみましょう.</p>
+
+<pre><code>use Data::Dumper;
+
+my %ranking;
+for my $person (@people) {
+    my $favorite_foods = $person-&gt;{favorite_foods};
+    print Dumper $favorite_foods;
+}
+</code></pre>
+
+<p>恐らく, <code>$papix</code>, <code>$macopy</code>, <code>$moznion</code>の順番で, それぞれに格納されている「好きな食べ物」の配列の中身が出力されるはずです.</p>
+
+<pre><code>$VAR1 = [
+          'sushi',
+          'niku',
+          'ramen',
+          'onigiri'
+        ];
+$VAR1 = [
+          'sushi',
+          'niku'
+        ];
+$VAR1 = [
+          'sushi',
+          'ramen'
+        ];
+</code></pre>
+
+<p>あとは, <code>$favorite_foods</code>から1つずつ食べ物の名前を取り出して, <code>%ranking</code>に格納していけばOKです.<br/>
+こんな感じでしょうか.</p>
+
+<pre><code>for my $person (@people) {
+    my $favorite_foods = $person-&gt;{favorite_foods};
+    for my $food (@{$favorite_foods}) {
+        $ranking{$food}++;
+    } 
+}
+</code></pre>
+
+<p><code>%ranking</code>を<code>print Dumper \%raking</code>といった感じでダンプしてみると,</p>
+
+<pre><code>$VAR1 = {
           'onigiri' =&gt; 1,
           'sushi' =&gt; 3,
           'ramen' =&gt; 2,
@@ -102,57 +221,95 @@ $VAR1 = {
         };
 </code></pre>
 
-<h2>更にチャレンジ</h2>
+<p>こんな感じになるはずです.<br/>
+ちゃんと, 食べ物の名前がキー, その食べ物を好きな人の数が要素になったハッシュが生成されていますね!</p>
 
-<p>さて, 3人の好きな食べ物についての票数を集計することができました.
-でも, どうせなら人気順に表示してみたいですよね.</p>
+<h4>ところで...</h4>
 
-<p>...ということで, こんな感じになりました.</p>
+<p>さっきあっさりと流したのですが, こう思った人はいないでしょうか?
+「あれ, <code>$ranking{$food}++</code>ってやってるけど, 最初は<code>$ranking{$food} = 0</code>で初期化したり, 初期化と1票を追加する処理を合わせて<code>$ranking{$food} = 1</code>とか書かなきゃ駄目じゃないの?」...と.</p>
 
-<pre><code>use strict;
-use warnings;
+<p>まず, ハッシュの任意のキーに対する要素(中身)は, 初期状態だとすべて<code>undef</code>になっています.<br/>
+これは, 次のようなワンライナーで確認できます(ワンライナーについては, 近日中に<a href="http://twitter.com/songmu">@songmu</a>さんがこのブログで執筆してくれるそうです!!!).</p>
 
-my $papix = {
-    name           =&gt; 'papix',
-    favorite_foods =&gt; [qw/ sushi niku ramen onigiri /],
-};
+<pre><code>$ perl -MData::Dumper -le 'my %hash; print Dumper($hash{hoge});'
+$VAR1 = undef;
+</code></pre>
 
-my $macopy = {
-    name =&gt; 'macopy',
-    favorite_foods =&gt; [qw/ sushi niku /],
-};
+<p>で, <code>undef</code>はPerlでは「未定義の値」を意味するのですが, これに1を足そうとすると, なんと「0」として扱われるんですね.</p>
 
-my $moznion = {
-    name =&gt; 'moznion',
-    favorite_foods =&gt; [qw/ sushi ramen /],
-};
+<pre><code>$ perl -le 'my $hoge = undef; $hoge++; print $hoge'
+1
+</code></pre>
 
-my @people = ( $papix, $macopy, $moznion );
+<p>なので, 先ほどのように, いきなり<code>$ranking{$food}++</code>と書いても, うまくいく! という訳です.</p>
 
-my $ranking;
-for my $person ( @people ) {
-    for my $food ( @{$person-&gt;{favorite_foods}} ) {
-        $ranking-&gt;{$food}++; 
-    }
+<h4>リファクタリング</h4>
+
+<pre><code>for my $person (@people) {
+    my $favorite_foods = $person-&gt;{favorite_foods};
+    for my $food (@{$favorite_foods}) {
+        $ranking{$food}++;
+    } 
 }
+</code></pre>
 
-my $sort;
+<p>筋のいい方はお気づきかもしれませんが, このコードでは<code>$favorite_foods</code>を省略することができます.</p>
+
+<pre><code>for my $person (@people) {
+    for my $food (@{$person-&gt;{favorite_foods}}) {
+        $ranking{$food}++;
+    } 
+}
+</code></pre>
+
+<p>個人的にはこちらの方が好みですが, どちらが書きやすいか/読みやすいかは個人の感性なので, 好きな方を選ぶと良いでしょう.</p>
+
+<h3>更にチャレンジ!</h3>
+
+<p>さて, これで3人の好きな食べ物についての票数を集計することができました.<br/>
+でも, どうせなら人気順(票数順)に食べ物を表示してみたいですよね.</p>
+
+<p>というわけで, もう少し頑張ってみましょう.<br/>
+方針としては, <code>%votes</code>というハッシュを用意して, 「票数」をキーとして, そのキーに対応する要素として, 「その票数を獲得した食べ物」を配列のリファレンスとして格納していく... という感じにします.</p>
+
+<pre><code>my %votes;
 for my $food (keys %{$ranking}) {
-    push @{$sort-&gt;{$ranking-&gt;{$food}}}, $food;
+    push @{$votes{$ranking-&gt;{$food}}}, $food;
 }
+</code></pre>
 
-for my $votes (sort { $b &lt;=&gt; $a } keys %{$sort}) {
-    print "$votes:\n";
-    for my $food (@{$sort-&gt;{$votes}}) {
+<p><code>%vote</code>をダンプしてみると, こうなるはずです.</p>
+
+<pre><code>$VAR1 = {
+          '1' =&gt; [
+                   'onigiri'
+                 ],
+          '3' =&gt; [
+                   'sushi'
+                 ],
+          '2' =&gt; [
+                   'ramen',
+                   'niku'
+                 ]
+        };
+</code></pre>
+
+<p>};</p>
+
+<p>あとは, この<code>%votes</code>のキーを数値としてソートして表示すれば...</p>
+
+<pre><code>for my $vote (sort { $b &lt;=&gt; $a } keys %votes) {
+    print "$vote:\n";
+    for my $food (@{$sort-&gt;{$vote}}) {
         print "  $food\n";
     }
 } 
 </code></pre>
 
-<p>このコードの出力は, こうなります.</p>
+<p>このように, 獲得した票数順に食べ物の名前が出てくるはずです!</p>
 
-<pre><code>$ perl vote.pl
-3:
+<pre><code>3:
   sushi
 2:
   ramen
@@ -161,37 +318,30 @@ for my $votes (sort { $b &lt;=&gt; $a } keys %{$sort}) {
   onigiri
 </code></pre>
 
-<p>人気の食べ物が上に来ていますね!</p>
-
-<h1>細かい解説</h1>
-
-<p>(スイマセン明日書きます...)</p>
-
 <h1>まとめ</h1>
 
-<p>それにしてもvote.pl, なかなか手応えのある問題ですね!
+<p>...それにしてもvote.pl, なかなか手応えのある問題ですね!      <br/>
 ハッシュやリファレンスという道具は, Perlでコードを書く時に必ず必要になるモノなので, 2回, 3回と反復して解いて, 是非自分ものにして下さい.</p>
 
-<p>｢どれだけ考えても解けない...｣という人は, 一歩ずつ解いていくことを意識すると, 解けるようになるかもしれません.
-極端な話, コードを1行書くごとに実行して, 構文(シンタックス)に問題がないか, 出力が正しいかどうかを確かめていけば, 時間はかかりますが, いつか確実に完成するはずです.</p>
+<p>「どれだけ考えても解けない...」という人は, 一歩ずつ解いていくことを意識すると, 解けるようになるかもしれません.<br/>
+極端な話, コードを1行書くごとに実行して, 構文(シンタックス)に問題がないか, 出力が正しいかどうかを確かめていけば, 時間はかかりますが, いつか確実に完成するはずです.<br/>
+一気に40行, 50行とコードを書くのは楽しいですが, そこでバグが出てきた場合, それまでに書いてきた50行を虱潰しにチェックして, どこにバグがあるかを探さなくてはなりません.</p>
 
-<p>一気に40行, 50行とコードを書くのは楽しいですが, そこにバグが生じた場合, バクを見つける為には, 前回実行して, 正常に動くことを確認したタイミングより後にコーディングした, 全ての行をチェックしていく必要があります.</p>
+<p>なので最初は, バグを取る為に調べる必要がある行数を減らす為に, 1行1行(...は, さすがに細かいので, 5行とか10行くらいとかの単位で...)確認しながらコーディングを進めていくことをおすすめします.
+ある程度慣れてくると, エラーの出力から問題のあるコードが見えてくるようになるので, そうなれば一気に20行, 30行と書いていっても, 多少困らなくなると思います.</p>
 
-<p>なので最初は, バグを取る為に調べる必要がある行数を減らす為に, 1行1行(...は, さすがに細かいので, 5行とか10行くらいとかの単位で...)確認しながらコーディングを進めていくことをおすすめします.</p>
+<p>Perlという言語は, #2や#3でもお話した通り, 同じ問題を解いたとしても, ある程度いろいろな解き方が出てきます.<br/>
+実行結果が同じであっても, やはり自分や他人が理解しやすいコードの方が後々助かるので, 自分の解答と他人の解答を見比べて, いいところを吸収して行くといいと思います.</p>
 
-<p>ある程度慣れてくると, エラーの出力から問題のあるコードが見えてくるようになるので, そうなれば一気に20行, 30行と書いていっても, 多少困らなくなると思います.</p>
-
-<p>Perlは, #2や#3でもお話しましたが, Perlは同じ問題を解いても, ある程度いろいろな解き方が出てきます.
-結果が同じであっても, 出来れば自分や他人が理解しやすいコードの方がいいので, 自分の解答と私を含む他人の解答を見比べて, いいところを吸収していって下さい.</p>
-
-<p>｢papixのコード, よくないと思う. 自分のコードが最高だ!｣という方は, 是非gistやブログに掲載して頂けると嬉しいです. こちらの記事で紹介させて頂きます.</p>
+<p>「papixのコード, よくないと思う. 自分のコードが最高だ!」という方は, 是非gistやブログに掲載して頂けると嬉しいです. こちらの記事でも紹介させて頂きます.</p>
 
 <h1>次回予告</h1>
 
-<p>というわけで, ｢Perl入学式 #3｣の復習問題, vote.plの解答とその解説をお送りしました.
+<p>というわけで, 「Perl入学式 #3」の復習問題, vote.plの解答とその解説をお送りしました.<br/>
 2013年のPerl入学式はあと3回, 大阪と東京で開催しますので, 皆さんと一緒にPerlを楽しめればいいな, と思っています(Perl入学式 in YAPC::Asiaもよろしくおねがいします!).</p>
 
-<p>明日は, ｢はてなインターン2013 第六天魔王将軍 ツールチェインギャング(反社会的ではない)見習い｣こと, moznionくんがXMLに関するモジュールの話をしてくれる予定です. お楽しみに!</p>
+<p>明日は, 「はてなインターン2013 第六天魔王将軍 ツールチェインギャング(反社会的ではない)見習い」こと, moznionくんに担当して頂く予定です.<br/>
+お楽しみに!!!</p>
 
   </div>
   <dl class="meta">
