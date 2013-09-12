@@ -59,7 +59,7 @@ PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(か�
 
 <p>さて、知らない人に説明すると、DocRootに相当するDirに移動してから</p>
 
-<pre><code>php -S localhost:1234
+<pre><code>php -S 127.0.0.1:1234
 </code></pre>
 
 <p>などとすると、Httpdがたちあがって、そのままPHPや、ウェブサイトの開発ができちゃう、というもの凄い便利な憎いやつです。
@@ -75,7 +75,7 @@ PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(か�
 
 <p>PHP Builtin serverは、</p>
 
-<pre><code>http://hachiojipm.github.io/hogehoge/test
+<pre><code>http://127.0.0.1:1234/hogehoge/test
 </code></pre>
 
 <p>などしてアクセスしたとき、内部的にindex.phpをよびだすように</p>
@@ -94,7 +94,7 @@ PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(か�
 
 <p>その場合、</p>
 
-<pre><code>php -S localhost:1234 index.php
+<pre><code>php -S 127.0.0.1:1234 index.php
 </code></pre>
 
 <p>などとして、ルータのPHPファイルを強制指定してあげると良いよ〜というのが定番の解決策です。</p>
@@ -118,7 +118,7 @@ var_dump($_SERVER);
 
 <p>をindex.phpとしておいてある場合に、</p>
 
-<pre><code>http://hachiojipm.github.io:3333/
+<pre><code>http://127.0.0.1:1234/
 -出力-
 array (size=21)
 （略
@@ -132,7 +132,7 @@ array (size=21)
 
 <p>と</p>
 
-<pre><code>http://hachiojipm.github.io:3333/test
+<pre><code>http://127.0.0.1:1234/test
 -出力-
 array (size=22)
 （略
@@ -147,7 +147,7 @@ array (size=22)
 
 <p>以上二つは良いのですけれど、ここで<code>test.php</code>などとしてみると</p>
 
-<pre><code>http://hachiojipm.github.io:3333/test.php
+<pre><code>http://127.0.0.1:1234/test.php
 -出力-
 array (size=21)
 （略
@@ -179,7 +179,7 @@ if (php_sapi_name() == 'cli-server') {
     if ( !preg_match('#^/(blog|post|nom)/#', $_SERVER["PATH_INFO"])) {
         return false;
     }
-    if ( !preg_match('#(jpg|png|gif|js|css|and_other)$/#', $_SERVER["PATH_INFO"])) {
+    if ( preg_match('#\.(jpg|png|gif|js|css|and_other)$#', $_SERVER["PATH_INFO"])) {
         return false;
     }
 }
