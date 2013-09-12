@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-11T23:18:06+09:00</updated>
+<updated>2013-09-12T10:00:53+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -19,7 +19,23 @@
 
 <p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
 
-<h2>今後の担当</h2>
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+
+<h2>今後の担当(予定)</h2>
 
 <table>
 <thead>
@@ -91,7 +107,7 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-11T23:18:06+09:00</updated>
+<updated>2013-09-12T10:00:53+09:00</updated>
 </entry>
 <entry>
 <title type="text">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</title>
