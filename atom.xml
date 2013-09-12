@@ -3,9 +3,9 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-12T10:00:53+09:00</updated>
+<updated>2013-09-12T16:07:31+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -104,12 +104,12 @@
 <tr>
 <td>2013/09/10(火) </td>
 <td> moznion  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
 </tr>
 <tr>
 <td>2013/09/09(月) </td>
 <td> papix    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
 </tr>
 </tbody>
 </table>
@@ -117,7 +117,7 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-12T10:00:53+09:00</updated>
+<updated>2013-09-12T16:07:31+09:00</updated>
 </entry>
 <entry>
 <title type="text">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</title>
