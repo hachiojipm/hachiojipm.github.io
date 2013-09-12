@@ -5,10 +5,126 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-12T16:07:31+09:00</updated>
+<updated>2013-09-12T21:57:41+09:00</updated>
+<entry>
+<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
+
+<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
+書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
+
+<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
+
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+
+<h2>今後の担当(予定)</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/13(金) </td>
+<td> ytnobody   </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/14(土) </td>
+<td> songmu     </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/15(日) </td>
+<td> papix      </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji   </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/17(火) </td>
+<td> ichigotake </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/18(水) </td>
+<td> Spring_MT  </td>
+<td> 未定</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>これまでの記事</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者     </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/12(木) </td>
+<td> uzulla   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
+</tr>
+<tr>
+<td>2013/09/11(水) </td>
+<td> boolfool </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/10(火) </td>
+<td> moznion  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/09(月) </td>
+<td> papix    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
+<published>2013-09-09T47:47:09+0900</published>
+<updated>2013-09-12T21:57:41+09:00</updated>
+</entry>
 <entry>
 <title type="text">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-12-01.html" />
+<author>
+<name>uzulla</name>
+</author>
 <content><![CDATA[<h1>PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</h1>
 
 <p>みなさん今日もPHP書いてますか？（挨拶）ここのブログの一番したにAuthorとかかいてあるけど、実際には初めてこのブログに触る<a href="http://twitter.com/uzulla/">uzulla</a>です。</p>
@@ -213,124 +329,13 @@ RewriteRule ^ index.php [QSA,L]
 
 <h2>さ〜て、明日のHachioji.pm日めくりテックトークは？</h2>
 
-<p>songmuさんです。</p>
+<p>東の東（ひがしのあずまさん）さんこと、ytnobodyさんです。</p>
+
+<p>（期待してたまこぴーさんファンは、もうちょ〜っとまっててネ！）</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-12:entry-2013-09-12-01.html</id>
-<published>2013-09-12T43:43:49+0900</published>
-<updated>2013-09-12T21:43:49+09:00</updated>
-</entry>
-<entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
-
-<h2>おやくそく</h2>
-
-<ul>
-<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
-</ul>
-
-
-<h2>今後の担当(予定)</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/12(木) </td>
-<td> mackee_w   </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> uzulla     </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/14(土) </td>
-<td> songmu     </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/15(日) </td>
-<td> papix      </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> Spring_MT  </td>
-<td> 未定</td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者     </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
-</tr>
-</tbody>
-</table>
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-12T16:07:31+09:00</updated>
+<published>2013-09-12T46:46:52+0900</published>
+<updated>2013-09-12T21:57:41+09:00</updated>
 </entry>
 <entry>
 <title type="text">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</title>
