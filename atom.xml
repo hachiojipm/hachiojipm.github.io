@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-13T16:21:35+09:00</updated>
+<updated>2013-09-13T16:46:57+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -117,7 +117,7 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-13T16:21:35+09:00</updated>
+<updated>2013-09-13T16:46:57+09:00</updated>
 </entry>
 <entry>
 <title type="text">八王子 CPANモジュールコレクション 2013 秋</title>
@@ -328,7 +328,7 @@ has net    =&gt; ( is =&gt; 'rw', isa =&gt; 'Int' );
 
 <p>来週9/20(金)～9/21(土)にPerlの祭典 <a href="http://yapcasia.org/2013/">YAPC::Asia</a> が開催されますが、実は9/19(木)には前夜祭が催されます。</p>
 
-<p>そして今年は前夜祭にて、<a href="http://hachiojipm.org/">hachioji.pm</a>の首領 uzulla氏が主催する<a href="http://ltthon-yapc2013.hachiojipm.org/">LTthon</a>が行われます。（ちなみに僕はサクラ兼お手伝いとして参加する予定です！）</p>
+<p>そして今年は前夜祭にて、<a href="http://hachiojipm.org/">hachioji.pm</a>の首領 uzulla氏が司会進行をつとめる<a href="http://ltthon-yapc2013.hachiojipm.org/">LTthon</a>が行われます。（ちなみに僕はサクラ兼お手伝いとして参加する予定です！）</p>
 
 <p>LTthonは非常に懐が深いLTマラソンイベントとなっております。昨年はスープカレーや格闘ゲームの話でLTを行った方もいらっしゃいました。</p>
 
