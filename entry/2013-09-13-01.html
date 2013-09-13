@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+八王子 CPANモジュールコレクション 2013 秋 | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/hachioji-tech.html">hachioji-tech</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>八王子 CPANモジュールコレクション 2013 秋</h1>
+
+<p>タイトルはテキトーです。みなさんどうも、一見さんにはtwitterアカウントの読み方がわからない<a href="https://twitter.com/ytnobody">ytnobody</a>です。ちなみに読み方は、<a href="https://twitter.com/Yappo/status/369724942733946880">この人ならたぶんしってる</a>んじゃないでしょうか。お好きなように読んでください。</p>
+
+<h2>まこぴーファンの皆様へお詫び</h2>
+
+<p>全国およそ２００万人のまこぴーファンのみなすぁーん！大変もうしわけございませんが、まこぴー氏お取り込み中につき、今回はワタクシめが執筆担当を代行いたします。</p>
+
+<p>ファンの皆様におかれましては、これに懲りず、気長にまこぴー氏の登場をお待ちいただけますと幸いです。</p>
+
+<h2>CPANモジュールコレクション</h2>
+
+<p>冒頭にも書きましたが、タイトルはテキトーです。ちょっとだけパリコレに肖ってみようとしただけです。</p>
+
+<p>さて、要するに今回の記事は2013年秋現在において、とってもよく使われている（と僕が思っている）CPANモジュールをごく簡単に紹介していく、というものです。まとめ記事みたいなもんですね。たぶんそのうち(12時間以内くらいに)もっとちゃんとした記事をきっとPerlのすごい人が書いてくれると思いますが、なにか書かないとまたアイコンを変更する羽目になるので、とにかく紹介していきます。</p>
+
+<h3>Perlをインストールするところから - perl-build (Perl::Build)</h3>
+
+<p>指定したバージョンのperlを、指定した場所にインストールしてくれるツールです。使い方はこんな感じ。</p>
+
+<pre><code>% curl https://raw.github.com/tokuhirom/Perl-Build/master/perl-build | perl - 5.16.2 /opt/perl-5.16/
+</code></pre>
+
+<p>なお最近では、（今やCPANモジュールではなくなってしまいましたが）plenvというツールを使うことで、かなり容易にPerl環境の構築を行うことができるようになりました。</p>
+
+<ul>
+<li><a href="http://search.cpan.org/perldoc?perl-build">perl-build on CPAN</a></li>
+<li><a href="http://blog.papix.net/entry/2013/06/04/081554">続･plenvを使ってみた - Masteries</a></li>
+</ul>
+
+
+<h3>CPANモジュールをインストールするなら - cpanm (App::cpanminus)</h3>
+
+<p>いまどきはcpanコマンドやcpan shellをつかってモジュールをインストールする必要がすっかりなくなってしまい、代わりにこのcpanmを使ってインストールするケースがほとんどになりました。</p>
+
+<p>導入方法は簡単。</p>
+
+<pre><code>curl -LOk http://xrl.us/cpanm &amp;&amp; chmod +x cpanm
+</code></pre>
+
+<p>あとはパスの通ったディレクトリに置くといいでしょう。</p>
+
+<p>もしくは、plenvをお使いの場合はもっと楽で、</p>
+
+<pre><code>plenv install-cpanm
+</code></pre>
+
+<p>これで導入完了。すばらしいですね。</p>
+
+<p>そして使い方も簡単。インストールしたいモジュール名を指定するだけ。すごい。</p>
+
+<pre><code>cpanm Some::Module
+</code></pre>
+
+<ul>
+<li><a href="http://search.cpan.org/perldoc?cpanm">cpanm on CPAN</a></li>
+</ul>
+
+
+<h3>現代的なWebAppの基礎 - Plack</h3>
+
+<p>かつてならば「PerlといえばCGI」だったりしたものですが、今や時代はPSGI。今時Perlでwebappを書くなら、PSGIのリファレンス実装であるPlackを使うケースがほとんどでしょう。</p>
+
+<p>たとえば常に 'Hello, moznion!' をかえすwebappは PSGIでは以下のようになります。</p>
+
+<pre><code>sub { [200, [], ['Hello, moznion!']] };
+</code></pre>
+
+<p>これを適当な名前(例えばfoo.psgi)で保存しておき、Plackに同梱されているplackupコマンドを使って以下のように実行すると http://hachiojipm.github.io:5000/ にアクセス出来るようになり、Hello, moznion! と返ってきます。</p>
+
+<pre><code>plackup foo.psgi
+</code></pre>
+
+<p>ちなみにwebappを終了する場合は Ctrl+C です。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc?Plack">Plack on CPAN</a></p></li>
+<li><p><a href="http://gihyo.jp/dev/serial/01/perl-hackers-hub/000102">第1回　PSGI/Plack―フレームワークとサーバをつなぐエンジン　（2）：Perl Hackers Hub｜gihyo.jp … 技術評論社</a></p></li>
+</ul>
+
+
+<h3>テストを書くならこれ - Test::More</h3>
+
+<p>今の時代もテストについてはそれほど大きく変化しておらず、Test::Moreを使ったやり方が主流です。
+それは、このモジュールがわずかなな機能しか提供しないにもかかわらず、それで必要十分であることの証左であるといえます。</p>
+
+<p>もちろん、Test::Moreは必要最低限の機能しか提供していませんので、必要に応じて追加のモジュールを利用すればよいのです。
+また、機能が少ない分、動作が高速である点も見逃せません。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/Test::More">Test::More on CPAN</a></p></li>
+<li><p><a href="http://blog.64p.org/entry/2012/11/12/094307">Perl テスティングハンドブックという電子書籍をだしてみた - blog.64p.org</a></p></li>
+</ul>
+
+
+<h3>超軽量なクラスビルダ - Class::Accessor::Lite</h3>
+
+<p>アクセサメソッドの作成(Read Only / Read Write)とnewメソッドの実装省略ができるようになります。
+同様のモジュールには Class::Accessor::Fast が存在しますが、Class::Accessor::Liteのほうが高速であり、継承をする必要がない点において優れていると僕は思います。</p>
+
+<p>例えばドーナツ袋を表すクラスは以下のように定義できます。</p>
+
+<pre><code>package Doughnut::Bag;
+use strict;
+use Class::Accessor::Lite (
+    new =&gt; 1,
+    ro  =&gt; [qw[ flavor ]],
+    rw  =&gt; [qw[ net ]],
+);
+1;
+</code></pre>
+
+<p>実際にこのクラスを使う場合は、</p>
+
+<pre><code>my $bag = Doughnut::Bag-&gt;new(flavor =&gt; 'Chocolate', net =&gt; 10);
+</code></pre>
+
+<p>のようにできます。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/Class::Accessot::Lite">Class::Accessor::Lite on CPAN</a></p></li>
+<li><p><a href="http://d.hatena.ne.jp/kazuhooku/20081126/1227691412">Class::Accessor::Lite 書いた - kazuhoのメモ置き場</a></p></li>
+</ul>
+
+
+<h3>割と本気だけど爆速なクラスビルダ - Mouse</h3>
+
+<p>こちらもクラスビルダですが、単純なアクセサ作成に止まらず、デフォルト値や型チェック、Roleなどに対応しており、高機能です。にもかかわらず、速度面においても十分すぎるほどのパフォーマンスを実現しています。また、同様のモジュールにMooなどがあり、海外ではそちらの方が人気がある様ですが、細かい面で仕様に違いがあります。</p>
+
+<p>こちらもドーナツ袋を表すクラスを例に取ると、</p>
+
+<pre><code>package Doughnut::Bag;
+use Mouse;
+has flavor =&gt; ( is =&gt; 'ro', isa =&gt; 'Str', default =&gt; 'Sugar' );
+has net    =&gt; ( is =&gt; 'rw', isa =&gt; 'Int' );
+1;
+</code></pre>
+
+<p>となり、利用する場合は、</p>
+
+<pre><code>my $bag = Doughnut::Bag-&gt;new(net =&gt; 10); ### flavor を省略したので flavorは'Sugar'となる
+</code></pre>
+
+<p>のようになります。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/Mouse">Mouse on CPAN</a></p></li>
+<li><p><a href="http://perl-users.jp/articles/advent-calendar/2010/hacker/25">Mouseに関する4つの誤解 - JPerl Advent Calendar 2010 Hacker Track</a></p></li>
+</ul>
+
+
+<h3>テンプレートエンジンの決定版 - Text::Xslate</h3>
+
+<p>かつてはTemplate.pm(TT2等と呼ばれている)が主流だったのですが、最近はこのText::Xslateがスタンダードになりつつあるように思います。</p>
+
+<p>このモジュール独自のテンプレート文法であるSyntax::Kolonに加え、TT2との互換性がとても高いSyntax::TTerseが使えるのが、その理由の一つと言えそうです。</p>
+
+<p>また、数あるテンプレートエンジンの中でも特に速度面で突出しており、それでいて大手webサービスでの採用実績もあり、安定性とパフォーマンスを両立していると言えます。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/Text::Xslate">Text::Xslate on CPAN</a></p></li>
+<li><p><a href="http://xslate.org/">Xslate</a></p></li>
+<li><p><a href="http://gihyo.jp/dev/serial/01/modern-perl/0043">第43回　Text::Xslate：永続環境に特化したテンプレートエンジン：モダンPerlの世界へようこそ｜gihyo.jp … 技術評論社</a></p></li>
+</ul>
+
+
+<h3>HTMLのフォームへデータを流し込む - HTML::FillInForm::Lite</h3>
+
+<p>HTML::FillInFormと比較して倍くらいの速度で動作します。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/HTML::FillInForm::Lite">HTML::FillInForm::Lite on CPAN</a></p></li>
+<li><p><a href="http://search.cpan.org/~gfuji/HTML-FillInForm-Lite-1.09/lib/HTML/FillInForm/Lite/JA.pod">日本語ドキュメント</a></p></li>
+</ul>
+
+
+<h3>近頃のバリデーション処理はこれ - FormValidator::Lite</h3>
+
+<p>バリデーション処理をざくざく書ける、比較的軽量なバリデータです。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/FormValidator::Lite">FormValidator::Lite on CPAN</a></p></li>
+<li><p><a href="http://blog.64p.org/entry/20090308/1236515220">FormValidator::Lite を CPAN にあげた - blog.64p.org</a></p></li>
+</ul>
+
+
+<h3>CPANモジュール作成ツール - Minilla</h3>
+
+<p>CPANモジュールの雛形を作ってくれるツールです。僕自身もいくつかCPANにモジュールをアップロードしていますが、それらも大抵はこのMinillaを使って構築しています。</p>
+
+<ul>
+<li><p><a href="http://search.cpan.org/perldoc/Minilla">Minilla on CPAN</a></p></li>
+<li><p><a href="http://t.nzk.me/entry/2013/04/12/162608">CPANモジュール開発ツール、Minillaをつかってみる - コードを舐める日々</a></p></li>
+<li><p><a href="http://yellowstore.blogspot.jp/2013/05/perlminilla.html">YellowStore: [Perl]せっかくだから俺はこのMinillaを選ぶぜ</a></p></li>
+</ul>
+
+
+<p>さて、いくつかの鉄板とおもわれるモジュールを紹介しました。まだまだここに挙げた他にも鉄板モジュールはありますが、最近とくに目にする物に絞って列挙させていただきました。</p>
+
+<h2>YAPC::Asiaで僕と握メ！</h2>
+
+<p>来週9/20(金)～9/21(土)にPerlの祭典 <a href="http://yapcasia.org/2013/">YAPC::Asia</a> が開催されますが、実は9/19(木)には前夜祭が催されます。</p>
+
+<p>そして今年は前夜祭にて、<a href="http://hachiojipm.org/">hachioji.pm</a>の首領 uzulla氏が主催する<a href="http://ltthon-yapc2013.hachiojipm.org/">LTthon</a>が行われます。（ちなみに僕はサクラ兼お手伝いとして参加する予定です！）</p>
+
+<p>LTthonは非常に懐が深いLTマラソンイベントとなっております。昨年はスープカレーや格闘ゲームの話でLTを行った方もいらっしゃいました。</p>
+
+<p>このように非常にカジュアルで最高のイベントですし、気後れとか遠慮はいらないですので、どんどんトーカーとしてに応募しましょう！！<a href="https://twitter.com/uzulla/status/377863278019743744">uzulla氏の頭髪を保全するため</a>にもぜひお願いします！</p>
+
+<p>最後になりますが、YAPC::Asia閉会後には、yusukebe氏主催イベント<a href="http://peatix.com/event/17621">大人のYAPC</a>が催されます。僕も僭越ながらLTで発表する予定ですので、参加予定の方はよろしくお願いいたします。</p>
+
+<h2>明日のHachioji.pm日めくりテックトーク</h2>
+
+<p>このブログシステムの作者であるSongmuさんが書いてくれるそうですよ！</p>
+
+<p>見逃すなっ！！！</p>
+
+<div class="animebox">
+<img class="animate" src="http://cdn-ak.f.st-hatena.com/images/fotolife/c/cocodrips/20130906/20130906225609.png">
+</div>
+
+
+
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+<script type="text/javascript">
+$(function(){
+    var width = parseInt($('img.animate').parent().width());
+    var img_width = parseInt($('img.animate').width());
+    var max_margin = width - img_width;
+    var animation_moz = function () {
+        $('img.animate').animate({'margin-left': '0%'}, 1400, 'swing', function(){ 
+            $('img.animate').animate({'margin-left': max_margin + 'px'}, 1400, 'swing', animation_moz);
+        });
+    };
+    animation_moz();
+});
+</script>
+
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">ytnobody / satoshi azuma</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-09-13 03:05</time></dd>
+      <dt class="author">last modified by</dt>
+      <dd class="author">ytnobody / satoshi azuma</dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-09-13 16:15</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>author: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
