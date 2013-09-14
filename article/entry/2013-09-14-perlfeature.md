@@ -43,7 +43,7 @@ Perlは5.10以降多くの機能が追加されていますが、巷のCPANモ�
 
 永続的なレキシカル変数です。同じスコープに入っても再度初期化処理がされないというのが`my`と異なります。
 
-毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。[Data::ValidateoのSYNOPSIS](https://metacpan.org/module/Data::Validator#SYNOPSIS)でも使われています。
+毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。[Data::ValidatorのSYNOPSIS](https://metacpan.org/module/Data::Validator#SYNOPSIS)でも使われています。
 
 例えば以下はFurlで指定したURLの内容を取得する処理ですが、この関数が2回目以降に呼ばれた場合は`$ua`は再度初期化はされずに、同じオブジェクトが使いまわされることになります。
 

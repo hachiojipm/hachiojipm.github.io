@@ -77,7 +77,7 @@ my $piyo = $undef // 10; # $piyo == 10
 
 <p>永続的なレキシカル変数です。同じスコープに入っても再度初期化処理がされないというのが<code>my</code>と異なります。</p>
 
-<p>毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。<a href="https://metacpan.org/module/Data::Validator#SYNOPSIS">Data::ValidateoのSYNOPSIS</a>でも使われています。</p>
+<p>毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。<a href="https://metacpan.org/module/Data::Validator#SYNOPSIS">Data::ValidatorのSYNOPSIS</a>でも使われています。</p>
 
 <p>例えば以下はFurlで指定したURLの内容を取得する処理ですが、この関数が2回目以降に呼ばれた場合は<code>$ua</code>は再度初期化はされずに、同じオブジェクトが使いまわされることになります。</p>
 
