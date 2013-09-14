@@ -5,7 +5,211 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-14T22:37:14+09:00</updated>
+<updated>2013-09-14T22:46:36+09:00</updated>
+<entry>
+<title type="text">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html" />
+<author>
+<name>Songmu</name>
+</author>
+<content><![CDATA[<h1>Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</h1>
+
+<p><a href="https://twitter.com/songmu">Songmu</a>です。</p>
+
+<p>Perlは5.10以降多くの機能が追加されていますが、巷のCPANモジュールの多くは5.8と互換性を保って書かれていることもあり、普段その機能を目にしない人も多いでしょう。<a href="https://metacpan.org/author/SONGMU">僕自身のCPANモジュール</a>も多くは5.8.1以降対応ですが、最近手元で動かすようなものに関しては5.10.1対応にすることも増えてきましたがそれでも、5.10.1止まりです。</p>
+
+<p>実際のプロジェクトにおいては5.10以降の機能も使えるものは積極的に使っているのでその辺りの話を書きます。</p>
+
+<h2><code>say</code>: 改行付きprint (5.10)</h2>
+
+<p><code>print</code>してその後に改行を入れてくれる関数です。地味に便利です。</p>
+
+<pre><code>use 5.010;
+say 'Hello'; # Hello
+</code></pre>
+
+<p>ワンライナーでも -E スイッチで使えるようになるので近年は-eを使わずに専ら-Eです。</p>
+
+<pre><code>% perl -E 'say "Hello"'
+Hello
+</code></pre>
+
+<h2><code>//</code>: defined-or (5.10)</h2>
+
+<p>初期化されていない変数に初期値を代入するために以下のようなコードを書く事があるでしょう。</p>
+
+<pre><code>my $hoge = $fuga || 10;
+$piyo ||= 15;
+</code></pre>
+
+<p><code>||</code>で真偽判定をしているわけですが、この場合、<code>$fuga</code>や<code>$piyo</code>に0が入っていた場合に意図しない挙動になってしまうかも知れません。Perlは<code>undef</code>の他に、空文字列や0も偽値として扱います。ただ、上記のような場合、厳密にundefかどうかを判定したいときもあります。そういう時に<code>//</code>を使います。</p>
+
+<pre><code>my $undef;
+my $zero = 0;
+my $hoge = $zero || 10;  # $hoge == 10
+my $fuga = $zero // 10;  # $fuga == 0
+my $piyo = $undef // 10; # $piyo == 10
+</code></pre>
+
+<p>初期化されてない変数に初期値を入れるみたいな処理を書くときに重宝します。</p>
+
+<pre><code>$hoge //= 10; # undefだったら10を代入する。0の場合は0のまま
+</code></pre>
+
+<p>これは5.8以前だと、<code>$hoge = defined $hoge ? $hoge : 10;</code> などと書かないといけませんでした。</p>
+
+<h2><code>state $var</code>: Persistent Private Variables (5.10)</h2>
+
+<p>永続的なレキシカル変数です。同じスコープに入っても再度初期化処理がされないというのが<code>my</code>と異なります。</p>
+
+<p>毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。<a href="https://metacpan.org/module/Data::Validator#SYNOPSIS">Data::ValidatorのSYNOPSIS</a>でも使われています。</p>
+
+<p>例えば以下はFurlで指定したURLの内容を取得する処理ですが、この関数が2回目以降に呼ばれた場合は<code>$ua</code>は再度初期化はされずに、同じオブジェクトが使いまわされることになります。</p>
+
+<pre><code>sub get_url {
+    my $url = shift;
+    state $ua = Furl-&gt;new;
+    $ua-&gt;get($url);
+}
+</code></pre>
+
+<p><code>state</code>では同じ変数が使いまわされることになるので、副作用のある変数を使う時は多くの場合オススメできません。メモリキャッシュ的な用途での使い途はありますが、注意が必要です。</p>
+
+<h2><code>-f -x $file</code>: ファイル演算子が重ねられる (5.10)</h2>
+
+<p>ファイル演算子が重ねられます。具体的には、ファイルであり実行可能であるみたいな条件を以前は</p>
+
+<pre><code>-f $entry &amp;&amp; -x $entry
+</code></pre>
+
+<p>などと書いていたところを</p>
+
+<pre><code>-f -x $entry
+</code></pre>
+
+<p>と書けます。地味に便利。</p>
+
+<h2><code>~~</code>: smart match (5.10)</h2>
+
+<p>よしなマッチ。5.18から実験的機能に格下げになってしまったので、あまり積極的に使わない方が良いでしょう。僕は配列内の存在チェックとかで地味に便利なのでそこだけは使っています。</p>
+
+<pre><code>$var ~~ [1,2,5,8,10];
+</code></pre>
+
+<p>スマートマッチを使わない場合だと以下のように書かないといけないのが地味に面倒です。</p>
+
+<pre><code>grep {$var == $_} 1,2,5,8,10
+</code></pre>
+
+<h2><code>given ... when</code>: switch (5.10)</h2>
+
+<p>switch文的なやつ。Rubyのcase式みたいによしなマッチ的なこともしてくれます。と言うか内部的に前項のsmart matchを使ってるからなのです。なので、smart matchが実験的な機能になってしまっているので、<code>given ... when</code>も実験的な機能に格下げされています。悲しいですね。</p>
+
+<p>ちなみに、switchを実現するSwitch.pmというモジュールがあるのですが、これは<strong>絶対に使ってはけません</strong>。これが一番言いたかったことです。理由はググってください。</p>
+
+<h2><code>...</code>: yada-yada operator (5.12)</h2>
+
+<p>未実装の部分を<code>...</code>として宣言することができます。実行時にそこを通った時に例外を吐いてくれます。</p>
+
+<pre><code>% perl -E 'sub { ... }-&gt;()'
+Unimplemented at -e line 1.
+</code></pre>
+
+<p>あまり使うことはないのですが、<code>...</code>という文字列がサンプルコードとしてvalidであったりするのがちょっと便利。もしくはモジュールなんかでもこの"メソッドは将来的には用意するつもりだよ"的なことを示すのに使ったりできます。</p>
+
+<h2><code>use 5.012;</code>: 暗黙的なuse strict (5.12)</h2>
+
+<p>5.12以降は、<code>use 5.012</code>, <code>use 5.018</code> などとすると、そのバージョンのfeatureが使えるほか、自動的に<code>use strict</code>扱いしてくれるようになっています。地味に便利。</p>
+
+<h2><code>s///r</code>: 非破壊的な正規表現置換 (5.14)</h2>
+
+<p><code>s///</code>による置換は破壊的なので、元の文字列に変更を加えたくない場合は別の変数に移し替える必要がありましたが、<code>/r</code>修飾子を使うことで非破壊的になり、置換結果を左辺に返してくれるようになりました。</p>
+
+<pre><code>my $str        = 'moznion';
+my $str_result = $str;
+$str_result =~ s/moz/hage/; # hagenion
+</code></pre>
+
+<p>が以下のように書けます。</p>
+
+<pre><code>my $str        = 'moznion';
+my $str_result = $str =~ s/moz/hage/r; #hagenion
+</code></pre>
+
+<p>あんま便利に感じられないかもしれませんが、例えば以下のように配列の全要素に置換をかけてその結果を返すみたいなときに威力を発揮します。</p>
+
+<pre><code>my @replaced = map {s/hoge/fuga/r} @orig;
+</code></pre>
+
+<p>各要素を置換した結果が<code>@replaced</code>に入ります。元の文字列は破壊されないため、<code>@orig</code>に意図しない変更が入ることもありません。</p>
+
+<h2><code>package NAMESPACE {...}</code>: ブロック付きpackage宣言 (5.14)</h2>
+
+<p>package宣言がブロックを伴うことができます。</p>
+
+<pre><code>package Hoge;
+...
+</code></pre>
+
+<p>などと書いていたところを</p>
+
+<pre><code>package Hoge {
+    ...
+}
+</code></pre>
+
+<p>と書くことができるようになりました。1つのファイル内に複数のパッケージ宣言を書きたい時とかにスコープをちゃんと分けられます。もともと</p>
+
+<pre><code>{
+    package Hoge;
+    ...
+}
+</code></pre>
+
+<p>と書くこともできて、同じことではあるのですが、それがかっちょよく書くことができるようになったということです。</p>
+
+<p>個人的な使い方としてはファイル名と一致するNamespaceのパッケージはブロック付きにはせず、インナーパッケージはブロック付きで宣言するようにしています。以下の様な具合です。</p>
+
+<pre><code># Foo/Bar.pm
+package Foo::Bar;
+...
+package Foo::Bar::Innner {
+    ...
+}
+1;
+</code></pre>
+
+<h2><code>push $arrey_ref, 'hoge';</code>: オートデリファレンス (5.14);</h2>
+
+<p>5.14以降に実験的な機能としてオートデリファレンスが実験的な機能として入っています。</p>
+
+<p>便利だと思うのですがあまり好んで使っている人がいないので、僕も使わないようにしています。</p>
+
+<ul>
+<li>Perlっぽくない</li>
+<li>いつオートデリファレンスが発動するかわかりづらい</li>
+<li>意図しない挙動になりそうで怖い</li>
+</ul>
+
+
+<p>というのが理由でしょうか。実際問題として、<code>for my $elm ($array_ref) {...}</code>みたいなところでは、オートデリファレンス効かない(効いたら効いたで困ることもある)ので、わかりづらいってのはありそうです。</p>
+
+<p>Perlには<code>wantarray</code>というちょっとわかりづらいよしな機能があるので、そういう暗黙的に便利なことをしてくれちゃうみたいなことに対しては慎重な態度を取るってのが最近のPerl界隈の傾向かも知れません。</p>
+
+<h2><code>my sub hoge {...}</code>: lexical_subs (5.18)</h2>
+
+<p>名前付き関数はネームスペースで区切ることはできるもののグローバルですが、レキシカルな関数宣言が5.18以降、できるようになっています。まだ実験的な機能で僕も使っていません。</p>
+
+<p><code>my $sub = sub {...}</code> ってやればいいし、別にこの機能いらないんじゃないの？っていう意見が大勢だったのですが、<a href="https://metacpan.org/module/Exporter::Lexical">Exporter::Lexical</a>の登場で、実はこの機能は熱いんじゃないかという感じになってきています。<a href="https://metacpan.org/module/Exporter::AutoClean">Exporter::AutoClean</a>的なことが簡単に実現できるわけです。</p>
+
+<hr />
+
+<p>ということで、Perl5.10機能のお役立ち機能をまとめてみました。明日はpapix君でしょうか。2回目ですね。まこぴーとはなんだったのか。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-14:entry-2013-09-14-perlfeature.html</id>
+<published>2013-09-14T33:33:26+0900</published>
+<updated>2013-09-14T22:46:36+09:00</updated>
+</entry>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -882,207 +1086,6 @@ for my $food (keys %{$ranking}) {
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-02.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-14T22:33:26+09:00</updated>
-</entry>
-<entry>
-<title type="text">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html" />
-<author>
-<name>Songmu</name>
-</author>
-<content><![CDATA[<h1>Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</h1>
-
-<p><a href="https://twitter.com/songmu">Songmu</a>です。</p>
-
-<p>Perlは5.10以降多くの機能が追加されていますが、巷のCPANモジュールの多くは5.8と互換性を保って書かれていることもあり、普段その機能を目にしない人も多いでしょう。<a href="https://metacpan.org/author/SONGMU">僕自身のCPANモジュール</a>も多くは5.8.1以降対応ですが、最近手元で動かすようなものに関しては5.10.1対応にすることも増えてきましたがそれでも、5.10.1止まりです。</p>
-
-<p>実際のプロジェクトにおいては5.10以降の機能も使えるものは積極的に使っているのでその辺りの話を書きます。</p>
-
-<h2><code>say</code>: 改行付きprint (5.10)</h2>
-
-<p><code>print</code>してその後に改行を入れてくれる関数です。地味に便利です。ワンライナーでも -E スイッチで使えるようになるので近年は-eを使わずに専ら-Eです。</p>
-
-<pre><code>use 5.010;
-say 'Hello'; # Hello
-
-% perl -E 'say "Hello"'
-Hello
-</code></pre>
-
-<h2><code>//</code>: defined-or (5.10)</h2>
-
-<p>初期化されていない変数に初期値を代入するために以下のようなコードを書く事があるでしょう。</p>
-
-<pre><code>my $hoge = $fuga || 10;
-$piyo ||= 15;
-</code></pre>
-
-<p><code>||</code>で真偽判定をしているわけですが、この場合、<code>$fuga</code>や<code>$piyo</code>に0が入っていた場合に意図しない挙動になってしまうかも知れません。Perlは<code>undef</code>の他に、空文字列や0も偽値として扱います。ただ、上記のような場合、厳密にundefかどうかを判定したいときもあります。そういう時に<code>//</code>を使います。</p>
-
-<pre><code>my $undef;
-my $zero = 0;
-my $hoge = $zero || 10;  # $hoge == 10
-my $fuga = $zero // 10;  # $fuga == 0
-my $piyo = $undef // 10; # $piyo == 10
-</code></pre>
-
-<p>初期化されてない変数に初期値を入れるみたいな処理を書くときに重宝します。</p>
-
-<pre><code>$hoge //= 10; # undefだったら10を代入する。0の場合は0のまま
-</code></pre>
-
-<p>これは5.8以前だと、<code>$hoge = defined $hoge ? $hoge : 10;</code> などと書かないといけませんでした。</p>
-
-<h2><code>state $var</code>: Persistent Private Variables (5.10)</h2>
-
-<p>永続的なレキシカル変数です。同じスコープに入っても再度初期化処理がされないというのが<code>my</code>と異なります。</p>
-
-<p>毎回同じ値を使うのに、同じ初期化処理が走るのは無駄に感じるときとかに使います。<a href="https://metacpan.org/module/Data::Validator#SYNOPSIS">Data::ValidatorのSYNOPSIS</a>でも使われています。</p>
-
-<p>例えば以下はFurlで指定したURLの内容を取得する処理ですが、この関数が2回目以降に呼ばれた場合は<code>$ua</code>は再度初期化はされずに、同じオブジェクトが使いまわされることになります。</p>
-
-<pre><code>sub get_url {
-    my $url = shift;
-    state $ua = Furl-&gt;new;
-    $ua-&gt;get($url);
-}
-</code></pre>
-
-<p><code>state</code>では同じ変数が使いまわされることになるので、副作用のある変数を使う時は多くの場合オススメできません。メモリキャッシュ的な用途での使い途はありますが、注意が必要です。</p>
-
-<h2><code>-f -x $file</code>: ファイル演算子が重ねられる (5.10)</h2>
-
-<p>ファイル演算子が重ねられます。具体的には、ファイルであり実行可能であるみたいな条件を以前は</p>
-
-<pre><code>-f $entry &amp;&amp; -x $entry
-</code></pre>
-
-<p>などと書いていたところを</p>
-
-<pre><code>-f -x $entry
-</code></pre>
-
-<p>と書けます。地味に便利。</p>
-
-<h2><code>~~</code>: smart match (5.10)</h2>
-
-<p>よしなマッチ。5.18から実験的機能に格下げになってしまったので、あまり積極的に使わない方が良いでしょう。僕は配列内の存在チェックとかで地味に便利なのでそこだけは使っています。</p>
-
-<pre><code>$var ~~ [1,2,5,8,10];
-</code></pre>
-
-<p>スマートマッチを使わない場合だと以下のように書かないといけないのが地味に面倒です。</p>
-
-<pre><code>grep {$var == $_} 1,2,5,8,10
-</code></pre>
-
-<h2><code>given ... when</code>: switch (5.10)</h2>
-
-<p>switch文的なやつ。Rubyのcase式みたいによしなマッチ的なこともしてくれます。と言うか内部的に前項のsmart matchを使ってるからなのです。なので、smart matchが実験的な機能になってしまっているので、<code>given ... when</code>も実験的な機能に格下げされています。悲しいですね。</p>
-
-<p>ちなみに、switchを実現するSwitch.pmというモジュールがあるのですが、これは<strong>絶対に使ってはけません</strong>。これが一番言いたかったことです。理由はググってください。</p>
-
-<h2><code>...</code>: yada-yada operator (5.12)</h2>
-
-<p>未実装の部分を<code>...</code>として宣言することができます。実行時にそこを通った時に例外を吐いてくれます。</p>
-
-<pre><code>% perl -E 'sub { ... }-&gt;()'
-Unimplemented at -e line 1.
-</code></pre>
-
-<p>あまり使うことはないのですが、<code>...</code>という文字列がサンプルコードとしてvalidであったりするのがちょっと便利。もしくはモジュールなんかでもこの"メソッドは将来的には用意するつもりだよ"的なことを示すのに使ったりできます。</p>
-
-<h2><code>use 5.012;</code>: 暗黙的なuse strict (5.12)</h2>
-
-<p>5.12以降は、<code>use 5.012</code>, <code>use 5.018</code> などとすると、そのバージョンのfeatureが使えるほか、自動的に<code>use strict</code>扱いしてくれるようになっています。地味に便利。</p>
-
-<h2><code>s///r</code>: 非破壊的な正規表現置換 (5.14)</h2>
-
-<p><code>s///</code>による置換は破壊的なので、元の文字列に変更を加えたくない場合は別の変数に移し替える必要がありましたが、<code>/r</code>修飾子を使うことで非破壊的になり、置換結果を左辺に返してくれるようになりました。</p>
-
-<pre><code>my $str        = 'moznion';
-my $str_result = $str;
-$str_result =~ s/moz/hage/; # hagenion
-</code></pre>
-
-<p>が以下のように書けます。</p>
-
-<pre><code>my $str        = 'moznion';
-my $str_result = $str =~ s/moz/hage/r; #hagenion
-</code></pre>
-
-<p>あんま便利に感じられないかもしれませんが、例えば以下のように配列の全要素に置換をかけてその結果を返すみたいなときに威力を発揮します。</p>
-
-<pre><code>my @replaced = map {s/hoge/fuga/r} @orig;
-</code></pre>
-
-<p>各要素を置換した結果が<code>@replaced</code>に入ります。元の文字列は破壊されないため、<code>@orig</code>に意図しない変更が入ることもありません。</p>
-
-<h2><code>package NAMESPACE {...}</code>: ブロック付きpackage宣言 (5.14)</h2>
-
-<p>package宣言がブロックを伴うことができます。</p>
-
-<pre><code>package Hoge;
-...
-</code></pre>
-
-<p>などと書いていたところを</p>
-
-<pre><code>package Hoge {
-    ...
-}
-</code></pre>
-
-<p>と書くことができるようになりました。1つのファイル内に複数のパッケージ宣言を書きたい時とかにスコープをちゃんと分けられます。もともと</p>
-
-<pre><code>{
-    package Hoge;
-    ...
-}
-</code></pre>
-
-<p>と書くこともできて、同じことではあるのですが、それがかっちょよく書くことができるようになったということです。</p>
-
-<p>個人的な使い方としてはファイル名と一致するNamespaceのパッケージはブロック付きにはせず、インナーパッケージはブロック付きで宣言するようにしています。以下の様な具合です。</p>
-
-<pre><code># Foo/Bar.pm
-package Foo::Bar;
-...
-package Foo::Bar::Innner {
-    ...
-}
-1;
-</code></pre>
-
-<h2><code>push $arrey_ref, 'hoge';</code>: オートデリファレンス (5.14);</h2>
-
-<p>5.14以降に実験的な機能としてオートデリファレンスが実験的な機能として入っています。</p>
-
-<p>便利だと思うのですがあまり好んで使っている人がいないので、僕も使わないようにしています。</p>
-
-<ul>
-<li>Perlっぽくない</li>
-<li>いつオートデリファレンスが発動するかわかりづらい</li>
-<li>意図しない挙動になりそうで怖い</li>
-</ul>
-
-
-<p>というのが理由でしょうか。実際問題として、<code>for my $elm ($array_ref) {...}</code>みたいなところでは、オートデリファレンス効かない(効いたら効いたで困ることもある)ので、わかりづらいってのはありそうです。</p>
-
-<p>Perlには<code>wantarray</code>というちょっとわかりづらいよしな機能があるので、そういう暗黙的に便利なことをしてくれちゃうみたいなことに対しては慎重な態度を取るってのが最近のPerl界隈の傾向かも知れません。</p>
-
-<h2><code>my sub hoge {...}</code>: lexical_subs (5.18)</h2>
-
-<p>名前付き関数はネームスペースで区切ることはできるもののグローバルですが、レキシカルな関数宣言が5.18以降、できるようになっています。まだ実験的な機能で僕も使っていません。</p>
-
-<p><code>my $sub = sub {...}</code> ってやればいいし、別にこの機能いらないんじゃないの？っていう意見が大勢だったのですが、<a href="https://metacpan.org/module/Exporter::Lexical">Exporter::Lexical</a>の登場で、実はこの機能は熱いんじゃないかという感じになってきています。<a href="https://metacpan.org/module/Exporter::AutoClean">Exporter::AutoClean</a>的なことが簡単に実現できるわけです。</p>
-
-<hr />
-
-<p>ということで、Perl5.10機能のお役立ち機能をまとめてみました。明日はpapix君でしょうか。2回目ですね。まこぴーとはなんだったのか。</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-14:entry-2013-09-14-perlfeature.html</id>
-<published>2013-09-14T33:33:26+0900</published>
 <updated>2013-09-14T22:33:26+09:00</updated>
 </entry>
 <entry>

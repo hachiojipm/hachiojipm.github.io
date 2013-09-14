@@ -40,12 +40,15 @@ Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ
 
 <h2><code>say</code>: 改行付きprint (5.10)</h2>
 
-<p><code>print</code>してその後に改行を入れてくれる関数です。地味に便利です。ワンライナーでも -E スイッチで使えるようになるので近年は-eを使わずに専ら-Eです。</p>
+<p><code>print</code>してその後に改行を入れてくれる関数です。地味に便利です。</p>
 
 <pre><code>use 5.010;
 say 'Hello'; # Hello
+</code></pre>
 
-% perl -E 'say "Hello"'
+<p>ワンライナーでも -E スイッチで使えるようになるので近年は-eを使わずに専ら-Eです。</p>
+
+<pre><code>% perl -E 'say "Hello"'
 Hello
 </code></pre>
 
@@ -230,7 +233,7 @@ package Foo::Bar::Innner {
       <dt class="author">last modified by</dt>
       <dd class="author">Songmu</dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-09-14 22:33</dd>
+      <dd class="time">2013-09-14 22:46</dd>
   </dl>
 </article>
   </section>
