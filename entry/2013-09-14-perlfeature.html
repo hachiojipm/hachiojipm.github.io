@@ -45,7 +45,7 @@ Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ
 
 <p>Perlは5.10以降多くの機能が追加されていますが、巷のCPANモジュールの多くは5.8と互換性を保って書かれていることもあり、普段その機能を目にしない人も多いでしょう。<a href="https://metacpan.org/author/SONGMU">僕自身のCPANモジュール</a>も多くは5.8.1以降対応ですが、最近手元で動かすようなものに関しては5.10.1対応にすることも増えてきましたがそれでも、5.10.1止まりです。</p>
 
-<p>実際のプロジェクトにおいては5.10以降の機能も使えるものは積極的に使っているのでその辺りの話を書きます。</p>
+<p>実際のプロジェクトにおいては5.10以降の機能も使えるものは積極的に使っているのでその辺りの話。</p>
 
 <h2><code>say</code>: 改行付きprint (5.10)</h2>
 
@@ -84,6 +84,8 @@ my $piyo = $undef // 10; # $piyo == 10
 </code></pre>
 
 <p>これは5.8以前だと、<code>$hoge = defined $hoge ? $hoge : 10;</code> などと書かないといけませんでした。</p>
+
+<p>ところで、空文字や0が偽値になるっていうのは好き嫌いはあるかと思いますが僕は好きです。</p>
 
 <h2><code>state $var</code>: Persistent Private Variables (5.10)</h2>
 
@@ -200,7 +202,7 @@ my $str_result = $str =~ s/moz/hage/r; #hagenion
 <pre><code># Foo/Bar.pm
 package Foo::Bar;
 ...
-package Foo::Bar::Innner {
+package Foo::Bar::Inner {
     ...
 }
 1;
@@ -244,12 +246,12 @@ package Foo::Bar::Innner {
       <dt class="author">last modified by</dt>
       <dd class="author">Songmu</dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-09-14 22:51</dd>
+      <dd class="time">2013-09-14 23:26</dd>
   </dl>
 </article>
   </section>
   <footer>
-    <p>author: Uzulla</p>
+    <p>admin: Uzulla</p>
   </footer>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
