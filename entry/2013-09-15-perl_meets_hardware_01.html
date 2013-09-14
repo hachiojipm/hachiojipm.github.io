@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Perl meets Hardware #01 Perlとハードウェアが出会うには | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/hachioji-tech.html">hachioji-tech</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Hardware.html">Hardware</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Perl meets Hardware #01 Perlとハードウェアが出会うには</h1>
+
+<p>オイコラ！　どうも<a href="https://twitter.com/mackee_w">マコピー</a>だ。</p>
+
+<p>オイラのエントリは他の奴らのとはちょいと違う。<a href="http://Hachiojipm.org/">Hachioji.pm</a>だってんのにあるやつは<a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHPのエントリ</a>を書いたり、あるやつは<a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">暗黒美夢王って言ったらいいよ</a>といったばかりに<a href="https://twitter.com/ShougoMatsu/status/378156876212338688">ヤツが目覚めちまった</a>。</p>
+
+<p>そんなわけでオイラは徹底的にPerlなエントリを極めてみたいと思う。それも胸焼けを起こさないように連載形式でだ。</p>
+
+<p>Perlと相成れないと思われる存在、ハードウェア、もしくは電子工作を組み合わせたいと思う。</p>
+
+<h2>何故Perlがハードウェアと相成れないのか</h2>
+
+<p>Perlという言語は、元来テキスト処理のための言語だ。C言語でむき出しになっていたI/Oだのメモリだの、そういった泥臭い部分は綺麗に隠蔽化され、オイラたちはなにも気にせずに思う存分テキスト処理できる。</p>
+
+<p>その代償として、処理系の向こうに隠れた電気的な信号まで制御ができない。そう、ピン一本一本まで制御したいオイラのような酔狂な奴にとってはそのベールを脱がしたいと思うのだ。だがそれをやるにはXSなどの硬派な書き方をしたりして回避しなければならない。手間だ。</p>
+
+<p>さらに悲惨なことを、一言で表す。</p>
+
+<pre><code>Only perl can parse Perl.
+perl(コマンドとしてのPerl)でしかPerlをパースすることは出来ない。
+</code></pre>
+
+<p>RubyやPythonなどの他のモダンなLightweight Languageには第一のインタプリタ(MRIやCPython)のほかにもJRubyやJythonといったJVM上での実装もあればハードウェア上で動くフットプリントの小さい実装(mruby)などもある。</p>
+
+<p>が、Perlには実用的な実装系はperlしかないのだ。
+perlのフットプリントは非力なハードウェア上で動かのには厳しすぎる。では、もう少し小さいPerlのサブセットを探そうとしても、そんなものはない。</p>
+
+<p>だが昨今は状況が変わってきた。そんな話題についてもこの連載で触れてみたいと思う。</p>
+
+<h2>ハードウェア側からの歩み寄り RaspberryPi</h2>
+
+<p>科学の進化というものは……その、まあ……驚きの連続だ。
+もしハードウェアが進化して太ったPerlを載せられるような代物が出てきたら、Perlはダイエットをする必要がないだろう。</p>
+
+<p><a href="http://www.raspberrypi.org/">RaspberryPi</a>。IT革命とスマートフォンブームが生み出したクレジットカードサイズの$25コンピュータだ。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/raspberrypi.jpg" alt="RaspberryPi" /></p>
+
+<p>フツーのLinux(カーネルは少々改造されているものの)が動き、フツーに使える。そこまで普遍的であるということは、</p>
+
+<p><strong> Perlが動くということだ </strong></p>
+
+<p>さらにRaspberryPiには、最近のモダンなコンピュータが失った自由に使えるGPIOと言う名のピンが備わっている。これで君は温度センサで部屋の温度を知ったり、GPSモジュールや三軸加速度モジュールを使ってどのような姿勢にあるのかを四六時中ロギングすることが出来るだろう。</p>
+
+<h2>そんなわけで</h2>
+
+<p>当連載ではPerlで書かれたコードをRaspberryPiその他のデバイス上で動かし、物理空間を読み取り物理空間へ影響を与えていくことにチャレンジして行こうと思う。</p>
+
+<p>次回はお決まりのLEDでも光らせて、退屈だと思ったらPerlが得意な何かと組み合わせて小さなエレクトリカルパレードを演出してみようと思う。期待して欲しい。</p>
+
+<p>以下はおちゃめなオイラがモンハン4をDL中に部品を実装しようとしたらはんだを買い忘れていて途方にくれていた時の机の様子だ。コレを見て楽しみに待っていて欲しい。
+ちなみに中央右がRaspberryPiで、左がArduinoと呼ばれるもっと低レベルなボードだ。こいつも活用しようと思っている。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/macopys_desk.jpg" alt="RaspberryPi&amp;Arduino" /></p>
+
+<p>次はmod_perl神、<a href="https://twitter.com/xtetsuji">xtetsuji</a>氏の登場だ。クレイジーな発表を期待している。</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author"></dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-09-15 00:10</time></dd>
+      <dt class="author">last modified by</dt>
+      <dd class="author"></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-09-15 00:10</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>author: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>

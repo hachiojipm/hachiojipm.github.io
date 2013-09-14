@@ -3,9 +3,188 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-14T22:46:36+09:00</updated>
+<updated>2013-09-14T22:51:02+09:00</updated>
+<entry>
+<title type="text">Perl meets Hardware #01 Perlとハードウェアが出会うには</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html" />
+<content><![CDATA[<h1>Perl meets Hardware #01 Perlとハードウェアが出会うには</h1>
+
+<p>オイコラ！　どうも<a href="https://twitter.com/mackee_w">マコピー</a>だ。</p>
+
+<p>オイラのエントリは他の奴らのとはちょいと違う。<a href="http://Hachiojipm.org/">Hachioji.pm</a>だってんのにあるやつは<a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHPのエントリ</a>を書いたり、あるやつは<a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">暗黒美夢王って言ったらいいよ</a>といったばかりに<a href="https://twitter.com/ShougoMatsu/status/378156876212338688">ヤツが目覚めちまった</a>。</p>
+
+<p>そんなわけでオイラは徹底的にPerlなエントリを極めてみたいと思う。それも胸焼けを起こさないように連載形式でだ。</p>
+
+<p>Perlと相成れないと思われる存在、ハードウェア、もしくは電子工作を組み合わせたいと思う。</p>
+
+<h2>何故Perlがハードウェアと相成れないのか</h2>
+
+<p>Perlという言語は、元来テキスト処理のための言語だ。C言語でむき出しになっていたI/Oだのメモリだの、そういった泥臭い部分は綺麗に隠蔽化され、オイラたちはなにも気にせずに思う存分テキスト処理できる。</p>
+
+<p>その代償として、処理系の向こうに隠れた電気的な信号まで制御ができない。そう、ピン一本一本まで制御したいオイラのような酔狂な奴にとってはそのベールを脱がしたいと思うのだ。だがそれをやるにはXSなどの硬派な書き方をしたりして回避しなければならない。手間だ。</p>
+
+<p>さらに悲惨なことを、一言で表す。</p>
+
+<pre><code>Only perl can parse Perl.
+perl(コマンドとしてのPerl)でしかPerlをパースすることは出来ない。
+</code></pre>
+
+<p>RubyやPythonなどの他のモダンなLightweight Languageには第一のインタプリタ(MRIやCPython)のほかにもJRubyやJythonといったJVM上での実装もあればハードウェア上で動くフットプリントの小さい実装(mruby)などもある。</p>
+
+<p>が、Perlには実用的な実装系はperlしかないのだ。
+perlのフットプリントは非力なハードウェア上で動かのには厳しすぎる。では、もう少し小さいPerlのサブセットを探そうとしても、そんなものはない。</p>
+
+<p>だが昨今は状況が変わってきた。そんな話題についてもこの連載で触れてみたいと思う。</p>
+
+<h2>ハードウェア側からの歩み寄り RaspberryPi</h2>
+
+<p>科学の進化というものは……その、まあ……驚きの連続だ。
+もしハードウェアが進化して太ったPerlを載せられるような代物が出てきたら、Perlはダイエットをする必要がないだろう。</p>
+
+<p><a href="http://www.raspberrypi.org/">RaspberryPi</a>。IT革命とスマートフォンブームが生み出したクレジットカードサイズの$25コンピュータだ。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/raspberrypi.jpg" alt="RaspberryPi" /></p>
+
+<p>フツーのLinux(カーネルは少々改造されているものの)が動き、フツーに使える。そこまで普遍的であるということは、</p>
+
+<p><strong> Perlが動くということだ </strong></p>
+
+<p>さらにRaspberryPiには、最近のモダンなコンピュータが失った自由に使えるGPIOと言う名のピンが備わっている。これで君は温度センサで部屋の温度を知ったり、GPSモジュールや三軸加速度モジュールを使ってどのような姿勢にあるのかを四六時中ロギングすることが出来るだろう。</p>
+
+<h2>そんなわけで</h2>
+
+<p>当連載ではPerlで書かれたコードをRaspberryPiその他のデバイス上で動かし、物理空間を読み取り物理空間へ影響を与えていくことにチャレンジして行こうと思う。</p>
+
+<p>次回はお決まりのLEDでも光らせて、退屈だと思ったらPerlが得意な何かと組み合わせて小さなエレクトリカルパレードを演出してみようと思う。期待して欲しい。</p>
+
+<p>以下はおちゃめなオイラがモンハン4をDL中に部品を実装しようとしたらはんだを買い忘れていて途方にくれていた時の机の様子だ。コレを見て楽しみに待っていて欲しい。
+ちなみに中央右がRaspberryPiで、左がArduinoと呼ばれるもっと低レベルなボードだ。こいつも活用しようと思っている。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/macopys_desk.jpg" alt="RaspberryPi&amp;Arduino" /></p>
+
+<p>次はmod_perl神、<a href="https://twitter.com/xtetsuji">xtetsuji</a>氏の登場だ。クレイジーな発表を期待している。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-15:entry-2013-09-15-perl_meets_hardware_01.html</id>
+<published>2013-09-15T10:10:04+0900</published>
+<updated>2013-09-15T00:10:04+09:00</updated>
+</entry>
+<entry>
+<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
+
+<h2>これまでの記事</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者     </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/14(土) </td>
+<td> Songmu   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
+</tr>
+<tr>
+<td>2013/09/13(金) </td>
+<td> ytnobody </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
+</tr>
+<tr>
+<td>2013/09/12(木) </td>
+<td> uzulla   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
+</tr>
+<tr>
+<td>2013/09/11(水) </td>
+<td> boolfool </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/10(火) </td>
+<td> moznion  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/09(月) </td>
+<td> papix    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>概要</h2>
+
+<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
+書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
+
+<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
+
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+
+<h2>今後の担当(予定)</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/15(日) </td>
+<td> mackee_w   </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji   </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/17(火) </td>
+<td> ichigotake </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/09/18(水) </td>
+<td> Spring_MT  </td>
+<td> 未定</td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
+<published>2013-09-09T47:47:09+0900</published>
+<updated>2013-09-14T22:51:02+09:00</updated>
+</entry>
 <entry>
 <title type="text">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html" />
@@ -210,122 +389,7 @@ package Foo::Bar::Innner {
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-14:entry-2013-09-14-perlfeature.html</id>
 <published>2013-09-14T33:33:26+0900</published>
-<updated>2013-09-14T22:46:36+09:00</updated>
-</entry>
-<entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者     </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/14(土) </td>
-<td> Songmu   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> ytnobody </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
-</tr>
-<tr>
-<td>2013/09/12(木) </td>
-<td> uzulla   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
-</tr>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>概要</h2>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
-
-<h2>おやくそく</h2>
-
-<ul>
-<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
-</ul>
-
-
-<h2>今後の担当(予定)</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/15(日) </td>
-<td> mackee_w   </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> Spring_MT  </td>
-<td> 未定</td>
-</tr>
-</tbody>
-</table>
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-14T22:37:14+09:00</updated>
+<updated>2013-09-14T22:51:02+09:00</updated>
 </entry>
 <entry>
 <title type="text">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</title>
