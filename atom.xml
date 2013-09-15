@@ -5,10 +5,13 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-14T23:26:41+09:00</updated>
+<updated>2013-09-15T23:52:00+09:00</updated>
 <entry>
 <title type="text">Perl meets Hardware #01 Perlとハードウェアが出会うには</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html" />
+<author>
+<name>mackee</name>
+</author>
 <content><![CDATA[<h1>Perl meets Hardware #01 Perlとハードウェアが出会うには</h1>
 
 <p>オイコラ！　どうも<a href="https://twitter.com/mackee_w">マコピー</a>だ。</p>
@@ -67,8 +70,8 @@ perlのフットプリントは非力なハードウェア上で動かのには�
 <p>次はmod_perl神、<a href="https://twitter.com/xtetsuji">xtetsuji</a>氏の登場だ。クレイジーな発表を期待している。</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-15:entry-2013-09-15-perl_meets_hardware_01.html</id>
-<published>2013-09-15T50:50:40+0900</published>
-<updated>2013-09-15T23:50:40+09:00</updated>
+<published>2013-09-15T10:10:37+0900</published>
+<updated>2013-09-15T00:10:37+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</title>
