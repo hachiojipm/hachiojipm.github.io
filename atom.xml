@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-17T00:30:50+09:00</updated>
+<updated>2013-09-17T00:58:36+09:00</updated>
 <entry>
 <title type="text">Perlの一文字変数の攻略</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html" />
@@ -97,7 +97,7 @@ my @existed = grep { defined &amp;&amp; length } @whole;
 
 <pre><code>for (1..100) { # $_ に 1から100まで入る
     {
-        # この中の $_ は $huge_string と同じ意味になる
+        # この中の $_ は $text と同じ意味になる
         local $_ = $text;
         # パターンマッチ演算子は $_ に対しては $_ =~ を省略可能
         s/censored//g;
@@ -315,7 +315,7 @@ print "error: $!";
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-16:entry-2013-09-16-perlonechar.html</id>
 <published>2013-09-16T17:17:08+0900</published>
-<updated>2013-09-17T00:30:50+09:00</updated>
+<updated>2013-09-17T00:58:36+09:00</updated>
 </entry>
 <entry>
 <title type="text">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</title>

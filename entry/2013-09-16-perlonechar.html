@@ -124,7 +124,7 @@ my @existed = grep { defined &amp;&amp; length } @whole;
 
 <pre><code>for (1..100) { # $_ に 1から100まで入る
     {
-        # この中の $_ は $huge_string と同じ意味になる
+        # この中の $_ は $text と同じ意味になる
         local $_ = $text;
         # パターンマッチ演算子は $_ に対しては $_ =~ を省略可能
         s/censored//g;
@@ -349,7 +349,7 @@ print "error: $!";
       <dt class="author">last modified by</dt>
       <dd class="author">OGATA Tetsuji</dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-09-17 00:30</dd>
+      <dd class="time">2013-09-17 00:58</dd>
   </dl>
 </article>
   </section>
