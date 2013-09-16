@@ -296,7 +296,7 @@ $0 =~ s/--password=\S+//;
 <p>小さな出力を print で大量に行なった場合、表示がすぐに行われなかったり warn のほうが先に出力されたり (warn が使う STDERR は出力バッファリングを行いません) するのが都合が悪い場合には <code>$|</code> に 1 などを代入して出力バッファリングを抑止します。</p>
 
 <pre><code>$| = 1; # 出力バッファリングをオフ
-for my (1..10_000) {
+for (1..10_000) {
     print "STDOUT: $_\n";
     warn  "STDERR: $_\n";
 }
@@ -349,7 +349,7 @@ print "error: $!";
       <dt class="author">last modified by</dt>
       <dd class="author">OGATA Tetsuji</dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-09-16 23:17</dd>
+      <dd class="time">2013-09-17 00:30</dd>
   </dl>
 </article>
   </section>
