@@ -284,7 +284,7 @@ $VAR1 = undef;
 方針としては, <code>%votes</code>というハッシュを用意して, 「票数」をキーとして, そのキーに対応する要素として, 「その票数を獲得した食べ物」を配列のリファレンスとして格納していく... という感じにします.</p>
 
 <pre><code>my %votes;
-for my $food (keys %$ranking) {
+for my $food (keys %ranking) {
     push @{$votes{$ranking{$food}}}, $food;
 }
 </code></pre>
@@ -360,7 +360,7 @@ for my $food (keys %$ranking) {
       <dt class="author">last modified by</dt>
       <dd class="author">papix</dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-09-16 09:13</dd>
+      <dd class="time">2013-09-16 09:19</dd>
   </dl>
 </article>
   </section>
