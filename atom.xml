@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-17T16:02:14+09:00</updated>
+<updated>2013-09-17T16:06:02+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -25,6 +25,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
+</tr>
 <tr>
 <td>2013/09/15(日) </td>
 <td> mackee_w </td>
@@ -99,11 +104,6 @@
 </thead>
 <tbody>
 <tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> 未定</td>
-</tr>
-<tr>
 <td>2013/09/17(火) </td>
 <td> ichigotake </td>
 <td> 未定</td>
@@ -149,7 +149,7 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-17T16:02:14+09:00</updated>
+<updated>2013-09-17T16:06:02+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perlの一文字変数の攻略</title>
