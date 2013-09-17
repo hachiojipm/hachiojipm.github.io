@@ -90,6 +90,6 @@ LTソンは話題をPerlに絞らず、喋りたい人がみんなの前で交�
 
 9/19 木曜日、18:00から、慶應義塾日吉キャンパスにて開催です！ご縁がある方はぜひ！
 
-[LTソン ホームページ](http://ltthon-yapc2013.hachiojipm.org/http://ltthon-yapc2013.hachiojipm.org/)
+[LTソン ホームページ](http://ltthon-yapc2013.hachiojipm.org/)
 
 
