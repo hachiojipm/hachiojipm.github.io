@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+phpcon2013所見 | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a>
+    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/hachioji-tech.html">hachioji-tech</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/PHP.html">PHP</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>phpcon2013所見</h1>
+
+<p>こんにちは！！一日忘れていて遅れてしまったhirobanexです！！！YAPC::Asia2013が行われる前の週にPHPカンファレンスっていうPHPのお祭りがやっていたのはご存知かな？？今回、Perl Mongerのphper初心者として<a href="http://phpcon.php.gr.jp/w/2013/">PHPカンファレンス2013</a>に参加したので、その感想をレポートするよ！！</p>
+
+<h2>YAPC::Asia2013 vs PHPカンファレンス2013</h2>
+
+<p>きっと、このブログの読者はPHPカンファレンスに行ったことがある人より、YAPC::Asia2013に行ったことがある人が多いと思うので、その前提で両社を比較してみるよ！！</p>
+
+<p>phpconはYAPC::Asiaに比べて</p>
+
+<ul>
+<li>参加人数：多い</li>
+<li>参加費：無料</li>
+<li>総セッション数：同じか少ない</li>
+<li>開催日数：少ない（1日だけ）</li>
+<li>企業の宣伝：ガン攻めできる</li>
+</ul>
+
+
+<p>という気がしました。セッションの傾向としては、デザイナーとかホームページ制作者からの視点が多分に入っていたり、PHPの内部実装についての話などが多い傾向にあるように感じました。またYAPC::Asiaに比べて「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がします。</p>
+
+<p>あと、YAPCだと公式ページにセッションの内容を詳しく書かれていて</p>
+
+<ul>
+<li>タイトル</li>
+<li>説明</li>
+<li>タグ（ビギナー向け or 中級者向け、DB系 or アプリケーション、etc）</li>
+<li>YouTube</li>
+<li>slide</li>
+</ul>
+
+
+<p>結構参考になりまくりなんだけど、PHPカンファレンスはそういうことがなくて後で見返すの大変だなーと思う一方、リアルな現場に参加した感の貴重さを味わえるのかなーと思いました。</p>
+
+<h2>2013の個別のセッションについて</h2>
+
+<p>ぼくが参加したセッションは正直個人的に外れ感があったので、微妙だったんですが、Perlユーザーでphp初心者の観点を中心に考えると、以下のセッションのYouTubeなりスライドなりをみるのが興味深いと思いました。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/hirokawa/php-con2013ub">基調講演 PHPの今とこれから2013</a> : phpって毎年バージョンアップすることになったんですって！知ってました？</li>
+<li><a href="https://speakerdeck.com/yandod/cakephpdemoshi-eru-composerwohuo-yong-sitamodannakai-fa-shou-fa">Composerを活用したモダンなCakePHPアプリの開発手法</a> : phpにもcarton的なのってあるんですよ！そして、pear後のpackagist.orgってcpan的なのあるんですよ！知ってました？</li>
+<li><a href="http://www.slideshare.net/shin1x1/vagrant-php">Vagrantで作るPHP開発環境 [実践編]</a> : phpもVagrantで開発環境作るんですって！知ってました？</li>
+<li><a href="http://www.slideshare.net/MiuraKatsu/ss-26186401">FuelPHPで３種のProfilerを使ってみた</a> : PHPには結構いけるプロファイラーあったりするんですよ！</li>
+</ul>
+
+
+<p>ちなみに公式ではなく<a href="http://unsolublesugar.com/20130915/005329/">PHPカンファレンス2013 &amp; WordCamp Tokyo 2013 講演資料まとめ</a>というのがあるので実際のところは後から見放題で大変感謝。</p>
+
+<h2>PHPについても含めながらダラダラと</h2>
+
+<p>なんか、LLってだいたい書き方同じだよなーとか、rubyとかpythonの超入門をみて思っていたんですが、いざphpでちょっと詳しく触りだすと、Perlでやっているいつものアレの書き方できなくて困りますね。(unlessとか、defined-orとか)</p>
+
+<p>それでも、ComporserでCartonみたいなことできるし、開発向けビルドインサーバーも入っていちいちApacheとかいれなくても簡単な確認できるようになったし、名前空間もできたし、phpenvっていうのがよりまともになって流行りだせば1つのOSに1つのphp.iniでグローバル設定乙みたいなことなくなると思いますし、より手軽に開発できるようになっていくんじゃないでしょうかねー。</p>
+
+<p>あと、PHPはモヒカンみたいな人、少ない気がしますねー。できる人はたくさんいるはずなんですが、あくまでツールのユーザー視点が強い気がします。上述しました「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がするところにも影響している気がするのですが、Perlだとモヒカンみたいな人たちがトークもしてLTもして、すげー強烈なイメージを植え付けていくんですが、そういうところの印象が今一つ弱かったですね。Packagistが普及していくと、そのあたりが強くなっていくんでしょうかねー。</p>
+
+<p>とりあえず、カンファレンスの動員人数としては2000人規模らしいので、なんですかね、それで無料ってやっぱりすごいですよね。</p>
+
+<h2>終わりに　～ぼっちではなくまたどこかへ～</h2>
+
+<p>今回は、Hachioji.pmの仲間のuzullaさんやkkotaro0111さんが参加されていたので、全然ぼっちでもなかったし、やっぱり言語関係なく出会える仲間がいるとうれしいですね！！</p>
+
+<p>後、正直高々一回では、しっかりと比較することは難しんですが、いろいろところに出向いても仲間がいるとうれしいですよね！！</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-09-18 03:22</time></dd>
+      <dt class="author">last modified by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-09-18 03:22</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
