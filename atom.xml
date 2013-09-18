@@ -3,9 +3,9 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-18T00:01:31+09:00</updated>
+<updated>2013-09-19T00:12:17+09:00</updated>
 <entry>
 <title type="text">最近のPerlに足りないモノ</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html" />
@@ -101,8 +101,126 @@
 <p><a href="http://ltthon-yapc2013.hachiojipm.org/">LTソン ホームページ</a></p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-18:entry-2013-09-17-perl_shortage.html</id>
-<published>2013-09-18T01:01:31+0900</published>
-<updated>2013-09-18T00:01:31+09:00</updated>
+<published>2013-09-17T59:59:00+0900</published>
+<updated>2013-09-19T00:12:17+09:00</updated>
+</entry>
+<entry>
+<title type="text">perlでTravisCI、Coverallsを使ってみる</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>perlでTravisCI、Coverallsを使ってみる</h1>
+
+<p>最近東京に戻ってきた<a href="https://twitter.com/Spring_MT">Spring_MT</a>です。</p>
+
+<p>perlで自分でモジュールを書く準備をと思って、TravisCI、Coverallsを使う方法を調べてみました。
+だいぶperlからは離れていたので、perlを入れるとことから調べてます。</p>
+
+<h2>plenvを入れる</h2>
+
+<p>今回はplenvを使ってperlを入れました。</p>
+
+<p><a href="https://github.com/tokuhirom/plenv">plenv</a></p>
+
+<p>plenvでperlを入れて、cpanmも入れていきます。</p>
+
+<pre><code>% git clone git://github.com/tokuhirom/plenv.git ~/.plenv
+% echo 'export PATH="$HOME/.plenv/bin:$PATH"' &gt;&gt; % ~/.zshrc
+% echo 'eval "$(plenv init -)"' &gt;&gt; ~/.zshrc
+% exec $SHELL -l
+% plenv install 5.18.0
+% plenv local 5.18.0
+% plenv rehash
+% plenv install-cpanm
+% plenv rehash
+</code></pre>
+
+<h2>Minillaを使ってひな形を作る</h2>
+
+<p>最初はModule::Installを使いながら試していたのですが、TravisCIでこけて先に進めず。。。</p>
+
+<p>で、<a href="http://lingr.com/room/perl_jp/archives/2013/08/29#message-16407055">この会話</a>で勧められた通り、Minillaを使って作ってみました。</p>
+
+<p><a href="https://github.com/tokuhirom/Minilla">Minilla</a>
+<a href="http://blog.64p.org/entry/2013/05/14/080423">Minilla を用いた Perl モジュールの作り方</a></p>
+
+<pre><code>% cpanm install Minilla
+% plenv rehash
+% minil new Sample
+% cd Sample
+% git add .
+% git commit
+</code></pre>
+
+<p>Minillaはこれだけで新しいモジュールのひな形ができちゃいます！
+ここまでできたら、githubでレポジトリを作って、TravisCIのサイトでリポジトリをsyncし、TravisCIの設定をonにしましょう。
+TravisCI設定はこちらがめっちゃ参考になります。</p>
+
+<p><a href="http://sue445.hatenablog.com/entry/2013/06/01/170607">GithubにあるリポジトリをTravis CI連携する手順 #junitbook</a></p>
+
+<p>Minillaで作ったモジュールのテストを手元で走らせる場合は、minil testを実行すると思うのですが、TravisCIではデフォルトで下記コマンドでテストが実行されます。</p>
+
+<pre><code>perl Build.PL &amp;&amp; ./Build test 
+</code></pre>
+
+<p><a href="http://about.travis-ci.org/docs/user/languages/perl/#Module%3A%3ABuild">Building a Perl Project</a></p>
+
+<p>Minilaで作ったデフォルトのBuild.PLを使うと、TravisCIではxt/配下のテストは走らないのです。</p>
+
+<p>ここまでできたら、pushします。
+Minillaで作ったモジュールには既に .travis.yml が用意されているので、何もしなくてもtravisが動きます。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_1.jpeg" alt="image" />
+<a href="https://travis-ci.org/SpringMT/Sample">TravisCI SpringMT/Sample</a></p>
+
+<p>うまくいきました！</p>
+
+<p>バッジも貼りましょう。
+TravisCIのビルド結果ページ右上のbuild passingの画像をクリックすると、そのまま貼り付けられる状態のテキストが表示されるので、それをコピーしてREADME.mdに貼り付けます。</p>
+
+<p>ついでに、Coverallsも追加しちゃいましょう。</p>
+
+<p><a href="https://coveralls.io">Coveralls</a></p>
+
+<p>まずは、TravisCIと同様に、Coverallsにリポジトリを登録してください。
+perlの場合は、Devel::Cover::Report::Coverallsを使えば、Coverallsに簡単にカバレッジの情報を登録できます。</p>
+
+<p><a href="http://memo.fushihara.net/post/48086316824/coveralls-perl-project">coverallsをperlなprojectで使えるようにしてみた</a></p>
+
+<p>Coverallsに情報を投げるために .travis.ymlに下記を追記してください。</p>
+
+<pre><code>before_install:                                                                                                                                 
+  cpanm -n Devel::Cover::Report::Coveralls
+script:
+  perl Build.PL &amp;&amp; ./Build build &amp;&amp; cover -test -report coveralls
+</code></pre>
+
+<p>pushすると、こんな感じになると思います。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_2.jpeg" alt="image" /></p>
+
+<p><a href="https://coveralls.io/r/SpringMT/Sample">Coveralls SpringMT / Sample</a></p>
+
+<h2>最後に</h2>
+
+<p>最終的に少しテストを追加しました。</p>
+
+<p><a href="https://github.com/SpringMT/Sample">GitHub SpringMT/Sample</a></p>
+
+<p>githubにページはこんな感じでバッジも出ています。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_3.jpeg" alt="image" /></p>
+
+<p>これでモジュールを書き始める準備が出来上がったので、なんか書きます。</p>
+
+<h2>ちょっとハマったところ</h2>
+
+<p>新しく作ったファイルにテストを書いてminil testを実行したけど、テストがされなくてなんでだろうと思ってたら、git管理下じゃないからだった。。。。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-19:entry-2013-09-18-perl-travisci.html</id>
+<published>2013-09-18T57:57:00+0900</published>
+<updated>2013-09-19T00:09:46+09:00</updated>
 </entry>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>

@@ -1,4 +1,5 @@
 tags: hachioji-tech Perl
+pubdate: 2013-09-17 23:59
 ---
 # 最近のPerlに足りないモノ
 
