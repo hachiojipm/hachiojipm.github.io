@@ -3,9 +3,159 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-18T03:22:44+09:00</updated>
+<updated>2013-09-23T17:01:24+09:00</updated>
+<entry>
+<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
+
+<h2>これまでの記事</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/23(月) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
+</tr>
+<tr>
+<td>2013/09/22(日) </td>
+<td>            </td>
+<td> YAPC休暇</td>
+</tr>
+<tr>
+<td>2013/09/21(土) </td>
+<td>            </td>
+<td> YAPC休暇</td>
+</tr>
+<tr>
+<td>2013/09/20(金) </td>
+<td>            </td>
+<td> YAPC休暇</td>
+</tr>
+<tr>
+<td>2013/09/19(木) </td>
+<td>            </td>
+<td> YAPC休暇</td>
+</tr>
+<tr>
+<td>2013/09/18(水) </td>
+<td> Spring_MT  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
+</tr>
+<tr>
+<td>2013/09/17(火) </td>
+<td> ichigotake </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
+</tr>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
+</tr>
+<tr>
+<td>2013/09/15(日) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
+</tr>
+<tr>
+<td>2013/09/14(土) </td>
+<td> Songmu     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
+</tr>
+<tr>
+<td>2013/09/13(金) </td>
+<td> ytnobody   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
+</tr>
+<tr>
+<td>2013/09/12(木) </td>
+<td> uzulla     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
+</tr>
+<tr>
+<td>2013/09/11(水) </td>
+<td> boolfool   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/10(火) </td>
+<td> moznion    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/09(月) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>概要</h2>
+
+<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
+書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
+
+<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
+
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+
+<h2>今後の担当(予定)</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/08/24(火) </td>
+<td> papix      </td>
+<td> Seleniumでいろいろ捗らせる話(仮称)</td>
+</tr>
+<tr>
+<td>2013/08/25(水) </td>
+<td> mackee_w   </td>
+<td> PyCon所見(仮称)</td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
+<published>2013-09-09T47:47:09+0900</published>
+<updated>2013-09-23T17:01:24+09:00</updated>
+</entry>
 <entry>
 <title type="text">最近のPerlに足りないモノ</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html" />
@@ -223,136 +373,6 @@ script:
 <updated>2013-09-19T00:08:02+09:00</updated>
 </entry>
 <entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/23(月) </td>
-<td> hirobanex  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> Spring_MT  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
-</tr>
-<tr>
-<td>2013/09/15(日) </td>
-<td> mackee_w   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
-</tr>
-<tr>
-<td>2013/09/14(土) </td>
-<td> Songmu     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> ytnobody   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
-</tr>
-<tr>
-<td>2013/09/12(木) </td>
-<td> uzulla     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
-</tr>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix      </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>概要</h2>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
-
-<h2>おやくそく</h2>
-
-<ul>
-<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
-</ul>
-
-
-<h2>今後の担当(予定)</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/08/24(火) </td>
-<td> papix      </td>
-<td> Seleniumでいろいろ捗らせる話(仮称)</td>
-</tr>
-<tr>
-<td>2013/08/25(水) </td>
-<td> mackee_w   </td>
-<td> PyCon所見(仮称)</td>
-</tr>
-</tbody>
-</table>
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-18T03:22:44+09:00</updated>
-</entry>
-<entry>
 <title type="text">phpcon2013所見</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html" />
 <author>
@@ -424,7 +444,7 @@ script:
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-18:entry-2013-09-23-phpcon2013.html</id>
 <published>2013-09-18T22:22:44+0900</published>
-<updated>2013-09-18T03:22:44+09:00</updated>
+<updated>2013-09-18T03:23:41+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perlの一文字変数の攻略</title>
