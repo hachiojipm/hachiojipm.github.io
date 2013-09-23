@@ -3,9 +3,9 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-23T20:35:21+09:00</updated>
+<updated>2013-09-23T20:51:01+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -139,34 +139,34 @@
 </thead>
 <tbody>
 <tr>
-<td>2013/08/24(火) </td>
+<td>2013/09/24(火) </td>
 <td> papix      </td>
 <td> Seleniumでいろいろ捗らせる話(仮称)</td>
 </tr>
 <tr>
-<td>2013/08/25(水) </td>
+<td>2013/09/25(水) </td>
 <td> mackee_w   </td>
 <td> PyCon所見(仮称)</td>
 </tr>
 <tr>
-<td>2013/08/26(水) </td>
+<td>2013/09/26(水) </td>
 <td> bool_fool  </td>
 <td> 未定</td>
 </tr>
 <tr>
-<td>2013/08/27(木) </td>
+<td>2013/09/27(木) </td>
 <td> moznion    </td>
 <td> 未定</td>
 </tr>
 <tr>
-<td>2013/08/28(金) </td>
+<td>2013/09/28(金) </td>
 <td> yusukebe   </td>
 <td> 未定</td>
 </tr>
 <tr>
-<td>2013/08/29(土) </td>
+<td>2013/09/29(土) </td>
 <td> ytnobody   </td>
-<td> 未定</td>
+<td> Nephia(旧:Voson)というWAFのおはなし</td>
 </tr>
 </tbody>
 </table>
@@ -174,7 +174,7 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-23T20:35:21+09:00</updated>
+<updated>2013-09-23T20:51:01+09:00</updated>
 </entry>
 <entry>
 <title type="text">phpcon2013所見</title>
