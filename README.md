@@ -12,6 +12,6 @@ riji publishする前に一旦mdファイルはgit commitしておいてくだ�
 
 ## 構築と配信
 
-    % riji publish && git commit -am "publish" && git push
+    % riji publish && git add CONTENT_FILES && git commit -am "publish" && git push
 
 とか。
