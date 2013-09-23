@@ -44,8 +44,6 @@
       <dd class="author"><: $entry.created_by() :></dd>
       <dt class="time">created at</dt>
       <dd class="time"><time><: $entry.published_at().strftime('%Y-%m-%d %H:%M') :></time></dd>
-      <dt class="author">last modified by</dt>
-      <dd class="author"><: $entry.last_modified_by() :></dd>
       <dt class="time">last modified at</dt>
       <dd class="time"><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :></dd>
   </dl>

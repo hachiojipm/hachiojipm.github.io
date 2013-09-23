@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-23T17:01:24+09:00</updated>
+<updated>2013-09-23T20:35:21+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -148,13 +148,107 @@
 <td> mackee_w   </td>
 <td> PyCon所見(仮称)</td>
 </tr>
+<tr>
+<td>2013/08/26(水) </td>
+<td> bool_fool  </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/08/27(木) </td>
+<td> moznion    </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/08/28(金) </td>
+<td> yusukebe   </td>
+<td> 未定</td>
+</tr>
+<tr>
+<td>2013/08/29(土) </td>
+<td> ytnobody   </td>
+<td> 未定</td>
+</tr>
 </tbody>
 </table>
 
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-23T17:01:24+09:00</updated>
+<updated>2013-09-23T20:35:21+09:00</updated>
+</entry>
+<entry>
+<title type="text">phpcon2013所見</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>phpcon2013所見</h1>
+
+<p>こんにちは！！一日忘れていて遅れてしまったhirobanexです！！！YAPC::Asia2013が行われる前の週にPHPカンファレンスっていうPHPのお祭りがやっていたのはご存知かな？？今回、Perl Mongerのphper初心者として<a href="http://phpcon.php.gr.jp/w/2013/">PHPカンファレンス2013</a>に参加したので、その感想をレポートするよ！！</p>
+
+<h2>YAPC::Asia2013 vs PHPカンファレンス2013</h2>
+
+<p>きっと、このブログの読者はPHPカンファレンスに行ったことがある人より、YAPC::Asia2013に行ったことがある人が多いと思うので、その前提で両社を比較してみるよ！！</p>
+
+<p>phpconはYAPC::Asiaに比べて</p>
+
+<ul>
+<li>参加人数：多い</li>
+<li>参加費：無料</li>
+<li>総セッション数：同じか少ない</li>
+<li>開催日数：少ない（1日だけ）</li>
+<li>企業の宣伝：ガン攻めできる</li>
+</ul>
+
+
+<p>という気がしました。セッションの傾向としては、デザイナーとかホームページ制作者からの視点が多分に入っていたり、PHPの内部実装についての話などが多い傾向にあるように感じました。またYAPC::Asiaに比べて「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がします。</p>
+
+<p>あと、YAPCだと公式ページにセッションの内容を詳しく書かれていて</p>
+
+<ul>
+<li>タイトル</li>
+<li>説明</li>
+<li>タグ（ビギナー向け or 中級者向け、DB系 or アプリケーション、etc）</li>
+<li>YouTube</li>
+<li>slide</li>
+</ul>
+
+
+<p>結構参考になりまくりなんだけど、PHPカンファレンスはそういうことがなくて後で見返すの大変だなーと思う一方、リアルな現場に参加した感の貴重さを味わえるのかなーと思いました。</p>
+
+<h2>2013の個別のセッションについて</h2>
+
+<p>ぼくが参加したセッションは正直個人的に外れ感があったので、微妙だったんですが、Perlユーザーでphp初心者の観点を中心に考えると、以下のセッションのYouTubeなりスライドなりをみるのが興味深いと思いました。</p>
+
+<ul>
+<li><a href="http://www.slideshare.net/hirokawa/php-con2013ub">基調講演 PHPの今とこれから2013</a> : phpって毎年バージョンアップすることになったんですって！知ってました？</li>
+<li><a href="https://speakerdeck.com/yandod/cakephpdemoshi-eru-composerwohuo-yong-sitamodannakai-fa-shou-fa">Composerを活用したモダンなCakePHPアプリの開発手法</a> : phpにもcarton的なのってあるんですよ！そして、pear後のpackagist.orgってcpan的なのあるんですよ！知ってました？</li>
+<li><a href="http://www.slideshare.net/shin1x1/vagrant-php">Vagrantで作るPHP開発環境 [実践編]</a> : phpもVagrantで開発環境作るんですって！知ってました？</li>
+<li><a href="http://www.slideshare.net/MiuraKatsu/ss-26186401">FuelPHPで３種のProfilerを使ってみた</a> : PHPには結構いけるプロファイラーあったりするんですよ！</li>
+</ul>
+
+
+<p>ちなみに公式ではなく<a href="http://unsolublesugar.com/20130915/005329/">PHPカンファレンス2013 &amp; WordCamp Tokyo 2013 講演資料まとめ</a>というのがあるので実際のところは後から見放題で大変感謝。</p>
+
+<h2>PHPについても含めながらダラダラと</h2>
+
+<p>なんか、LLってだいたい書き方同じだよなーとか、rubyとかpythonの超入門をみて思っていたんですが、いざphpでちょっと詳しく触りだすと、Perlでやっているいつものアレの書き方できなくて困りますね。(unlessとか、defined-orとか)</p>
+
+<p>それでも、ComporserでCartonみたいなことできるし、開発向けビルドインサーバーも入っていちいちApacheとかいれなくても簡単な確認できるようになったし、名前空間もできたし、phpenvっていうのがよりまともになって流行りだせば1つのOSに1つのphp.iniでグローバル設定乙みたいなことなくなると思いますし、より手軽に開発できるようになっていくんじゃないでしょうかねー。</p>
+
+<p>あと、PHPはモヒカンみたいな人、少ない気がしますねー。できる人はたくさんいるはずなんですが、あくまでツールのユーザー視点が強い気がします。上述しました「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がするところにも影響している気がするのですが、Perlだとモヒカンみたいな人たちがトークもしてLTもして、すげー強烈なイメージを植え付けていくんですが、そういうところの印象が今一つ弱かったですね。Packagistが普及していくと、そのあたりが強くなっていくんでしょうかねー。</p>
+
+<p>とりあえず、カンファレンスの動員人数としては2000人規模らしいので、なんですかね、それで無料ってやっぱりすごいですよね。</p>
+
+<h2>終わりに　～ぼっちではなくまたどこかへ～</h2>
+
+<p>今回は、Hachioji.pmの仲間のuzullaさんやkkotaro0111さんが参加されていたので、全然ぼっちでもなかったし、やっぱり言語関係なく出会える仲間がいるとうれしいですね！！</p>
+
+<p>後、正直高々一回では、しっかりと比較することは難しんですが、いろいろところに出向いても仲間がいるとうれしいですよね！！</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-18:entry-2013-09-23-phpcon2013.html</id>
+<published>2013-09-23T23:23:00+0900</published>
+<updated>2013-09-23T20:35:21+09:00</updated>
 </entry>
 <entry>
 <title type="text">最近のPerlに足りないモノ</title>
@@ -371,80 +465,6 @@ script:
 <id>tag:hachiojipm.github.io,2013-09-19:entry-2013-09-18-perl-travisci.html</id>
 <published>2013-09-18T57:57:00+0900</published>
 <updated>2013-09-19T00:08:02+09:00</updated>
-</entry>
-<entry>
-<title type="text">phpcon2013所見</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html" />
-<author>
-<name>Hiroyuki Akabane</name>
-</author>
-<content><![CDATA[<h1>phpcon2013所見</h1>
-
-<p>こんにちは！！一日忘れていて遅れてしまったhirobanexです！！！YAPC::Asia2013が行われる前の週にPHPカンファレンスっていうPHPのお祭りがやっていたのはご存知かな？？今回、Perl Mongerのphper初心者として<a href="http://phpcon.php.gr.jp/w/2013/">PHPカンファレンス2013</a>に参加したので、その感想をレポートするよ！！</p>
-
-<h2>YAPC::Asia2013 vs PHPカンファレンス2013</h2>
-
-<p>きっと、このブログの読者はPHPカンファレンスに行ったことがある人より、YAPC::Asia2013に行ったことがある人が多いと思うので、その前提で両社を比較してみるよ！！</p>
-
-<p>phpconはYAPC::Asiaに比べて</p>
-
-<ul>
-<li>参加人数：多い</li>
-<li>参加費：無料</li>
-<li>総セッション数：同じか少ない</li>
-<li>開催日数：少ない（1日だけ）</li>
-<li>企業の宣伝：ガン攻めできる</li>
-</ul>
-
-
-<p>という気がしました。セッションの傾向としては、デザイナーとかホームページ制作者からの視点が多分に入っていたり、PHPの内部実装についての話などが多い傾向にあるように感じました。またYAPC::Asiaに比べて「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がします。</p>
-
-<p>あと、YAPCだと公式ページにセッションの内容を詳しく書かれていて</p>
-
-<ul>
-<li>タイトル</li>
-<li>説明</li>
-<li>タグ（ビギナー向け or 中級者向け、DB系 or アプリケーション、etc）</li>
-<li>YouTube</li>
-<li>slide</li>
-</ul>
-
-
-<p>結構参考になりまくりなんだけど、PHPカンファレンスはそういうことがなくて後で見返すの大変だなーと思う一方、リアルな現場に参加した感の貴重さを味わえるのかなーと思いました。</p>
-
-<h2>2013の個別のセッションについて</h2>
-
-<p>ぼくが参加したセッションは正直個人的に外れ感があったので、微妙だったんですが、Perlユーザーでphp初心者の観点を中心に考えると、以下のセッションのYouTubeなりスライドなりをみるのが興味深いと思いました。</p>
-
-<ul>
-<li><a href="http://www.slideshare.net/hirokawa/php-con2013ub">基調講演 PHPの今とこれから2013</a> : phpって毎年バージョンアップすることになったんですって！知ってました？</li>
-<li><a href="https://speakerdeck.com/yandod/cakephpdemoshi-eru-composerwohuo-yong-sitamodannakai-fa-shou-fa">Composerを活用したモダンなCakePHPアプリの開発手法</a> : phpにもcarton的なのってあるんですよ！そして、pear後のpackagist.orgってcpan的なのあるんですよ！知ってました？</li>
-<li><a href="http://www.slideshare.net/shin1x1/vagrant-php">Vagrantで作るPHP開発環境 [実践編]</a> : phpもVagrantで開発環境作るんですって！知ってました？</li>
-<li><a href="http://www.slideshare.net/MiuraKatsu/ss-26186401">FuelPHPで３種のProfilerを使ってみた</a> : PHPには結構いけるプロファイラーあったりするんですよ！</li>
-</ul>
-
-
-<p>ちなみに公式ではなく<a href="http://unsolublesugar.com/20130915/005329/">PHPカンファレンス2013 &amp; WordCamp Tokyo 2013 講演資料まとめ</a>というのがあるので実際のところは後から見放題で大変感謝。</p>
-
-<h2>PHPについても含めながらダラダラと</h2>
-
-<p>なんか、LLってだいたい書き方同じだよなーとか、rubyとかpythonの超入門をみて思っていたんですが、いざphpでちょっと詳しく触りだすと、Perlでやっているいつものアレの書き方できなくて困りますね。(unlessとか、defined-orとか)</p>
-
-<p>それでも、ComporserでCartonみたいなことできるし、開発向けビルドインサーバーも入っていちいちApacheとかいれなくても簡単な確認できるようになったし、名前空間もできたし、phpenvっていうのがよりまともになって流行りだせば1つのOSに1つのphp.iniでグローバル設定乙みたいなことなくなると思いますし、より手軽に開発できるようになっていくんじゃないでしょうかねー。</p>
-
-<p>あと、PHPはモヒカンみたいな人、少ない気がしますねー。できる人はたくさんいるはずなんですが、あくまでツールのユーザー視点が強い気がします。上述しました「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がするところにも影響している気がするのですが、Perlだとモヒカンみたいな人たちがトークもしてLTもして、すげー強烈なイメージを植え付けていくんですが、そういうところの印象が今一つ弱かったですね。Packagistが普及していくと、そのあたりが強くなっていくんでしょうかねー。</p>
-
-<p>とりあえず、カンファレンスの動員人数としては2000人規模らしいので、なんですかね、それで無料ってやっぱりすごいですよね。</p>
-
-<h2>終わりに　～ぼっちではなくまたどこかへ～</h2>
-
-<p>今回は、Hachioji.pmの仲間のuzullaさんやkkotaro0111さんが参加されていたので、全然ぼっちでもなかったし、やっぱり言語関係なく出会える仲間がいるとうれしいですね！！</p>
-
-<p>後、正直高々一回では、しっかりと比較することは難しんですが、いろいろところに出向いても仲間がいるとうれしいですよね！！</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-18:entry-2013-09-23-phpcon2013.html</id>
-<published>2013-09-18T22:22:44+0900</published>
-<updated>2013-09-18T03:23:41+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perlの一文字変数の攻略</title>
