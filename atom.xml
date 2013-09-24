@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-25T01:19:27+09:00</updated>
+<updated>2013-09-25T01:20:54+09:00</updated>
 <entry>
 <title type="text">Perl6をかいま見るためにSeisを使ってみる</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html" />
@@ -132,7 +132,7 @@ sub id(Int $n) r
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-25:entry-2013-09-25-get_started_seis.html</id>
 <published>2013-09-25T19:19:27+0900</published>
-<updated>2013-09-25T01:19:27+09:00</updated>
+<updated>2013-09-25T01:20:54+09:00</updated>
 </entry>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
@@ -153,6 +153,11 @@ sub id(Int $n) r
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2013/09/25(水) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a></td>
+</tr>
 <tr>
 <td>2013/09/23(月) </td>
 <td> hirobanex  </td>
@@ -270,11 +275,6 @@ sub id(Int $n) r
 <td>2013/09/24(火) </td>
 <td> papix      </td>
 <td> Seleniumでいろいろ捗らせる話(仮称)</td>
-</tr>
-<tr>
-<td>2013/09/25(水) </td>
-<td> mackee_w   </td>
-<td> PyCon所見(仮称)</td>
 </tr>
 <tr>
 <td>2013/09/26(水) </td>
