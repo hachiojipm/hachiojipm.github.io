@@ -2,7 +2,7 @@ tags: hachioji-tech Perl Perl6
 ---
 # Perl6をかいま見るためにSeisを使ってみる
 
-[自分の感想ブログ](http://mackee.hatenablog.com/entry/2013/09/22/211305)でFuture Perlのトーク聞いて思ったこととか書いてたんですが、[Seis](https://metacpan.org/module/Seis)の話はそういえば全然していなかったなーって思って、じゃあ実際にどうなのかって思って、おもむろに(metacpan)[http://metacpan.org/)でSeisって打ったら上がっていたので勢いでcpanmしてみました。
+[自分の感想ブログ](http://mackee.hatenablog.com/entry/2013/09/22/211305)でFuture Perlのトーク聞いて思ったこととか書いてたんですが、[Seis](https://metacpan.org/module/Seis)の話はそういえば全然していなかったなーって思って、じゃあ実際にどうなのかって思って、おもむろに(metacpan)[http://metacpan.org/]でSeisって打ったら上がっていたので勢いでcpanmしてみました。
 
 で、どうなったかというと。
 
