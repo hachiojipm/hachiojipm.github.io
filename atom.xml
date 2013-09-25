@@ -5,7 +5,159 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-09-26T00:00:08+09:00</updated>
+<updated>2013-09-26T00:04:31+09:00</updated>
+<entry>
+<title type="text">SeleniumとPerlの話</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>SeleniumとPerlの話</h1>
+
+<p>どうも, YAPCが終わって文字通り燃え尽きているpapixです.<br/>
+今日は, ｢SeleniumとPerlの話｣ということで, YAPC::Asiaの前夜祭であるLTソンで発表した｢Seleniumで捗る話｣の補足(?)エントリを書いてみようと思います.</p>
+
+<h2>Selenium IDEを導入する</h2>
+
+<p>Seleniumのテストを書く一番簡単な方法は, Selenium IDEを利用する方法です.<br/>
+というわけで, まずはSelenium IDEをインストールしましょう.</p>
+
+<p>ちなみにSelenium IDEはFirefoxのアドオンなので, Chrome派の人は仕方ないと思いますがまずはFirefoxの導入からスタートしてください.<br/>
+まあ, Firefoxは艦これ用の便利なアドオンがいくつかあるので, 提督エンジニアな方は導入済みだぜ! という感じだと思います.</p>
+
+<p>Selenium IDEは<a href="http://docs.seleniumhq.org/download/">こちら</a>のページからダウンロードすることができます.<br/>
+2013年9月24日現在の最新版は2.4.0です. ページ上部にある｢Download latest relased version 2.4.0 relased on...｣の｢2.4.0｣の部分をクリックして, アドオンを導入しましょう.<br/>
+導入後, 再起動すればSelenium IDEが使えるようになります.</p>
+
+<p>Perlを利用している人は, ついでに<a href="https://addons.mozilla.org/ja/firefox/addon/selenium-ide-perl-formatter/">Selenium IDE: Perl Formatter</a>というアドオンを入れておきましょう.<br/>
+このアドオンを入れることで, 後述のTest::WWW::Seleniumに対応したテストを出力することができます.</p>
+
+<h2>Selenium IDEでテストを作る</h2>
+
+<p>それでは, 早速Selenium IDEでテストを書いてみましょう.<br/>
+今回は, LTソンで発表したような｢クッキークリッカーを自動でクリックする｣ことを試すテスト(?)を作ってみます.</p>
+
+<p>Firefoxを起動すると, 右上に｢Se｣と書かれたアイコンがあるはずです.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-icon.png" alt="Seleniumのアイコン" /></p>
+
+<p>これをクリックすると, 次のような画面が開きます(Ubuntu上のFirefoxで動かしているので, Mac OS XやWindowsで動かした場合と若干外観が異なるかもしれませんが, 大まかな構造は同じはずです).</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-ide.png" alt="Selenium IDE" /></p>
+
+<p>中央の, ｢テーブル｣と書かれた部分にSeleniumのテストコマンドを入力していきます.<br/>
+もっとも手動で入力するのは面倒なので, 自分でブラウザを操作して, その操作に対応したテストコマンドを出力することもできます.<br/>
+右上の, 赤い丸が凹んでいれば(?), 操作のテストコマンド化が有効になっています(初期状態でそうなっているはずです).</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-cap.png" alt="有効な状態" /></p>
+
+<p>このマーカーをクリックすれば, 凹んだ状態が解除されます. こうなると, Selenium IDEはいくらブラウザを操作しても, その操作を自動的にテストコマンド化しなくなります.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-no-cap.png" alt="無効な状態" /></p>
+
+<p>まずはこの状態にしてから, [クッキークリッカー](http://orteil.dashnet.org/cookieclicker/]のページに移動して, そこからテストコマンドの自動生成を有効にするとよいでしょう.</p>
+
+<p>では, 実際にクッキーをクリックしてみます. すると...</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-cookie-test.png" alt="無効な状態" /></p>
+
+<p>このように, ｢クッキーをクリックする｣テストコマンドが生成されました!<br/>
+上部中央の, ｢現在のテストケースを実行｣ボタンを押せば, 実際にそのテストを実行することができます.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-exec.png" alt="｢現在のテストケースを実行｣ボタン" /></p>
+
+<p>おそらく, クッキーが自動でクリックされ, クッキーの枚数が1枚増えるはずです.<br/>
+更に, Selenium IDEの方を見ると, 成功したコマンドの部分の背景が緑色になっているはずです(ちなみに失敗だと, 背景が赤色になります).</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/selenium-success.png" alt="成功!" /></p>
+
+<p>というわけで, 次はこのテストコマンドをTest::WWW::Seleniumに対応したコードに出力してみましょう.</p>
+
+<h2>テストコマンドの出力と実行</h2>
+
+<p>Selenium IDEの｢ファイル｣から｢テストケースをエクスポート｣, ｢Perl｣と選ぶと, Test::WWW::Seleniumに対応したスクリプトを出力することができます.<br/>
+先程のクッキーをクリックするテストの場合, 次のようなスクリプトになります.</p>
+
+<pre><code>use strict;
+use warnings;
+use Time::HiRes qw(sleep);
+use Test::WWW::Selenium;
+use Test::More "no_plan";
+use Test::Exception;
+
+my $sel = Test::WWW::Selenium-&gt;new( host =&gt; "localhost", 
+                                    port =&gt; 4444, 
+                                    browser =&gt; "*chrome", 
+                                    browser_url =&gt; "http://orteil.dashnet.org/" );
+
+$sel-&gt;open_ok("/cookieclicker/");
+$sel-&gt;click_ok("id=bigCookie");
+</code></pre>
+
+<p>というわけで, これを実行する為の環境を作りましょう.</p>
+
+<h3>Test::WWW::Seleniumの導入</h3>
+
+<p>Test::WWW::Seleniumの導入は簡単で, cpanm等で<code>WWW::Selenium</code>を入れればOKです.</p>
+
+<pre><code>$ cpanm WWW::Selenium
+</code></pre>
+
+<h3>Selenium Serverの用意</h3>
+
+<p>で, もう1つ用意する必要があるのが｢Selenium Server｣.<br/>
+Test::WWW::Selenium及びWWW::Seleniumは, Selenium Serverと呼ばれるサーバに処理を投げて, Selenium Serverがブラウザを起動し, 投げられた処理を実行して, その結果を返す... という流れでSeleniumを動かします.<br/>
+Selenium Serverは, Selenium IDEと同じく<a href="http://docs.seleniumhq.org/download/">こちら</a>のページからダウンロードすることができます.<br/>
+現時点での最新版は2.35.0なので, ページ中央部の｢Download version 2.35.0｣をクリックして, Selenium Serverをダウンロードします.</p>
+
+<p>あとは, Javaさえ導入できていれば, <code>java -jar selenium-server-standalone-2.35.0.jar</code>でSelenium Serverを起動することができます.<br/>
+あとは, 先程生成したスクリプトを実行すれば, 自動的にブラウザが開き, クッキーを叩いてくれることでしょう!</p>
+
+<h3>WWW::Seleniumの利用</h3>
+
+<p>Test::WWW::Seleniumを使わずに, WWW::Seleniumを使ってコマンド風に(?)使うには,</p>
+
+<ul>
+<li><code>Test::WWW::Selenium-&gt;new( ... )</code>を<code>WWW::Selenium-&gt;new( ... )</code>に書き換える</li>
+<li>テストメソッドの<code>_ok</code>を取り除く</li>
+<li>最初に<code>$sel-&gt;start;</code>を付加する</li>
+</ul>
+
+
+<p>...だけでOKのようです.<br/>
+なので, クッキーを叩く部分を自動化(永遠に叩き続ける)するには,</p>
+
+<pre><code>use strict;
+use warnings;
+use WWW::Selenium;
+
+my $sel = WWW::Selenium-&gt;new(
+    host =&gt; "localhost", 
+    port =&gt; 4444, 
+    browser =&gt; "*firefox", 
+    browser_url =&gt; "http://orteil.dashnet.org/",
+);
+
+$sel-&gt;start;
+$sel-&gt;open("/cookieclicker/");
+while (1) {
+    $sel-&gt;click("id=bigCookie");
+}
+</code></pre>
+
+<p>こんな感じにしてやればOKのようです.</p>
+
+<h2>更に極めん, Selenium道!?</h2>
+
+<p>という訳で, クッキークリッカーを例に, Selenium IDEとSelenium Server, そしてWWW::Selenium及びTest::WWW::Seleniumの使い方を簡単になぞってみました.</p>
+
+<p>Seleniumを使えば, ブラウザを使ったWebアプリのテストが簡単に実現できるので, ｢まずは必要な機能がちゃんと動くかだけでもテストしないと...｣という場合とかに活用できそうです.<br/>
+機会があれば, このHachioji.pm 日めくりテックトークなり, 自分のブログなりでSeleniumネタを紹介していきたいと思っておりますので, 乞うご期待!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-26:entry-2013-09-24-selenium.html</id>
+<published>2013-09-24T59:59:00+0900</published>
+<updated>2013-09-26T00:04:31+09:00</updated>
+</entry>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -174,158 +326,6 @@
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-26T00:00:08+09:00</updated>
-</entry>
-<entry>
-<title type="text">SeleniumとPerlの話</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>SeleniumとPerlの話</h1>
-
-<p>どうも, YAPCが終わって文字通り燃え尽きているpapixです.<br/>
-今日は, ｢SeleniumとPerlの話｣ということで, YAPC::Asiaの前夜祭であるLTソンで発表した｢Seleniumで捗る話｣の補足(?)エントリを書いてみようと思います.</p>
-
-<h2>Selenium IDEを導入する</h2>
-
-<p>Seleniumのテストを書く一番簡単な方法は, Selenium IDEを利用する方法です.<br/>
-というわけで, まずはSelenium IDEをインストールしましょう.</p>
-
-<p>ちなみにSelenium IDEはFirefoxのアドオンなので, Chrome派の人は仕方ないと思いますがまずはFirefoxの導入からスタートしてください.<br/>
-まあ, Firefoxは艦これ用の便利なアドオンがいくつかあるので, 提督エンジニアな方は導入済みだぜ! という感じだと思います.</p>
-
-<p>Selenium IDEは<a href="http://docs.seleniumhq.org/download/">こちら</a>のページからダウンロードすることができます.<br/>
-2013年9月24日現在の最新版は2.4.0です. ページ上部にある｢Download latest relased version 2.4.0 relased on...｣の｢2.4.0｣の部分をクリックして, アドオンを導入しましょう.<br/>
-導入後, 再起動すればSelenium IDEが使えるようになります.</p>
-
-<p>Perlを利用している人は, ついでに<a href="https://addons.mozilla.org/ja/firefox/addon/selenium-ide-perl-formatter/">Selenium IDE: Perl Formatter</a>というアドオンを入れておきましょう.<br/>
-このアドオンを入れることで, 後述のTest::WWW::Seleniumに対応したテストを出力することができます.</p>
-
-<h2>Selenium IDEでテストを作る</h2>
-
-<p>それでは, 早速Selenium IDEでテストを書いてみましょう.<br/>
-今回は, LTソンで発表したような｢クッキークリッカーを自動でクリックする｣ことを試すテスト(?)を作ってみます.</p>
-
-<p>Firefoxを起動すると, 右上に｢Se｣と書かれたアイコンがあるはずです.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-icon.png" alt="Seleniumのアイコン" /></p>
-
-<p>これをクリックすると, 次のような画面が開きます(Ubuntu上のFirefoxで動かしているので, Mac OS XやWindowsで動かした場合と若干外観が異なるかもしれませんが, 大まかな構造は同じはずです).</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-ide.png" alt="Selenium IDE" /></p>
-
-<p>中央の, ｢テーブル｣と書かれた部分にSeleniumのテストコマンドを入力していきます.<br/>
-もっとも手動で入力するのは面倒なので, 自分でブラウザを操作して, その操作に対応したテストコマンドを出力することもできます.<br/>
-右上の, 赤い丸が凹んでいれば(?), 操作のテストコマンド化が有効になっています(初期状態でそうなっているはずです).</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-cap.png" alt="有効な状態" /></p>
-
-<p>このマーカーをクリックすれば, 凹んだ状態が解除されます. こうなると, Selenium IDEはいくらブラウザを操作しても, その操作を自動的にテストコマンド化しなくなります.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-no-cap.png" alt="無効な状態" /></p>
-
-<p>まずはこの状態にしてから, [クッキークリッカー](http://orteil.dashnet.org/cookieclicker/]のページに移動して, そこからテストコマンドの自動生成を有効にするとよいでしょう.</p>
-
-<p>では, 実際にクッキーをクリックしてみます. すると...</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-cookie-test.png" alt="無効な状態" /></p>
-
-<p>このように, ｢クッキーをクリックする｣テストコマンドが生成されました!<br/>
-上部中央の, ｢現在のテストケースを実行｣ボタンを押せば, 実際にそのテストを実行することができます.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-exec.png" alt="｢現在のテストケースを実行｣ボタン" /></p>
-
-<p>おそらく, クッキーが自動でクリックされ, クッキーの枚数が1枚増えるはずです.<br/>
-更に, Selenium IDEの方を見ると, 成功したコマンドの部分の背景が緑色になっているはずです(ちなみに失敗だと, 背景が赤色になります).</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/selenium-success.png" alt="成功!" /></p>
-
-<p>というわけで, 次はこのテストコマンドをTest::WWW::Seleniumに対応したコードに出力してみましょう.</p>
-
-<h2>テストコマンドの出力と実行</h2>
-
-<p>Selenium IDEの｢ファイル｣から｢テストケースをエクスポート｣, ｢Perl｣と選ぶと, Test::WWW::Seleniumに対応したスクリプトを出力することができます.<br/>
-先程のクッキーをクリックするテストの場合, 次のようなスクリプトになります.</p>
-
-<pre><code>use strict;
-use warnings;
-use Time::HiRes qw(sleep);
-use Test::WWW::Selenium;
-use Test::More "no_plan";
-use Test::Exception;
-
-my $sel = Test::WWW::Selenium-&gt;new( host =&gt; "localhost", 
-                                    port =&gt; 4444, 
-                                    browser =&gt; "*chrome", 
-                                    browser_url =&gt; "http://orteil.dashnet.org/" );
-
-$sel-&gt;open_ok("/cookieclicker/");
-$sel-&gt;click_ok("id=bigCookie");
-</code></pre>
-
-<p>というわけで, これを実行する為の環境を作りましょう.</p>
-
-<h3>Test::WWW::Seleniumの導入</h3>
-
-<p>Test::WWW::Seleniumの導入は簡単で, cpanm等で<code>WWW::Selenium</code>を入れればOKです.</p>
-
-<pre><code>$ cpanm WWW::Selenium
-</code></pre>
-
-<h3>Selenium Serverの用意</h3>
-
-<p>で, もう1つ用意する必要があるのが｢Selenium Server｣.<br/>
-Test::WWW::Selenium及びWWW::Seleniumは, Selenium Serverと呼ばれるサーバに処理を投げて, Selenium Serverがブラウザを起動し, 投げられた処理を実行して, その結果を返す... という流れでSeleniumを動かします.<br/>
-Selenium Serverは, Selenium IDEと同じく<a href="http://docs.seleniumhq.org/download/">こちら</a>のページからダウンロードすることができます.<br/>
-現時点での最新版は2.35.0なので, ページ中央部の｢Download version 2.35.0｣をクリックして, Selenium Serverをダウンロードします.</p>
-
-<p>あとは, Javaさえ導入できていれば, <code>java -jar selenium-server-standalone-2.35.0.jar</code>でSelenium Serverを起動することができます.<br/>
-あとは, 先程生成したスクリプトを実行すれば, 自動的にブラウザが開き, クッキーを叩いてくれることでしょう!</p>
-
-<h3>WWW::Seleniumの利用</h3>
-
-<p>Test::WWW::Seleniumを使わずに, WWW::Seleniumを使ってコマンド風に(?)使うには,</p>
-
-<ul>
-<li><code>Test::WWW::Selenium-&gt;new( ... )</code>を<code>WWW::Selenium-&gt;new( ... )</code>に書き換える</li>
-<li>テストメソッドの<code>_ok</code>を取り除く</li>
-<li>最初に<code>$sel-&gt;start;</code>を付加する</li>
-</ul>
-
-
-<p>...だけでOKのようです.<br/>
-なので, クッキーを叩く部分を自動化(永遠に叩き続ける)するには,</p>
-
-<pre><code>use strict;
-use warnings;
-use WWW::Selenium;
-
-my $sel = WWW::Selenium-&gt;new(
-    host =&gt; "localhost", 
-    port =&gt; 4444, 
-    browser =&gt; "*firefox", 
-    browser_url =&gt; "http://orteil.dashnet.org/",
-);
-
-$sel-&gt;start;
-$sel-&gt;open("/cookieclicker/");
-while (1) {
-    $sel-&gt;click("id=bigCookie");
-}
-</code></pre>
-
-<p>こんな感じにしてやればOKのようです.</p>
-
-<h2>更に極めん, Selenium道!?</h2>
-
-<p>という訳で, クッキークリッカーを例に, Selenium IDEとSelenium Server, そしてWWW::Selenium及びTest::WWW::Seleniumの使い方を簡単になぞってみました.</p>
-
-<p>Seleniumを使えば, ブラウザを使ったWebアプリのテストが簡単に実現できるので, ｢まずは必要な機能がちゃんと動くかだけでもテストしないと...｣という場合とかに活用できそうです.<br/>
-機会があれば, このHachioji.pm 日めくりテックトークなり, 自分のブログなりでSeleniumネタを紹介していきたいと思っておりますので, 乞うご期待!</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-26:entry-2013-09-24-selenium.html</id>
-<published>2013-09-24T59:59:00+0900</published>
 <updated>2013-09-26T00:00:08+09:00</updated>
 </entry>
 <entry>
