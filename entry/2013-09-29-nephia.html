@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？ | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/perl.html">perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</h1>
+
+<p>はい、ハチオージピーエム日めくりテックトークのお時間がやってまいりました！9月29日の土曜日、時刻は16時54分を回ったところです。皆さんこんばんは！今日は私、わいとんぼーい(ytnobody)がお茶の間にテックな話題をお届けしてまいります！</p>
+
+<p>さて、今日は肉の日です。えー皆さん、お肉たべてますか？お肉たべましょうね！もちろんお肉だけじゃダメなので、野菜もバランスよく食べるといいですよー。今日の夕御飯はどんな肉料理が食卓に並ぶのでしょうか、楽しみですねー。</p>
+
+<p>そして！年に一度の「苦肉の策」の日でもあります。まあこれは私あたりが勝手にそう言ってるだけではありますけれども、そろそろわれらがハチオージピーエムの面々もエントリを書くのがだるくなってきたせいか、3日ほどこちらの日めくりテックトークも「苦肉の策」として、わたくしにパーソナリティのバトンが回ってきた次第です。・・・嘘です（笑</p>
+
+<p>えー、それではそろそろ本日のメインコーナーにまいりたいと思います。</p>
+
+<p>実はですね、今朝8:30ころにわたくし「ネフィア(Nephia)」というモジュールをCPANにリリース致しました！あーどうもどうも！ありがとうございますー！</p>
+
+<p>それでですね、今日はその簡単な使い方の説明と、あとざっくりとした特徴といいますか、そう言うところをですね、説明していきたいと思うんですねー、どうですかちょっと楽しみになってきたんじゃないですか？</p>
+
+<p>えーまずですね使いかたの方を説明していきますねー、っと、今日はこの説明のためにノートパソコンを用意していただいたんですけども、こちらのパソコンにはplenvと言うものが入っていてですね、そこにcpanmというものが用意されていると、いうことです。あ、もうNephiaもインストール済みなんですか？・・・あー、入ってるんですね、すいません、もう入ってるそうです！</p>
+
+<p>じゃあ早速ですけど、すごく単純なwebアプリを作っていきましょうねー、大丈夫です20秒くらいで出来上がりますので！あっさりしていて今晩のおかずにもぴったりですよ！じゃあ次のようなコマンドを実行してみますねー、はいっ！</p>
+
+<pre><code>$ nephia-setup MyApp
+</code></pre>
+
+<p><img src="http://hachiojipm.github.io/static/image/nephia-01.png" alt="実行！" /></p>
+
+<p>そうすると、ほら、何か色々でてきましたねー！なんとですね、これで完成です・・・！！じゃあ早速試食してみましょう！</p>
+
+<pre><code>$ cd MyApp
+$ plackup
+</code></pre>
+
+<p>はい！これで http://hachiojipm.github.io:5000/ にアクセスしてみるとですね、なんともシンプルな味わいのページが表示されましたね！中身も非常にシンプルでして、こんな感じになっておりまーす！</p>
+
+<pre><code>MyApp/
+├── Changes
+├── app.psgi
+├── cpanfile
+├── lib
+│   └── MyApp.pm
+└── t
+    └── 001_use.t
+</code></pre>
+
+<p>肝になりそうなファイルをみていきますと、まずapp.psgiですがこんな感じ。</p>
+
+<pre><code>use strict;
+use warnings;
+use File::Spec;
+use File::Basename 'dirname';
+use lib (
+    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
+);
+use MyApp;
+
+MyApp-&gt;run;
+</code></pre>
+
+<p>だいぶシンプルですねー、そして、本体であるlib/MyApp.pmはこんな感じになっています！</p>
+
+<pre><code>package MyApp;
+use strict;
+use warnings;
+use Nephia;
+
+our $VERSION = 0.80;
+
+app {
+    [200, [], 'Hello, World!'];
+};
+
+1;
+</code></pre>
+
+<p>はい！こちらもまたえらくシンプルですねー！見て分かると思いますけど、Nephia自体ではなんとディスパッチャーとかルーターと呼ばれるものをですね、持っていないんですねー。そしてそして、テンプレートエンジンも含んでいないんです！とにっかく小さいwebアプリケーションに特化していますので、Nephia＝Plackに毛のはえた程度 と思っていただいて大体間違いないんじゃないかと思います！</p>
+
+<p>まあでも、さすがにこれではちょっとシンプル過ぎて・・・という奥様方もいらっしゃると思います。そうでしょうそうでしょう！実はですね、今やったのはMinimalセットアップという方法でプロジェクトをでっち上げたんですね。で、ミニマルというだけあって、本当になにもないんですよ。なので、もう少しダシの効いた仕上がりになるセットアップ方法という物もご紹介いたします。</p>
+
+<p>はい、それでは今度はcpanmでNephia::Setup::Plugin::Normal というものをですね、準備しておいていただきまして、以下のようにセットアップを実行してみてください。</p>
+
+<pre><code>$ nephia-setup SuperMyApp --plugins Normal
+</code></pre>
+
+<p><img src="http://hachiojipm.github.io/static/image/nephia-02.png" alt="実行！" /></p>
+
+<p>これでできあがりです。先ほどと同じようにplackupして、ブラウザでアクセスしてみますと、なんとbootstrapでレイアウトが組まれたページがでてきましたね！</p>
+
+<p>中身をみてみますと、こんな感じです。</p>
+
+<pre><code>SuperMyApp/
+├── Changes
+├── app.psgi
+├── cpanfile
+├── lib
+│   └── SuperMyApp.pm
+├── static
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   ├── bootstrap-responsive.css
+│   │   │   ├── bootstrap-responsive.min.css
+│   │   │   ├── bootstrap.css
+│   │   │   └── bootstrap.min.css
+│   │   ├── img
+│   │   │   ├── glyphicons-halflings-white.png
+│   │   │   └── glyphicons-halflings.png
+│   │   └── js
+│   │       ├── bootstrap.js
+│   │       └── bootstrap.min.js
+│   └── js
+│       └── jquery.min.js
+├── t
+│   └── 001_use.t
+└── view
+    └── index.html
+</code></pre>
+
+<p>で、先ほどと同様にこちらもapp.psgiをみてみますと、</p>
+
+<pre><code>use strict;
+use warnings;
+use Plack::Builder;
+use Plack::Session::Store::Cache;
+use Cache::SharedMemoryCache;
+use File::Spec;
+use File::Basename 'dirname';
+use lib (
+    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
+);
+use SuperMyApp;
+
+my $app           = SuperMyApp-&gt;run;
+my $root          = File::Spec-&gt;rel2abs(File::Spec-&gt;catdir(dirname(__FILE__)));
+my $session_cache = Cache::SharedMemoryCache-&gt;new({
+    namespace          =&gt; 'SuperMyApp',
+    default_expires_in =&gt; 600,
+});
+
+builder {
+    enable_if { $ENV{PLACK_ENV} =~ /^dev/ } 'StackTrace', force =&gt; 1;
+    enable 'Static', (
+        root =&gt; $root,
+        path =&gt; qr{^/static/},
+    );
+    enable 'Session', (
+        store =&gt; Plack::Session::Store::Cache-&gt;new(
+            cache =&gt; $session_cache,
+        ),
+    );
+    enable 'CSRFBlock';
+    $app;
+};
+</code></pre>
+
+<p>そして lib/SuperMyApp.pmは、この様になっております。</p>
+
+<pre><code>package SuperMyApp;
+use strict;
+use warnings;
+use File::Spec;
+
+our $VERSION = 0.01;
+
+use Nephia plugins =&gt; [
+    'JSON',
+    'View::MicroTemplate' =&gt; {
+        include_path =&gt; [File::Spec-&gt;catdir('view')],
+    },
+    'ResponseHandler',
+    'Dispatch',
+];
+
+app {
+    get '/' =&gt; sub {
+        {template =&gt; 'index.html', appname =&gt; 'SuperMyApp'};
+    };
+
+    get '/simple' =&gt; sub { 
+        [200, [], 'Hello, World!']; 
+    };
+
+    get '/json' =&gt; sub { 
+        {message =&gt; 'Hello, JSON World'};
+    };
+};
+
+1;
+</code></pre>
+
+<p>よく見ると、ディスパッチャーがありますけれど、このセットアップ方法はNormalセットアップといいまして、このノーマルな方法でセットアップをこなすと、ディスパッチャーとテンプレート、それからなんとJSON出力機能がついてくるんですねー、非常に便利になりました！</p>
+
+<p>さて、ここまでざくざくーっと使い方と中身を見ていただきましたが、このNephia、最大の特徴は「DSL」です！プラグインをどんどん読み込んでいくと、その分DSLが追加される、というのが基本です。っと、どうやら時間となってしまった模様です！</p>
+
+<p>次回の放送予定は明日ですが、無事に放送に至ることができるのか！？ご期待ください！！！</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author"></dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-09-29 18:09</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-09-29 18:09</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
