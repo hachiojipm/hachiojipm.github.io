@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Perlの警告と例外を両方握りつぶすtypesterハック | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html">Perl の文字列エンコーディングの話</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Perlの警告と例外を両方握りつぶすtypesterハック</h1>
+
+<p>先日<a href="http://unknownplace.org/archives/start-new-company.html">独立</a>された<a href="https://twitter.com/typester">@typester</a>さんのモジュール<a href="http://search.cpan.org/~typester/GitDDL-0.02/lib/GitDDL.pm">GitDDL</a>のコードを見ていたらよくわかんところがありまして、はちぴー御用達のChatサービス<a href="http://yancha.hachiojipm.org/">yancha</a>でいろいろと教えてもらったので、そのご報告です。ちょっとマニアックな話題なので、はてぶとかでどしどし間違いだったりの突っ込みよろしくですー！</p>
+
+<h2>hackishな問題のコード</h2>
+
+<pre><code>    my $version = try { ## ここのコードがhackishでよくわからん！！！
+        open my $fh, '&gt;', \my $stderr;
+        local *STDERR = $fh;
+        $self-&gt;database_version;
+        close $fh;
+    };
+</code></pre>
+
+<p>さてこれが問題のコードです。ここだけパッと見ると、</p>
+
+<ul>
+<li>謎にtryが始まって</li>
+<li>スカラーリファレンスのファイルハンドル開いて</li>
+<li>STDERRにぶち込んで</li>
+</ul>
+
+
+<p>なんじゃこりゃ？と思ったわけです。</p>
+
+<h2>全体をみるとのコード</h2>
+
+<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たら少しわかります。</p>
+
+<pre><code>sub deploy {
+    my ($self) = @_;
+
+    my $version = try { ## ここのコードがhackishでよくわからん！！！
+        open my $fh, '&gt;', \my $stderr;
+        local *STDERR = $fh;
+        $self-&gt;database_version;
+        close $fh;
+    };
+
+    if ($version) {
+        croak "database already deployed, use upgrade_database instead";
+    }
+
+    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
+        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
+
+    $self-&gt;_do_sql($self-&gt;_slurp(File::Spec-&gt;catfile($self-&gt;work_tree, $self-&gt;ddl_file)));
+
+    $self-&gt;_do_sql(&lt;&lt;"__SQL__");
+CREATE TABLE @{[ $self-&gt;version_table ]} (
+    version VARCHAR(40) NOT NULL
+);
+__SQL__
+
+    $self-&gt;_dbh-&gt;do(
+        "INSERT INTO @{[ $self-&gt;version_table ]} (version) VALUES (?)", {}, $self-&gt;ddl_version
+    ) or croak $self-&gt;_dbh-&gt;errstr;
+}
+
+
+sub database_version {
+    my ($self) = @_;
+
+    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
+        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
+
+    my ($version) =
+        $self-&gt;_dbh-&gt;selectrow_array('SELECT version FROM ' . $self-&gt;version_table);
+
+    if (defined $version) {
+        return $version;
+    }
+    else {
+        croak "Failed to get database version, please deploy first";
+    }
+}
+</code></pre>
+
+<h2>問題を抽象化したコード</h2>
+
+<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たらよくわかりました。deployメソッドの中では、database_versionのリターンが偽が期待されているんだけど、その場合「$self->_dbh->selectrow_array('SELECT version FROM ' . $self->version_table);」でDBIの設定によって警告が出るので、それを/dev/nullに入れる的なことをしたいということなんですね。要するに、以下のコードがその状況を抽象化したもののようです。</p>
+
+<pre><code>#!/usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+binmode STDOUT, ":utf8";
+use Try::Tiny;
+use Test::More;
+
+sub warn_and_die {
+    warn "警告だよ！！";
+    die "例外だよ！！";
+}
+
+my $res = try {
+    open my $fh, '&gt;', \my $stderr;
+    local *STDERR = $fh;
+    warn_and_die();
+    close $fh;
+};
+
+ok !$res;
+
+done_testing;
+</code></pre>
+
+<h2>考察と疑問</h2>
+
+<p>まぁそれでもよくわからないことはいくつかあるのでそれについてつらつらと。</p>
+
+<h3>スカラーリファレンスを対象にファイルハンドル開けるんだ</h3>
+
+<pre><code>    open my $fh, '&gt;', \my $stderr;
+</code></pre>
+
+<p>ここですが、ほとんど見慣れないですよね。</p>
+
+<h3>STDERRにファイルハンドルを突っ込む</h3>
+
+<pre><code>local *STDERR = $fh;
+</code></pre>
+
+<p>これですね。よく</p>
+
+<pre><code>local $SIG{TERM} = sub { $cnt = 0 };
+</code></pre>
+
+<p>とかやってforkマネージャーみたいなやつで、シグナルハンドラをいじるのはみかけますが、STDERRをオーバーライドするのはぼくは初めてお目にかかりました。</p>
+
+<pre><code>local *STDERR = undef;
+</code></pre>
+
+<p>こんな感じに$fhのファイルハンドルわざわざ開かずにundef突っ込んでもよいのでは？という話もありましたがSTDERRはファイルハンドルなのでファイルハンドルをつっこまなければならないようです。</p>
+
+<h3>close $fhのリターンバリューは何か</h3>
+
+<p>tryブロックのリターンバリュー（GitDDLのコードでいう$version、先ほどの簡易コードでいう$resに入るデータ）は、close $fhの返り値になるわけですが（なるよね？）、そんなもの普段意識しないのでちょっと疑問に思いますね。数年後にはtypesterさん並みのハッカーになっているだろう<a href="https://twitter.com/mackee_w">まこぴー</a>さんが、颯爽と<a href="http://perldoc.jp/func/close">closeのドキュメント</a>付で、</p>
+
+<blockquote><p>操作が成功し、PerlIO 層からエラーが報告されなかった場合に真を返します。 引数が省略された場合、現在選択されているファイルハンドルをクローズします。</p></blockquote>
+
+<p>と教えてくれました。</p>
+
+<p>しかし、ファイルハンドルのopen,closeはよく or dieとかつけて例外処理するようなもので、close $fhて失敗したら、どうするのって思ったりもしますが、開いているファイルハンドルがスカラーリファレンスなので失敗することはないという風に解釈しました（がどうなんでしょうか？認識あっているでしょうか？）</p>
+
+<h3>そいういえばlocal $SIG{<strong>WARN</strong>} = sub {};</h3>
+
+<p>よく考えれば、$SIG{<strong>WARN</strong>}をつかえばいい気もしますが、まぁ息を吸うように書いた時の気分ってやつでしょうか。むしろ、$SIG{<strong>WARN</strong>}で代替できない問題があれば是非教えて頂きたいところです。。。</p>
+
+<h2>CPANモジュールのコードを読んで勉強しよう</h2>
+
+<p>必ずしも参考になるコードばかりではないですし、見たコードを実践すべきかどうかは別として、なんかわからないコード見つければいろいろドキュメントみたりあれこれ議論したり調べたりすると、大変Perlや広い意味でのシステム基礎知識全般への理解が深まり大変うれしいですね！</p>
+
+<p><a href="http://yancha.hachiojipm.org/quot?id=141199">typeさんのコード、hackishだから読んでたら新しい発見いろいろある</a>とまこぴーのモヒカン発言に激しく同意しつつ、いくつかのhackishなモジュールで大変お世話になっているtypesterさんの独立を激励する記事でございました！</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-10-04 06:44</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-10-04 06:44</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
