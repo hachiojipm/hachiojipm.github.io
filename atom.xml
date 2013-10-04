@@ -3,7 +3,7 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
 <updated>2013-10-05T11:14:57+09:00</updated>
 <entry>
@@ -763,9 +763,24 @@ done_testing;
 
 <p>しかし、ファイルハンドルのopen,closeはよく or dieとかつけて例外処理するようなもので、close $fhて失敗したら、どうするのって思ったりもしますが、開いているファイルハンドルがスカラーリファレンスなので失敗することはないという風に解釈しました（がどうなんでしょうか？認識あっているでしょうか？）</p>
 
-<h3>そいういえばlocal $SIG{<strong>WARN</strong>} = sub {};</h3>
+<h3>【追記：2013-10-06】close $fhは、バグっぽい</h3>
 
-<p>よく考えれば、$SIG{<strong>WARN</strong>}をつかえばいい気もしますが、まぁ息を吸うように書いた時の気分ってやつでしょうか。むしろ、$SIG{<strong>WARN</strong>}で代替できない問題があれば是非教えて頂きたいところです。。。</p>
+<p><a href="https://gist.github.com/tokuhirom/6851517">hackish でもなんでもなくて、バグってるだけじゃない?</a>って話をtokuhiromさんかツッコミ頂きました！！ありがとうございます！</p>
+
+<pre><code>my $version = try {
+    open my $fh, '&gt;', \my $stderr;
+    local *STDERR = $fh;
+    my $v = $self-&gt;database_version;
+    close $fh;
+    $v;
+};
+</code></pre>
+
+<p>個人的には、close $fhが成功したときに引数を期待していた場合,trueを返すということが知れたのは大変勉強になりましたが、tokuhiromさんに指摘して頂いた通り、コードのわかりやすさと正しさ的には上述のコードがあるべき姿だと思います。close $fhでtrueを返すようにしてなんらかのフラグにするのは場合によってはありかもしれないですが、今回のコードではないなーという話ですね。</p>
+
+<h3>そいういえばlocal $SIG{__WARN__} = sub {};</h3>
+
+<p>よく考えれば、$SIG{__WARN__}をつかえばいい気もしますが、まぁ息を吸うように書いた時の気分ってやつでしょうか。むしろ、$SIG{__WARN__}で代替できない問題があれば是非教えて頂きたいところです。。。</p>
 
 <h2>CPANモジュールのコードを読んで勉強しよう</h2>
 
