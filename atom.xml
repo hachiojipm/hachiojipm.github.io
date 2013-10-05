@@ -3,173 +3,334 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-10-04T06:44:53+09:00</updated>
+<updated>2013-10-05T11:13:44+09:00</updated>
 <entry>
-<title type="text">Perlの警告と例外を両方握りつぶすtypesterハック</title>
-<link href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html" />
+<title type="text">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html" />
 <author>
-<name>Hiroyuki Akabane</name>
+<name>ytnobody</name>
 </author>
-<content><![CDATA[<h1>Perlの警告と例外を両方握りつぶすtypesterハック</h1>
+<content><![CDATA[<h1>肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</h1>
 
-<p>先日<a href="http://unknownplace.org/archives/start-new-company.html">独立</a>された<a href="https://twitter.com/typester">@typester</a>さんのモジュール<a href="http://search.cpan.org/~typester/GitDDL-0.02/lib/GitDDL.pm">GitDDL</a>のコードを見ていたらよくわかんところがありまして、はちぴー御用達のChatサービス<a href="http://yancha.hachiojipm.org/">yancha</a>でいろいろと教えてもらったので、そのご報告です。ちょっとマニアックな話題なので、はてぶとかでどしどし間違いだったりの突っ込みよろしくですー！</p>
+<p>はい、ハチオージピーエム日めくりテックトークのお時間がやってまいりました！9月29日の土曜日、時刻は16時54分を回ったところです。皆さんこんばんは！今日は私、わいとんぼーい(ytnobody)がお茶の間にテックな話題をお届けしてまいります！</p>
 
-<h2>hackishな問題のコード</h2>
+<p>さて、今日は肉の日です。えー皆さん、お肉たべてますか？お肉たべましょうね！もちろんお肉だけじゃダメなので、野菜もバランスよく食べるといいですよー。今日の夕御飯はどんな肉料理が食卓に並ぶのでしょうか、楽しみですねー。</p>
 
-<pre><code>    my $version = try { ## ここのコードがhackishでよくわからん！！！
-        open my $fh, '&gt;', \my $stderr;
-        local *STDERR = $fh;
-        $self-&gt;database_version;
-        close $fh;
-    };
+<p>そして！年に一度の「苦肉の策」の日でもあります。まあこれは私あたりが勝手にそう言ってるだけではありますけれども、そろそろわれらがハチオージピーエムの面々もエントリを書くのがだるくなってきたせいか、3日ほどこちらの日めくりテックトークも「苦肉の策」として、わたくしにパーソナリティのバトンが回ってきた次第です。・・・嘘です（笑</p>
+
+<p>えー、それではそろそろ本日のメインコーナーにまいりたいと思います。</p>
+
+<p>実はですね、今朝8:30ころにわたくし「ネフィア(Nephia)」というモジュールをCPANにリリース致しました！あーどうもどうも！ありがとうございますー！</p>
+
+<p>それでですね、今日はその簡単な使い方の説明と、あとざっくりとした特徴といいますか、そう言うところをですね、説明していきたいと思うんですねー、どうですかちょっと楽しみになってきたんじゃないですか？</p>
+
+<p>えーまずですね使いかたの方を説明していきますねー、っと、今日はこの説明のためにノートパソコンを用意していただいたんですけども、こちらのパソコンにはplenvと言うものが入っていてですね、そこにcpanmというものが用意されていると、いうことです。あ、もうNephiaもインストール済みなんですか？・・・あー、入ってるんですね、すいません、もう入ってるそうです！</p>
+
+<p>じゃあ早速ですけど、すごく単純なwebアプリを作っていきましょうねー、大丈夫です20秒くらいで出来上がりますので！あっさりしていて今晩のおかずにもぴったりですよ！じゃあ次のようなコマンドを実行してみますねー、はいっ！</p>
+
+<pre><code>$ nephia-setup MyApp
 </code></pre>
 
-<p>さてこれが問題のコードです。ここだけパッと見ると、</p>
+<p><img src="http://hachiojipm.github.io/static/image/nephia-01.png" alt="実行！" /></p>
 
-<ul>
-<li>謎にtryが始まって</li>
-<li>スカラーリファレンスのファイルハンドル開いて</li>
-<li>STDERRにぶち込んで</li>
-</ul>
+<p>そうすると、ほら、何か色々でてきましたねー！なんとですね、これで完成です・・・！！じゃあ早速試食してみましょう！</p>
 
+<pre><code>$ cd MyApp
+$ plackup
+</code></pre>
 
-<p>なんじゃこりゃ？と思ったわけです。</p>
+<p>はい！これで http://hachiojipm.github.io:5000/ にアクセスしてみるとですね、なんともシンプルな味わいのページが表示されましたね！中身も非常にシンプルでして、こんな感じになっておりまーす！</p>
 
-<h2>全体をみるとのコード</h2>
+<pre><code>MyApp/
+├── Changes
+├── app.psgi
+├── cpanfile
+├── lib
+│   └── MyApp.pm
+└── t
+    └── 001_use.t
+</code></pre>
 
-<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たら少しわかります。</p>
+<p>肝になりそうなファイルをみていきますと、まずapp.psgiですがこんな感じ。</p>
 
-<pre><code>sub deploy {
-    my ($self) = @_;
-
-    my $version = try { ## ここのコードがhackishでよくわからん！！！
-        open my $fh, '&gt;', \my $stderr;
-        local *STDERR = $fh;
-        $self-&gt;database_version;
-        close $fh;
-    };
-
-    if ($version) {
-        croak "database already deployed, use upgrade_database instead";
-    }
-
-    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
-        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
-
-    $self-&gt;_do_sql($self-&gt;_slurp(File::Spec-&gt;catfile($self-&gt;work_tree, $self-&gt;ddl_file)));
-
-    $self-&gt;_do_sql(&lt;&lt;"__SQL__");
-CREATE TABLE @{[ $self-&gt;version_table ]} (
-    version VARCHAR(40) NOT NULL
+<pre><code>use strict;
+use warnings;
+use File::Spec;
+use File::Basename 'dirname';
+use lib (
+    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
 );
-__SQL__
+use MyApp;
 
-    $self-&gt;_dbh-&gt;do(
-        "INSERT INTO @{[ $self-&gt;version_table ]} (version) VALUES (?)", {}, $self-&gt;ddl_version
-    ) or croak $self-&gt;_dbh-&gt;errstr;
-}
-
-
-sub database_version {
-    my ($self) = @_;
-
-    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
-        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
-
-    my ($version) =
-        $self-&gt;_dbh-&gt;selectrow_array('SELECT version FROM ' . $self-&gt;version_table);
-
-    if (defined $version) {
-        return $version;
-    }
-    else {
-        croak "Failed to get database version, please deploy first";
-    }
-}
+MyApp-&gt;run;
 </code></pre>
 
-<h2>問題を抽象化したコード</h2>
+<p>だいぶシンプルですねー、そして、本体であるlib/MyApp.pmはこんな感じになっています！</p>
 
-<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たらよくわかりました。deployメソッドの中では、database_versionのリターンが偽が期待されているんだけど、その場合「$self->_dbh->selectrow_array('SELECT version FROM ' . $self->version_table);」でDBIの設定によって警告が出るので、それを/dev/nullに入れる的なことをしたいということなんですね。要するに、以下のコードがその状況を抽象化したもののようです。</p>
-
-<pre><code>#!/usr/bin/env perl
+<pre><code>package MyApp;
 use strict;
 use warnings;
-use utf8;
-binmode STDOUT, ":utf8";
-use Try::Tiny;
-use Test::More;
+use Nephia;
 
-sub warn_and_die {
-    warn "警告だよ！！";
-    die "例外だよ！！";
-}
+our $VERSION = 0.80;
 
-my $res = try {
-    open my $fh, '&gt;', \my $stderr;
-    local *STDERR = $fh;
-    warn_and_die();
-    close $fh;
+app {
+    [200, [], 'Hello, World!'];
 };
 
-ok !$res;
-
-done_testing;
+1;
 </code></pre>
 
-<h2>考察と疑問</h2>
+<p>はい！こちらもまたえらくシンプルですねー！見て分かると思いますけど、Nephia自体ではなんとディスパッチャーとかルーターと呼ばれるものをですね、持っていないんですねー。そしてそして、テンプレートエンジンも含んでいないんです！とにっかく小さいwebアプリケーションに特化していますので、Nephia＝Plackに毛のはえた程度 と思っていただいて大体間違いないんじゃないかと思います！</p>
 
-<p>まぁそれでもよくわからないことはいくつかあるのでそれについてつらつらと。</p>
+<p>まあでも、さすがにこれではちょっとシンプル過ぎて・・・という奥様方もいらっしゃると思います。そうでしょうそうでしょう！実はですね、今やったのはMinimalセットアップという方法でプロジェクトをでっち上げたんですね。で、ミニマルというだけあって、本当になにもないんですよ。なので、もう少しダシの効いた仕上がりになるセットアップ方法という物もご紹介いたします。</p>
 
-<h3>スカラーリファレンスを対象にファイルハンドル開けるんだ</h3>
+<p>はい、それでは今度はcpanmでNephia::Setup::Plugin::Normal というものをですね、準備しておいていただきまして、以下のようにセットアップを実行してみてください。</p>
 
-<pre><code>    open my $fh, '&gt;', \my $stderr;
+<pre><code>$ nephia-setup SuperMyApp --plugins Normal
 </code></pre>
 
-<p>ここですが、ほとんど見慣れないですよね。</p>
+<p><img src="http://hachiojipm.github.io/static/image/nephia-02.png" alt="実行！" /></p>
 
-<h3>STDERRにファイルハンドルを突っ込む</h3>
+<p>これでできあがりです。先ほどと同じようにplackupして、ブラウザでアクセスしてみますと、なんとbootstrapでレイアウトが組まれたページがでてきましたね！</p>
 
-<pre><code>local *STDERR = $fh;
+<p>中身をみてみますと、こんな感じです。</p>
+
+<pre><code>SuperMyApp/
+├── Changes
+├── app.psgi
+├── cpanfile
+├── lib
+│   └── SuperMyApp.pm
+├── static
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   ├── bootstrap-responsive.css
+│   │   │   ├── bootstrap-responsive.min.css
+│   │   │   ├── bootstrap.css
+│   │   │   └── bootstrap.min.css
+│   │   ├── img
+│   │   │   ├── glyphicons-halflings-white.png
+│   │   │   └── glyphicons-halflings.png
+│   │   └── js
+│   │       ├── bootstrap.js
+│   │       └── bootstrap.min.js
+│   └── js
+│       └── jquery.min.js
+├── t
+│   └── 001_use.t
+└── view
+    └── index.html
 </code></pre>
 
-<p>これですね。よく</p>
+<p>で、先ほどと同様にこちらもapp.psgiをみてみますと、</p>
 
-<pre><code>local $SIG{TERM} = sub { $cnt = 0 };
+<pre><code>use strict;
+use warnings;
+use Plack::Builder;
+use Plack::Session::Store::Cache;
+use Cache::SharedMemoryCache;
+use File::Spec;
+use File::Basename 'dirname';
+use lib (
+    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
+);
+use SuperMyApp;
+
+my $app           = SuperMyApp-&gt;run;
+my $root          = File::Spec-&gt;rel2abs(File::Spec-&gt;catdir(dirname(__FILE__)));
+my $session_cache = Cache::SharedMemoryCache-&gt;new({
+    namespace          =&gt; 'SuperMyApp',
+    default_expires_in =&gt; 600,
+});
+
+builder {
+    enable_if { $ENV{PLACK_ENV} =~ /^dev/ } 'StackTrace', force =&gt; 1;
+    enable 'Static', (
+        root =&gt; $root,
+        path =&gt; qr{^/static/},
+    );
+    enable 'Session', (
+        store =&gt; Plack::Session::Store::Cache-&gt;new(
+            cache =&gt; $session_cache,
+        ),
+    );
+    enable 'CSRFBlock';
+    $app;
+};
 </code></pre>
 
-<p>とかやってforkマネージャーみたいなやつで、シグナルハンドラをいじるのはみかけますが、STDERRをオーバーライドするのはぼくは初めてお目にかかりました。</p>
+<p>そして lib/SuperMyApp.pmは、この様になっております。</p>
 
-<pre><code>local *STDERR = undef;
+<pre><code>package SuperMyApp;
+use strict;
+use warnings;
+use File::Spec;
+
+our $VERSION = 0.01;
+
+use Nephia plugins =&gt; [
+    'JSON',
+    'View::MicroTemplate' =&gt; {
+        include_path =&gt; [File::Spec-&gt;catdir('view')],
+    },
+    'ResponseHandler',
+    'Dispatch',
+];
+
+app {
+    get '/' =&gt; sub {
+        {template =&gt; 'index.html', appname =&gt; 'SuperMyApp'};
+    };
+
+    get '/simple' =&gt; sub { 
+        [200, [], 'Hello, World!']; 
+    };
+
+    get '/json' =&gt; sub { 
+        {message =&gt; 'Hello, JSON World'};
+    };
+};
+
+1;
 </code></pre>
 
-<p>こんな感じに$fhのファイルハンドルわざわざ開かずにundef突っ込んでもよいのでは？という話もありましたがSTDERRはファイルハンドルなのでファイルハンドルをつっこまなければならないようです。</p>
+<p>よく見ると、ディスパッチャーがありますけれど、このセットアップ方法はNormalセットアップといいまして、このノーマルな方法でセットアップをこなすと、ディスパッチャーとテンプレート、それからなんとJSON出力機能がついてくるんですねー、非常に便利になりました！</p>
 
-<h3>close $fhのリターンバリューは何か</h3>
+<p>さて、ここまでざくざくーっと使い方と中身を見ていただきましたが、このNephia、最大の特徴は「DSL」です！プラグインをどんどん読み込んでいくと、その分DSLが追加される、というのが基本です。っと、どうやら時間となってしまった模様です！</p>
 
-<p>tryブロックのリターンバリュー（GitDDLのコードでいう$version、先ほどの簡易コードでいう$resに入るデータ）は、close $fhの返り値になるわけですが（なるよね？）、そんなもの普段意識しないのでちょっと疑問に思いますね。数年後にはtypesterさん並みのハッカーになっているだろう<a href="https://twitter.com/mackee_w">まこぴー</a>さんが、颯爽と<a href="http://perldoc.jp/func/close">closeのドキュメント</a>付で、</p>
-
-<blockquote><p>操作が成功し、PerlIO 層からエラーが報告されなかった場合に真を返します。 引数が省略された場合、現在選択されているファイルハンドルをクローズします。</p></blockquote>
-
-<p>と教えてくれました。</p>
-
-<p>しかし、ファイルハンドルのopen,closeはよく or dieとかつけて例外処理するようなもので、close $fhて失敗したら、どうするのって思ったりもしますが、開いているファイルハンドルがスカラーリファレンスなので失敗することはないという風に解釈しました（がどうなんでしょうか？認識あっているでしょうか？）</p>
-
-<h3>そいういえばlocal $SIG{<strong>WARN</strong>} = sub {};</h3>
-
-<p>よく考えれば、$SIG{<strong>WARN</strong>}をつかえばいい気もしますが、まぁ息を吸うように書いた時の気分ってやつでしょうか。むしろ、$SIG{<strong>WARN</strong>}で代替できない問題があれば是非教えて頂きたいところです。。。</p>
-
-<h2>CPANモジュールのコードを読んで勉強しよう</h2>
-
-<p>必ずしも参考になるコードばかりではないですし、見たコードを実践すべきかどうかは別として、なんかわからないコード見つければいろいろドキュメントみたりあれこれ議論したり調べたりすると、大変Perlや広い意味でのシステム基礎知識全般への理解が深まり大変うれしいですね！</p>
-
-<p><a href="http://yancha.hachiojipm.org/quot?id=141199">typeさんのコード、hackishだから読んでたら新しい発見いろいろある</a>とまこぴーのモヒカン発言に激しく同意しつつ、いくつかのhackishなモジュールで大変お世話になっているtypesterさんの独立を激励する記事でございました！</p>
+<p>次回の放送予定は明日ですが、無事に放送に至ることができるのか！？ご期待ください！！！</p>
 ]]></content>
-<id>tag:hachiojipm.github.io,2013-10-04:entry-2013-10-04-warn-die-hack.html</id>
-<published>2013-10-04T44:44:53+0900</published>
-<updated>2013-10-04T06:44:53+09:00</updated>
+<id>tag:hachiojipm.github.io,2013-09-29:entry-2013-09-29-nephia.html</id>
+<published>2013-09-29T10:10:07+0900</published>
+<updated>2013-10-05T11:13:44+09:00</updated>
+</entry>
+<entry>
+<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
+
+<h2>これまでの記事</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/09/25(水) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html">Perlの警告と例外を両方握りつぶすtypesterハック</a></td>
+</tr>
+<tr>
+<td>2013/10/01(火) </td>
+<td> moznion    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html">Perlの文字列エンコーディングの話</a></td>
+</tr>
+<tr>
+<td>2013/09/25(水) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a></td>
+</tr>
+<tr>
+<td>2013/09/24(火) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html">SeleniumとPerlの話</a></td>
+</tr>
+<tr>
+<td>2013/09/23(月) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
+</tr>
+<tr>
+<td>2013/09/18(水) </td>
+<td> Spring_MT  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
+</tr>
+<tr>
+<td>2013/09/17(火) </td>
+<td> ichigotake </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
+</tr>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
+</tr>
+<tr>
+<td>2013/09/15(日) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
+</tr>
+<tr>
+<td>2013/09/14(土) </td>
+<td> Songmu     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
+</tr>
+<tr>
+<td>2013/09/13(金) </td>
+<td> ytnobody   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
+</tr>
+<tr>
+<td>2013/09/12(木) </td>
+<td> uzulla     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
+</tr>
+<tr>
+<td>2013/09/11(水) </td>
+<td> boolfool   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/10(火) </td>
+<td> moznion    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/09(月) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>概要</h2>
+
+<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
+書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
+
+<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
+
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
+<published>2013-09-09T47:47:09+0900</published>
+<updated>2013-10-05T11:13:44+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perl の文字列エンコーディングの話</title>
@@ -448,389 +609,173 @@ LEN = 28
 <p><a href="http://atnd.org/events/44147">http://atnd.org/events/44147</a></p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-10-01:entry-2013-10-01-encoding.html</id>
-<published>2013-10-01T20:20:53+0900</published>
-<updated>2013-10-01T23:52:39+09:00</updated>
+<published>2013-10-01T52:52:00+0900</published>
+<updated>2013-10-05T11:13:44+09:00</updated>
 </entry>
 <entry>
-<title type="text">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html" />
+<title type="text">Perlの警告と例外を両方握りつぶすtypesterハック</title>
+<link href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html" />
 <author>
-<name>ytnobody</name>
+<name>Hiroyuki Akabane</name>
 </author>
-<content><![CDATA[<h1>肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</h1>
+<content><![CDATA[<h1>Perlの警告と例外を両方握りつぶすtypesterハック</h1>
 
-<p>はい、ハチオージピーエム日めくりテックトークのお時間がやってまいりました！9月29日の土曜日、時刻は16時54分を回ったところです。皆さんこんばんは！今日は私、わいとんぼーい(ytnobody)がお茶の間にテックな話題をお届けしてまいります！</p>
+<p>先日<a href="http://unknownplace.org/archives/start-new-company.html">独立</a>された<a href="https://twitter.com/typester">@typester</a>さんのモジュール<a href="http://search.cpan.org/~typester/GitDDL-0.02/lib/GitDDL.pm">GitDDL</a>のコードを見ていたらよくわかんところがありまして、はちぴー御用達のChatサービス<a href="http://yancha.hachiojipm.org/">yancha</a>でいろいろと教えてもらったので、そのご報告です。ちょっとマニアックな話題なので、はてぶとかでどしどし間違いだったりの突っ込みよろしくですー！</p>
 
-<p>さて、今日は肉の日です。えー皆さん、お肉たべてますか？お肉たべましょうね！もちろんお肉だけじゃダメなので、野菜もバランスよく食べるといいですよー。今日の夕御飯はどんな肉料理が食卓に並ぶのでしょうか、楽しみですねー。</p>
+<h2>hackishな問題のコード</h2>
 
-<p>そして！年に一度の「苦肉の策」の日でもあります。まあこれは私あたりが勝手にそう言ってるだけではありますけれども、そろそろわれらがハチオージピーエムの面々もエントリを書くのがだるくなってきたせいか、3日ほどこちらの日めくりテックトークも「苦肉の策」として、わたくしにパーソナリティのバトンが回ってきた次第です。・・・嘘です（笑</p>
-
-<p>えー、それではそろそろ本日のメインコーナーにまいりたいと思います。</p>
-
-<p>実はですね、今朝8:30ころにわたくし「ネフィア(Nephia)」というモジュールをCPANにリリース致しました！あーどうもどうも！ありがとうございますー！</p>
-
-<p>それでですね、今日はその簡単な使い方の説明と、あとざっくりとした特徴といいますか、そう言うところをですね、説明していきたいと思うんですねー、どうですかちょっと楽しみになってきたんじゃないですか？</p>
-
-<p>えーまずですね使いかたの方を説明していきますねー、っと、今日はこの説明のためにノートパソコンを用意していただいたんですけども、こちらのパソコンにはplenvと言うものが入っていてですね、そこにcpanmというものが用意されていると、いうことです。あ、もうNephiaもインストール済みなんですか？・・・あー、入ってるんですね、すいません、もう入ってるそうです！</p>
-
-<p>じゃあ早速ですけど、すごく単純なwebアプリを作っていきましょうねー、大丈夫です20秒くらいで出来上がりますので！あっさりしていて今晩のおかずにもぴったりですよ！じゃあ次のようなコマンドを実行してみますねー、はいっ！</p>
-
-<pre><code>$ nephia-setup MyApp
-</code></pre>
-
-<p><img src="http://hachiojipm.github.io/static/image/nephia-01.png" alt="実行！" /></p>
-
-<p>そうすると、ほら、何か色々でてきましたねー！なんとですね、これで完成です・・・！！じゃあ早速試食してみましょう！</p>
-
-<pre><code>$ cd MyApp
-$ plackup
-</code></pre>
-
-<p>はい！これで http://hachiojipm.github.io:5000/ にアクセスしてみるとですね、なんともシンプルな味わいのページが表示されましたね！中身も非常にシンプルでして、こんな感じになっておりまーす！</p>
-
-<pre><code>MyApp/
-├── Changes
-├── app.psgi
-├── cpanfile
-├── lib
-│   └── MyApp.pm
-└── t
-    └── 001_use.t
-</code></pre>
-
-<p>肝になりそうなファイルをみていきますと、まずapp.psgiですがこんな感じ。</p>
-
-<pre><code>use strict;
-use warnings;
-use File::Spec;
-use File::Basename 'dirname';
-use lib (
-    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
-);
-use MyApp;
-
-MyApp-&gt;run;
-</code></pre>
-
-<p>だいぶシンプルですねー、そして、本体であるlib/MyApp.pmはこんな感じになっています！</p>
-
-<pre><code>package MyApp;
-use strict;
-use warnings;
-use Nephia;
-
-our $VERSION = 0.80;
-
-app {
-    [200, [], 'Hello, World!'];
-};
-
-1;
-</code></pre>
-
-<p>はい！こちらもまたえらくシンプルですねー！見て分かると思いますけど、Nephia自体ではなんとディスパッチャーとかルーターと呼ばれるものをですね、持っていないんですねー。そしてそして、テンプレートエンジンも含んでいないんです！とにっかく小さいwebアプリケーションに特化していますので、Nephia＝Plackに毛のはえた程度 と思っていただいて大体間違いないんじゃないかと思います！</p>
-
-<p>まあでも、さすがにこれではちょっとシンプル過ぎて・・・という奥様方もいらっしゃると思います。そうでしょうそうでしょう！実はですね、今やったのはMinimalセットアップという方法でプロジェクトをでっち上げたんですね。で、ミニマルというだけあって、本当になにもないんですよ。なので、もう少しダシの効いた仕上がりになるセットアップ方法という物もご紹介いたします。</p>
-
-<p>はい、それでは今度はcpanmでNephia::Setup::Plugin::Normal というものをですね、準備しておいていただきまして、以下のようにセットアップを実行してみてください。</p>
-
-<pre><code>$ nephia-setup SuperMyApp --plugins Normal
-</code></pre>
-
-<p><img src="http://hachiojipm.github.io/static/image/nephia-02.png" alt="実行！" /></p>
-
-<p>これでできあがりです。先ほどと同じようにplackupして、ブラウザでアクセスしてみますと、なんとbootstrapでレイアウトが組まれたページがでてきましたね！</p>
-
-<p>中身をみてみますと、こんな感じです。</p>
-
-<pre><code>SuperMyApp/
-├── Changes
-├── app.psgi
-├── cpanfile
-├── lib
-│   └── SuperMyApp.pm
-├── static
-│   ├── bootstrap
-│   │   ├── css
-│   │   │   ├── bootstrap-responsive.css
-│   │   │   ├── bootstrap-responsive.min.css
-│   │   │   ├── bootstrap.css
-│   │   │   └── bootstrap.min.css
-│   │   ├── img
-│   │   │   ├── glyphicons-halflings-white.png
-│   │   │   └── glyphicons-halflings.png
-│   │   └── js
-│   │       ├── bootstrap.js
-│   │       └── bootstrap.min.js
-│   └── js
-│       └── jquery.min.js
-├── t
-│   └── 001_use.t
-└── view
-    └── index.html
-</code></pre>
-
-<p>で、先ほどと同様にこちらもapp.psgiをみてみますと、</p>
-
-<pre><code>use strict;
-use warnings;
-use Plack::Builder;
-use Plack::Session::Store::Cache;
-use Cache::SharedMemoryCache;
-use File::Spec;
-use File::Basename 'dirname';
-use lib (
-    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
-);
-use SuperMyApp;
-
-my $app           = SuperMyApp-&gt;run;
-my $root          = File::Spec-&gt;rel2abs(File::Spec-&gt;catdir(dirname(__FILE__)));
-my $session_cache = Cache::SharedMemoryCache-&gt;new({
-    namespace          =&gt; 'SuperMyApp',
-    default_expires_in =&gt; 600,
-});
-
-builder {
-    enable_if { $ENV{PLACK_ENV} =~ /^dev/ } 'StackTrace', force =&gt; 1;
-    enable 'Static', (
-        root =&gt; $root,
-        path =&gt; qr{^/static/},
-    );
-    enable 'Session', (
-        store =&gt; Plack::Session::Store::Cache-&gt;new(
-            cache =&gt; $session_cache,
-        ),
-    );
-    enable 'CSRFBlock';
-    $app;
-};
-</code></pre>
-
-<p>そして lib/SuperMyApp.pmは、この様になっております。</p>
-
-<pre><code>package SuperMyApp;
-use strict;
-use warnings;
-use File::Spec;
-
-our $VERSION = 0.01;
-
-use Nephia plugins =&gt; [
-    'JSON',
-    'View::MicroTemplate' =&gt; {
-        include_path =&gt; [File::Spec-&gt;catdir('view')],
-    },
-    'ResponseHandler',
-    'Dispatch',
-];
-
-app {
-    get '/' =&gt; sub {
-        {template =&gt; 'index.html', appname =&gt; 'SuperMyApp'};
+<pre><code>    my $version = try { ## ここのコードがhackishでよくわからん！！！
+        open my $fh, '&gt;', \my $stderr;
+        local *STDERR = $fh;
+        $self-&gt;database_version;
+        close $fh;
     };
-
-    get '/simple' =&gt; sub { 
-        [200, [], 'Hello, World!']; 
-    };
-
-    get '/json' =&gt; sub { 
-        {message =&gt; 'Hello, JSON World'};
-    };
-};
-
-1;
 </code></pre>
 
-<p>よく見ると、ディスパッチャーがありますけれど、このセットアップ方法はNormalセットアップといいまして、このノーマルな方法でセットアップをこなすと、ディスパッチャーとテンプレート、それからなんとJSON出力機能がついてくるんですねー、非常に便利になりました！</p>
-
-<p>さて、ここまでざくざくーっと使い方と中身を見ていただきましたが、このNephia、最大の特徴は「DSL」です！プラグインをどんどん読み込んでいくと、その分DSLが追加される、というのが基本です。っと、どうやら時間となってしまった模様です！</p>
-
-<p>次回の放送予定は明日ですが、無事に放送に至ることができるのか！？ご期待ください！！！</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-29:entry-2013-09-29-nephia.html</id>
-<published>2013-09-29T10:10:07+0900</published>
-<updated>2013-09-29T18:10:07+09:00</updated>
-</entry>
-<entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/25(水) </td>
-<td> mackee_w   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a></td>
-</tr>
-<tr>
-<td>2013/09/24(火) </td>
-<td> papix      </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html">SeleniumとPerlの話</a></td>
-</tr>
-<tr>
-<td>2013/09/23(月) </td>
-<td> hirobanex  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
-</tr>
-<tr>
-<td>2013/09/22(日) </td>
-<td>            </td>
-<td> YAPC休暇</td>
-</tr>
-<tr>
-<td>2013/09/21(土) </td>
-<td>            </td>
-<td> YAPC休暇</td>
-</tr>
-<tr>
-<td>2013/09/20(金) </td>
-<td>            </td>
-<td> YAPC休暇</td>
-</tr>
-<tr>
-<td>2013/09/19(木) </td>
-<td>            </td>
-<td> YAPC休暇</td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> Spring_MT  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
-</tr>
-<tr>
-<td>2013/09/15(日) </td>
-<td> mackee_w   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
-</tr>
-<tr>
-<td>2013/09/14(土) </td>
-<td> Songmu     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> ytnobody   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
-</tr>
-<tr>
-<td>2013/09/12(木) </td>
-<td> uzulla     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
-</tr>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix      </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>概要</h2>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
-
-<h2>おやくそく</h2>
+<p>さてこれが問題のコードです。ここだけパッと見ると、</p>
 
 <ul>
-<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
+<li>謎にtryが始まって</li>
+<li>スカラーリファレンスのファイルハンドル開いて</li>
+<li>STDERRにぶち込んで</li>
 </ul>
 
 
-<h2>今後の担当(予定)</h2>
+<p>なんじゃこりゃ？と思ったわけです。</p>
 
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/09/26(木) </td>
-<td> papix      </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/27(金) </td>
-<td> moznion    </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/28(土) </td>
-<td> yusukebe   </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/09/29(日) </td>
-<td> ytnobody   </td>
-<td> Nephia(旧:Voson)というWAFのおはなし</td>
-</tr>
-<tr>
-<td>2013/09/30(月) </td>
-<td> papix      </td>
-<td> 未定</td>
-</tr>
-<tr>
-<td>2013/10/01(火) </td>
-<td> mackee_w   </td>
-<td> 未定</td>
-</tr>
-</tbody>
-</table>
+<h2>全体をみるとのコード</h2>
 
+<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たら少しわかります。</p>
+
+<pre><code>sub deploy {
+    my ($self) = @_;
+
+    my $version = try { ## ここのコードがhackishでよくわからん！！！
+        open my $fh, '&gt;', \my $stderr;
+        local *STDERR = $fh;
+        $self-&gt;database_version;
+        close $fh;
+    };
+
+    if ($version) {
+        croak "database already deployed, use upgrade_database instead";
+    }
+
+    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
+        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
+
+    $self-&gt;_do_sql($self-&gt;_slurp(File::Spec-&gt;catfile($self-&gt;work_tree, $self-&gt;ddl_file)));
+
+    $self-&gt;_do_sql(&lt;&lt;"__SQL__");
+CREATE TABLE @{[ $self-&gt;version_table ]} (
+    version VARCHAR(40) NOT NULL
+);
+__SQL__
+
+    $self-&gt;_dbh-&gt;do(
+        "INSERT INTO @{[ $self-&gt;version_table ]} (version) VALUES (?)", {}, $self-&gt;ddl_version
+    ) or croak $self-&gt;_dbh-&gt;errstr;
+}
+
+
+sub database_version {
+    my ($self) = @_;
+
+    croak sprintf 'invalid version_table: %s', $self-&gt;version_table
+        unless $self-&gt;version_table =~ /^[a-zA-Z_]+$/;
+
+    my ($version) =
+        $self-&gt;_dbh-&gt;selectrow_array('SELECT version FROM ' . $self-&gt;version_table);
+
+    if (defined $version) {
+        return $version;
+    }
+    else {
+        croak "Failed to get database version, please deploy first";
+    }
+}
+</code></pre>
+
+<h2>問題を抽象化したコード</h2>
+
+<p>一部だけに注目しているとわけがわからんことはしばしばで、yanchaで聞いたらよくよく全体を見たらよくわかりました。deployメソッドの中では、database_versionのリターンが偽が期待されているんだけど、その場合「$self->_dbh->selectrow_array('SELECT version FROM ' . $self->version_table);」でDBIの設定によって警告が出るので、それを/dev/nullに入れる的なことをしたいということなんですね。要するに、以下のコードがその状況を抽象化したもののようです。</p>
+
+<pre><code>#!/usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+binmode STDOUT, ":utf8";
+use Try::Tiny;
+use Test::More;
+
+sub warn_and_die {
+    warn "警告だよ！！";
+    die "例外だよ！！";
+}
+
+my $res = try {
+    open my $fh, '&gt;', \my $stderr;
+    local *STDERR = $fh;
+    warn_and_die();
+    close $fh;
+};
+
+ok !$res;
+
+done_testing;
+</code></pre>
+
+<h2>考察と疑問</h2>
+
+<p>まぁそれでもよくわからないことはいくつかあるのでそれについてつらつらと。</p>
+
+<h3>スカラーリファレンスを対象にファイルハンドル開けるんだ</h3>
+
+<pre><code>    open my $fh, '&gt;', \my $stderr;
+</code></pre>
+
+<p>ここですが、ほとんど見慣れないですよね。</p>
+
+<h3>STDERRにファイルハンドルを突っ込む</h3>
+
+<pre><code>local *STDERR = $fh;
+</code></pre>
+
+<p>これですね。よく</p>
+
+<pre><code>local $SIG{TERM} = sub { $cnt = 0 };
+</code></pre>
+
+<p>とかやってforkマネージャーみたいなやつで、シグナルハンドラをいじるのはみかけますが、STDERRをオーバーライドするのはぼくは初めてお目にかかりました。</p>
+
+<pre><code>local *STDERR = undef;
+</code></pre>
+
+<p>こんな感じに$fhのファイルハンドルわざわざ開かずにundef突っ込んでもよいのでは？という話もありましたがSTDERRはファイルハンドルなのでファイルハンドルをつっこまなければならないようです。</p>
+
+<h3>close $fhのリターンバリューは何か</h3>
+
+<p>tryブロックのリターンバリュー（GitDDLのコードでいう$version、先ほどの簡易コードでいう$resに入るデータ）は、close $fhの返り値になるわけですが（なるよね？）、そんなもの普段意識しないのでちょっと疑問に思いますね。数年後にはtypesterさん並みのハッカーになっているだろう<a href="https://twitter.com/mackee_w">まこぴー</a>さんが、颯爽と<a href="http://perldoc.jp/func/close">closeのドキュメント</a>付で、</p>
+
+<blockquote><p>操作が成功し、PerlIO 層からエラーが報告されなかった場合に真を返します。 引数が省略された場合、現在選択されているファイルハンドルをクローズします。</p></blockquote>
+
+<p>と教えてくれました。</p>
+
+<p>しかし、ファイルハンドルのopen,closeはよく or dieとかつけて例外処理するようなもので、close $fhて失敗したら、どうするのって思ったりもしますが、開いているファイルハンドルがスカラーリファレンスなので失敗することはないという風に解釈しました（がどうなんでしょうか？認識あっているでしょうか？）</p>
+
+<h3>そいういえばlocal $SIG{<strong>WARN</strong>} = sub {};</h3>
+
+<p>よく考えれば、$SIG{<strong>WARN</strong>}をつかえばいい気もしますが、まぁ息を吸うように書いた時の気分ってやつでしょうか。むしろ、$SIG{<strong>WARN</strong>}で代替できない問題があれば是非教えて頂きたいところです。。。</p>
+
+<h2>CPANモジュールのコードを読んで勉強しよう</h2>
+
+<p>必ずしも参考になるコードばかりではないですし、見たコードを実践すべきかどうかは別として、なんかわからないコード見つければいろいろドキュメントみたりあれこれ議論したり調べたりすると、大変Perlや広い意味でのシステム基礎知識全般への理解が深まり大変うれしいですね！</p>
+
+<p><a href="http://yancha.hachiojipm.org/quot?id=141199">typeさんのコード、hackishだから読んでたら新しい発見いろいろある</a>とまこぴーのモヒカン発言に激しく同意しつつ、いくつかのhackishなモジュールで大変お世話になっているtypesterさんの独立を激励する記事でございました！</p>
 ]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-09-27T13:15:58+09:00</updated>
+<id>tag:hachiojipm.github.io,2013-10-04:entry-2013-10-04-warn-die-hack.html</id>
+<published>2013-10-04T44:44:53+0900</published>
+<updated>2013-10-04T06:44:53+09:00</updated>
 </entry>
 <entry>
 <title type="text">SeleniumとPerlの話</title>
