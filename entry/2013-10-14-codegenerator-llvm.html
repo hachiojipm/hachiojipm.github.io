@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Compiler::CodeGenerator::LLVMで遊ぼう! | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html">Perlの警告と例外を両方握りつぶすtypesterハック</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/LLVM.html">LLVM</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/goccy.html">goccy</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Compiler::CodeGenerator::LLVMで遊ぼう!</h1>
+
+<p>今日は, <a href="https://twitter.com/goccy54">@goccy54</a>さんが開発された<a href="https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM">Compiler::CodeGenerator::LLVM</a>を導入して, ひと通り動かすまでのアレコレをご紹介したいと思います.</p>
+
+<h2>LLVMのインストール</h2>
+
+<p>Compiler::CodeGenerator::LLVMはLLVM 3.3に依存しているので, まず最初にLLVM 3.3を導入します.<br/>
+ついでにLLVMを基盤とするコンパイラのClangと, ランタイムライブラリのCompiler RTも入れてしまいましょう.</p>
+
+<p>まず, <a href="http://www.llvm.org/releases/download.html#3.3">こちらのページ</a>から, <code>Clang source code</code>, <code>LLVM source code</code>, <code>Compiler RT source code</code>をクリックして, 必要なソースコードをダウンロードします.</p>
+
+<pre><code>$ wget http://llvm.org/releases/3.3/cfe-3.3.src.tar.gz
+$ wget http://llvm.org/releases/3.3/compiler-rt-3.3.src.tar.gz
+$ wget http://llvm.org/releases/3.3/llvm-3.3.src.tar.gz
+</code></pre>
+
+<p>それぞれ, <code>cfe-3.3.src.tar.gz</code>, <code>llvm-3.3.src.tar.gz</code>, <code>compiler-rt-3.3.src.tar.gz</code>というファイルがダウンロードできるので, さっさと解凍してしまいます.</p>
+
+<pre><code>$ tar -xf cfe-3.3.src.tar.gz
+$ tar -xf llvm-3.3.src.tar.gz
+$ tar -xf compiler-rt-3.3.src.tar.gz
+</code></pre>
+
+<p>解凍してできた<code>llvm-3.3.src</code>の中の適切な位置に, <code>cfe-3.3.src</code>と<code>compiler-rt-3.3.src</code>を配置していきます.</p>
+
+<pre><code>$ mv cfe-3.3.src llvm-3.3.src/tools/clang
+$ mv compiler-rt-3.3.src llvm-3.3.src/projects/compiler-rt
+</code></pre>
+
+<p>続いて, <code>llvm-3.3.src</code>ディレクトリに移動して, <code>configure</code>で設定を行います.</p>
+
+<pre><code>$ cd llvm-3.3.src
+$ ./configure
+</code></pre>
+
+<p>問題なく<code>configure</code>が終われば, <code>make</code>, <code>make check</code>, <code>make install</code>でビルドして, インストールまで済ませます.<br/>
+ちなみに<code>configure</code>を実行する際, <code>--prefix</code>オプションで任意の場所にLLVMやClangをインストールすることができますが, 手元の環境では何故かうまく動かなかったのでデフォルトでインストールした方が良さそうです.<br/>
+｢sudoで入れるの嫌だなあ...｣という方はVagrantとかVirtualBoxとか, そういうのを作ってCompiler::CodeGenerator::LLVM用のVMを建てましょう!</p>
+
+<pre><code>$ make
+</code></pre>
+
+<p>ちなみに, <code>make</code>コマンドは<code>make -jN</code>とすることで, Nコアを使って処理を進めることができます.<br/>
+ビルドには時間がかかるので, <code>make -j2</code>とか<code>make -j4</code>とかで高速化しましょう.</p>
+
+<pre><code>$ make check
+$ sudo make install
+</code></pre>
+
+<p><code>make check</code>は任意ですが, とりあえずやっておきましょう. 手元の環境では100件ほどFailしますが, おそらく大丈夫... だと思います.<br/>
+あとは<code>sudo make install</code>を実行すれば, LLVMとClangがインストールされます.</p>
+
+<pre><code>$ which llvm-config
+/home/username/local/llvm/bin/llvm-config
+$ llvm-config --version
+3.3
+</code></pre>
+
+<p>といった感じで, LLVMとClangが正常にインストールできていることが確認できれば, 準備完了です.</p>
+
+<h2>Compiler::CodeGenerator::LLVMのインストール</h2>
+
+<p>それではCompiler::CodeGenerator::LLVMをインストールしましょう.</p>
+
+<p>まず依存モジュールの準備です.<br/>
+Compiler::CodeGenerator::LLVMは, こちらもまたgoccy氏が開発した<a href="https://github.com/goccy/p5-Compiler-Lexer">Compiler::Lexer</a>と<a href="https://github.com/goccy/p5-Compiler-Parser">Compiler::Parser</a>に依存しているので, これを入れる必要があります.</p>
+
+<pre><code>$ cpanm Compiler::Lexer Compiler::Parser
+</code></pre>
+
+<p>どちらもCPANizeされているので, 素直に<code>cpanm</code>でインストールしてもいいですし, GitHubからcloneしてインストールしてもよいでしょう.<br/>
+ちなみにどちらのモジュールも, Minillaで開発されているので<code>minil install</code>でインストールできます.</p>
+
+<p>依存モジュールの準備が終われば, いよいよCompiler::CodeGenerator::LLVMのインストールです.<br/>
+こちらのモジュールは, まだCPANizeされていないので,</p>
+
+<pre><code>$ git clone https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM.git
+</code></pre>
+
+<p>でcloneしてきてから,</p>
+
+<pre><code>$ cd p5-Compiler-CodeGenerator-LLVM
+$ perl Makefile.PL
+$ make
+$ make test
+$ make install
+</code></pre>
+
+<p>の手順でインストールしていきます.</p>
+
+<h2>早速, 試す!</h2>
+
+<p>それでは早速, Compiler::CodeGenerator::LLVMで遊んでみましょう.<br/>
+まずはSynopsisのコードを動かしてみます.</p>
+
+<pre><code>use Compiler::Lexer;
+use Compiler::Parser;
+use Compiler::CodeGenerator::LLVM;
+
+my $filename = $ARGV[0];
+open(my $fh, "&lt;", $filename) or die("$filename is not found.");
+my $script = do { local $/; &lt;$fh&gt; };
+my $lexer = Compiler::Lexer-&gt;new($filename);
+my $tokens = $lexer-&gt;tokenize($script);
+my $parser = Compiler::Parser-&gt;new();
+my $ast = $parser-&gt;parse($tokens);
+my $generator = Compiler::CodeGenerator::LLVM-&gt;new();    
+my $llvm_ir = $generator-&gt;generate($ast); # generate LLVM-IR
+$generator-&gt;debug_run($ast); # execute LLVM-IR with JIT
+</code></pre>
+
+<p>Synopsisのコードは, 標準入力に与えられたファイル名に書かれているコードからLLVM IRを生成して, それをJITで実行するというスゴイやつです.<br/>
+テストコードを<code>synopsis.pl</code>みたいな名前で保存して,</p>
+
+<pre><code>use strict;
+use warnings;
+
+my @arg = (0, 1, 2, 3, 4);
+foreach my $i (@arg) {
+    say $i;
+}
+</code></pre>
+
+<p>こんな感じのファイルを<code>sample.pl</code>で保存して, <code>$ perl synopsis.pl sample.pl</code>てな感じで実行すると...</p>
+
+<pre><code>$ perl synopsis.pl sample.pl
+0
+1
+2
+3
+4
+</code></pre>
+
+<p>Wow! 実行できましたね.<br/>
+個人的には, 内部で生成されたLLVM IRをダンプできれば, いろいろと遊べそうな感じがしますが, 現状そのようなメソッドはないっぽいので, 今後に期待したいと思います.<br/>
+(時間があれば実装とかチャレンジしてみたい所ですが... XSだしなあ...)</p>
+
+<h2>まとめ</h2>
+
+<p>YAPC::Asiaにおいて, 注目の的の1つでもあったPerlMotionを支えるgoccy wareの, Compiler::CodeGenerator::LLVMの導入方法をまとめてみました.<br/>
+このモジュールが完成すれば, PerlでiPhoneアプリが開発できるようになるだけでなく, PerlのコードをLLVM IR経由で各種バイナリに変換したり, C言語に変換したり, CUDAに変換したり... と, いろいろな可能性が期待できるようになります.</p>
+
+<p>今後も, バク報告だけでなく, 出来ればコードをコミットしていく... という方法で, Compiler::CodeGenerator::LLVMやCompiler::Lexer, Compiler::Parserといったgoccy wareをサポートして行けたらいいなあ, と思っています.<br/>
+これからのCompiler::CodeGenerator::LLVM, 要チェックですね!</p>
+
+<p>なお, 今回この記事を書くにあたり, 作者の<a href="https://twitter.com/goccy54">@goccy54</a>さんに大変, ものっすごっく, アドバイスとご協力を頂きました.<br/>
+この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-10-14 23:35</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-10-14 23:35</dd>
+  </dl>
+</article>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>

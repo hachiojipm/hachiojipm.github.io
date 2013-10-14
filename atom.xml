@@ -3,134 +3,9 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-10-05T11:14:57+09:00</updated>
-<entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/10/04(金) </td>
-<td> hirobanex  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html">Perlの警告と例外を両方握りつぶすtypesterハック</a></td>
-</tr>
-<tr>
-<td>2013/10/01(火) </td>
-<td> moznion    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html">Perlの文字列エンコーディングの話</a></td>
-</tr>
-<tr>
-<td>2013/09/25(水) </td>
-<td> mackee_w   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a></td>
-</tr>
-<tr>
-<td>2013/09/24(火) </td>
-<td> papix      </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html">SeleniumとPerlの話</a></td>
-</tr>
-<tr>
-<td>2013/09/23(月) </td>
-<td> hirobanex  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> Spring_MT  </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> xtetsuji   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
-</tr>
-<tr>
-<td>2013/09/15(日) </td>
-<td> mackee_w   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
-</tr>
-<tr>
-<td>2013/09/14(土) </td>
-<td> Songmu     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> ytnobody   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
-</tr>
-<tr>
-<td>2013/09/12(木) </td>
-<td> uzulla     </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
-</tr>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool   </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion    </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix      </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>概要</h2>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
-
-<h2>おやくそく</h2>
-
-<ul>
-<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
-</ul>
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-10-05T11:14:57+09:00</updated>
-</entry>
+<updated>2013-10-14T23:35:28+09:00</updated>
 <entry>
 <title type="text">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html" />
@@ -330,7 +205,300 @@ app {
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-29:entry-2013-09-29-nephia.html</id>
 <published>2013-09-29T10:10:07+0900</published>
-<updated>2013-10-05T11:13:44+09:00</updated>
+<updated>2013-10-14T23:35:28+09:00</updated>
+</entry>
+<entry>
+<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
+
+<h2>これまでの記事</h2>
+
+<table>
+<thead>
+<tr>
+<th>日時           </th>
+<th> 筆者       </th>
+<th> タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013/10/14(月) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html">Compiler::CodeGenerator::LLVMで遊ぼう!</a></td>
+</tr>
+<tr>
+<td>2013/10/04(金) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html">Perlの警告と例外を両方握りつぶすtypesterハック</a></td>
+</tr>
+<tr>
+<td>2013/10/01(火) </td>
+<td> moznion    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html">Perlの文字列エンコーディングの話</a></td>
+</tr>
+<tr>
+<td>2013/09/29(日) </td>
+<td> ytnobody   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html">肉の日にぴったり！肉料理の付け合せにさっぱり味のWAFはいかが？</a></td>
+</tr>
+<tr>
+<td>2013/09/25(水) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a></td>
+</tr>
+<tr>
+<td>2013/09/24(火) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html">SeleniumとPerlの話</a></td>
+</tr>
+<tr>
+<td>2013/09/23(月) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">PHPCon2013所見</a></td>
+</tr>
+<tr>
+<td>2013/09/18(水) </td>
+<td> Spring_MT  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a></td>
+</tr>
+<tr>
+<td>2013/09/17(火) </td>
+<td> ichigotake </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a></td>
+</tr>
+<tr>
+<td>2013/09/16(月) </td>
+<td> xtetsuji   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a></td>
+</tr>
+<tr>
+<td>2013/09/15(日) </td>
+<td> mackee_w   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a></td>
+</tr>
+<tr>
+<td>2013/09/14(土) </td>
+<td> Songmu     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a></td>
+</tr>
+<tr>
+<td>2013/09/13(金) </td>
+<td> ytnobody   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013年 秋 </a></td>
+</tr>
+<tr>
+<td>2013/09/12(木) </td>
+<td> uzulla     </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない) </a></td>
+</tr>
+<tr>
+<td>2013/09/11(水) </td>
+<td> boolfool   </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/10(火) </td>
+<td> moznion    </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a></td>
+</tr>
+<tr>
+<td>2013/09/09(月) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>概要</h2>
+
+<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
+書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
+
+<p>記事を書いてみたい人は, 以下の予定表に名前を書き込んでおいて下さい.</p>
+
+<h2>おやくそく</h2>
+
+<ul>
+<li><code>git push -f</code>や<code>git commit -am</code>は厳禁. 同志ソムーリンに粛清されます.</li>
+<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
+<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
+
+<ul>
+<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
+</ul>
+</li>
+<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
+<li>楽しくやりましょう.</li>
+</ul>
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
+<published>2013-09-09T47:47:09+0900</published>
+<updated>2013-10-14T23:35:28+09:00</updated>
+</entry>
+<entry>
+<title type="text">Compiler::CodeGenerator::LLVMで遊ぼう!</title>
+<link href="http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>Compiler::CodeGenerator::LLVMで遊ぼう!</h1>
+
+<p>今日は, <a href="https://twitter.com/goccy54">@goccy54</a>さんが開発された<a href="https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM">Compiler::CodeGenerator::LLVM</a>を導入して, ひと通り動かすまでのアレコレをご紹介したいと思います.</p>
+
+<h2>LLVMのインストール</h2>
+
+<p>Compiler::CodeGenerator::LLVMはLLVM 3.3に依存しているので, まず最初にLLVM 3.3を導入します.<br/>
+ついでにLLVMを基盤とするコンパイラのClangと, ランタイムライブラリのCompiler RTも入れてしまいましょう.</p>
+
+<p>まず, <a href="http://www.llvm.org/releases/download.html#3.3">こちらのページ</a>から, <code>Clang source code</code>, <code>LLVM source code</code>, <code>Compiler RT source code</code>をクリックして, 必要なソースコードをダウンロードします.</p>
+
+<pre><code>$ wget http://llvm.org/releases/3.3/cfe-3.3.src.tar.gz
+$ wget http://llvm.org/releases/3.3/compiler-rt-3.3.src.tar.gz
+$ wget http://llvm.org/releases/3.3/llvm-3.3.src.tar.gz
+</code></pre>
+
+<p>それぞれ, <code>cfe-3.3.src.tar.gz</code>, <code>llvm-3.3.src.tar.gz</code>, <code>compiler-rt-3.3.src.tar.gz</code>というファイルがダウンロードできるので, さっさと解凍してしまいます.</p>
+
+<pre><code>$ tar -xf cfe-3.3.src.tar.gz
+$ tar -xf llvm-3.3.src.tar.gz
+$ tar -xf compiler-rt-3.3.src.tar.gz
+</code></pre>
+
+<p>解凍してできた<code>llvm-3.3.src</code>の中の適切な位置に, <code>cfe-3.3.src</code>と<code>compiler-rt-3.3.src</code>を配置していきます.</p>
+
+<pre><code>$ mv cfe-3.3.src llvm-3.3.src/tools/clang
+$ mv compiler-rt-3.3.src llvm-3.3.src/projects/compiler-rt
+</code></pre>
+
+<p>続いて, <code>llvm-3.3.src</code>ディレクトリに移動して, <code>configure</code>で設定を行います.</p>
+
+<pre><code>$ cd llvm-3.3.src
+$ ./configure
+</code></pre>
+
+<p>問題なく<code>configure</code>が終われば, <code>make</code>, <code>make check</code>, <code>make install</code>でビルドして, インストールまで済ませます.<br/>
+ちなみに<code>configure</code>を実行する際, <code>--prefix</code>オプションで任意の場所にLLVMやClangをインストールすることができますが, 手元の環境では何故かうまく動かなかったのでデフォルトでインストールした方が良さそうです.<br/>
+｢sudoで入れるの嫌だなあ...｣という方はVagrantとかVirtualBoxとか, そういうのを作ってCompiler::CodeGenerator::LLVM用のVMを建てましょう!</p>
+
+<pre><code>$ make
+</code></pre>
+
+<p>ちなみに, <code>make</code>コマンドは<code>make -jN</code>とすることで, Nコアを使って処理を進めることができます.<br/>
+ビルドには時間がかかるので, <code>make -j2</code>とか<code>make -j4</code>とかで高速化しましょう.</p>
+
+<pre><code>$ make check
+$ sudo make install
+</code></pre>
+
+<p><code>make check</code>は任意ですが, とりあえずやっておきましょう. 手元の環境では100件ほどFailしますが, おそらく大丈夫... だと思います.<br/>
+あとは<code>sudo make install</code>を実行すれば, LLVMとClangがインストールされます.</p>
+
+<pre><code>$ which llvm-config
+/home/username/local/llvm/bin/llvm-config
+$ llvm-config --version
+3.3
+</code></pre>
+
+<p>といった感じで, LLVMとClangが正常にインストールできていることが確認できれば, 準備完了です.</p>
+
+<h2>Compiler::CodeGenerator::LLVMのインストール</h2>
+
+<p>それではCompiler::CodeGenerator::LLVMをインストールしましょう.</p>
+
+<p>まず依存モジュールの準備です.<br/>
+Compiler::CodeGenerator::LLVMは, こちらもまたgoccy氏が開発した<a href="https://github.com/goccy/p5-Compiler-Lexer">Compiler::Lexer</a>と<a href="https://github.com/goccy/p5-Compiler-Parser">Compiler::Parser</a>に依存しているので, これを入れる必要があります.</p>
+
+<pre><code>$ cpanm Compiler::Lexer Compiler::Parser
+</code></pre>
+
+<p>どちらもCPANizeされているので, 素直に<code>cpanm</code>でインストールしてもいいですし, GitHubからcloneしてインストールしてもよいでしょう.<br/>
+ちなみにどちらのモジュールも, Minillaで開発されているので<code>minil install</code>でインストールできます.</p>
+
+<p>依存モジュールの準備が終われば, いよいよCompiler::CodeGenerator::LLVMのインストールです.<br/>
+こちらのモジュールは, まだCPANizeされていないので,</p>
+
+<pre><code>$ git clone https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM.git
+</code></pre>
+
+<p>でcloneしてきてから,</p>
+
+<pre><code>$ cd p5-Compiler-CodeGenerator-LLVM
+$ perl Makefile.PL
+$ make
+$ make test
+$ make install
+</code></pre>
+
+<p>の手順でインストールしていきます.</p>
+
+<h2>早速, 試す!</h2>
+
+<p>それでは早速, Compiler::CodeGenerator::LLVMで遊んでみましょう.<br/>
+まずはSynopsisのコードを動かしてみます.</p>
+
+<pre><code>use Compiler::Lexer;
+use Compiler::Parser;
+use Compiler::CodeGenerator::LLVM;
+
+my $filename = $ARGV[0];
+open(my $fh, "&lt;", $filename) or die("$filename is not found.");
+my $script = do { local $/; &lt;$fh&gt; };
+my $lexer = Compiler::Lexer-&gt;new($filename);
+my $tokens = $lexer-&gt;tokenize($script);
+my $parser = Compiler::Parser-&gt;new();
+my $ast = $parser-&gt;parse($tokens);
+my $generator = Compiler::CodeGenerator::LLVM-&gt;new();    
+my $llvm_ir = $generator-&gt;generate($ast); # generate LLVM-IR
+$generator-&gt;debug_run($ast); # execute LLVM-IR with JIT
+</code></pre>
+
+<p>Synopsisのコードは, 標準入力に与えられたファイル名に書かれているコードからLLVM IRを生成して, それをJITで実行するというスゴイやつです.<br/>
+テストコードを<code>synopsis.pl</code>みたいな名前で保存して,</p>
+
+<pre><code>use strict;
+use warnings;
+
+my @arg = (0, 1, 2, 3, 4);
+foreach my $i (@arg) {
+    say $i;
+}
+</code></pre>
+
+<p>こんな感じのファイルを<code>sample.pl</code>で保存して, <code>$ perl synopsis.pl sample.pl</code>てな感じで実行すると...</p>
+
+<pre><code>$ perl synopsis.pl sample.pl
+0
+1
+2
+3
+4
+</code></pre>
+
+<p>Wow! 実行できましたね.<br/>
+個人的には, 内部で生成されたLLVM IRをダンプできれば, いろいろと遊べそうな感じがしますが, 現状そのようなメソッドはないっぽいので, 今後に期待したいと思います.<br/>
+(時間があれば実装とかチャレンジしてみたい所ですが... XSだしなあ...)</p>
+
+<h2>まとめ</h2>
+
+<p>YAPC::Asiaにおいて, 注目の的の1つでもあったPerlMotionを支えるgoccy wareの, Compiler::CodeGenerator::LLVMの導入方法をまとめてみました.<br/>
+このモジュールが完成すれば, PerlでiPhoneアプリが開発できるようになるだけでなく, PerlのコードをLLVM IR経由で各種バイナリに変換したり, C言語に変換したり, CUDAに変換したり... と, いろいろな可能性が期待できるようになります.</p>
+
+<p>今後も, バク報告だけでなく, 出来ればコードをコミットしていく... という方法で, Compiler::CodeGenerator::LLVMやCompiler::Lexer, Compiler::Parserといったgoccy wareをサポートして行けたらいいなあ, と思っています.<br/>
+これからのCompiler::CodeGenerator::LLVM, 要チェックですね!</p>
+
+<p>なお, 今回この記事を書くにあたり, 作者の<a href="https://twitter.com/goccy54">@goccy54</a>さんに大変, ものっすごっく, アドバイスとご協力を頂きました.<br/>
+この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-10-14:entry-2013-10-14-codegenerator-llvm.html</id>
+<published>2013-10-14T35:35:28+0900</published>
+<updated>2013-10-14T23:35:28+09:00</updated>
 </entry>
 <entry>
 <title type="text">Perl の文字列エンコーディングの話</title>
@@ -790,7 +958,7 @@ done_testing;
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-10-04:entry-2013-10-04-warn-die-hack.html</id>
 <published>2013-10-04T44:44:53+0900</published>
-<updated>2013-10-04T06:44:53+09:00</updated>
+<updated>2013-10-04T23:59:40+09:00</updated>
 </entry>
 <entry>
 <title type="text">SeleniumとPerlの話</title>
