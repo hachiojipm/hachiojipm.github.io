@@ -28,7 +28,7 @@
   </aside>
   : if $entry.tags().size() {
   <aside class="tags">
-    <h1 class="tags">tags</h1>
+    <h1 class="tags">Tags</h1>
     <ul class="tags">
       : for $entry.tags() -> $tag {
       <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :></a></li>
