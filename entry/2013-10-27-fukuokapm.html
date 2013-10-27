@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Fukuoka.pmに乱入してきた! | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html">Compiler::CodeGenerator::LLVMで遊ぼう!</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/b32.IZ2WW5LPNNQS44DN.html">Fukuoka.pm</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Fukuoka.pmに乱入してきた!</h1>
+
+<p>皆さんこんにちは, 提督業と修論業で慌ただしい日々を送っている｢地域PMエバンジェリスト(自称)｣ことpapixです.<br/>
+最近は駆逐艦の良さがわかってきた気がしています. ...あ, そういう意味ではないですヨ?</p>
+
+<p>...さて今日は, 紆余曲折を経て10月26日(土)に開催された｢Fukuoka.pm #24｣に行ってきたので, その感想レポートをお送りしたいと思います.</p>
+
+<h2>スポンサー紹介</h2>
+
+<p>今回, Fukuoka.pmへ参加するにあたり, 往路の交通費を以下の方々にスポンサードして頂きました.<br/>
+この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
+
+<ul>
+<li><a href="https://twitter.com/yusukebe">@yusukebe</a>さん</li>
+<li><a href="https://twitter.com/uzulla">@uzulla</a>さん</li>
+<li><a href="https://twitter.com/xtetsuji">@xtetsuji</a>さん</li>
+</ul>
+
+
+<h2>Fukuoka.pm #24</h2>
+
+<p>Fukuoka.pmの雰囲気等々についてはゆーすけべーさんの感想ブログ記事, ｢<a href="http://yusuke.be/post/65193797413">福岡のPerl Workshop「Fukuoka.pm#24」に行ってきました！</a>｣がよくまとまっているので, こちらを読めばいいのではないでしょうか.</p>
+
+<p>ゆーすけべーさんもブログ記事で書いていますが, 参加人数が少ない分(ATNDの参加申し込み人数で14人), 発表者と参加者の距離が近いので, 参加者の反応を感じやすかったですし, 質疑応答やツッコミといったコミュニケーションが生まれやすい雰囲気が出来ていたので, とても良かったです.</p>
+
+<h2>トーク</h2>
+
+<p>今回のスピーカーは, JPAの講師派遣制度で来ていたゆーすけべーさん, 東京から参戦のcharsbarさん, Fukuoka.pmのヒラタさん(<a href="https://twitter.com/debility">@debility</a>), そして私の4人でした.</p>
+
+<p>ゆーすけべーさんのトークは, 最近チャレンジしているボケての構造化について.
+ざっくりまとめると, ｢フロントエンド(テンプレートエンジンとかを使って, 実際にブラウザに表示する部分を担う)｣と, ｢APIフレームワーク(フロントエンドのAPIリクエストに応じて, DBにアクセスしたりして, 適切な(フロントエンドで表示したい)データを返す)｣の2つに分離して, 分業化するというアイデアを実践している... という話でした.</p>
+
+<p>社内プロダクトならともかく, ボケてのような社の垣根を越えた少人数のチームで開発している場合, このように(開発者の/Webサービスの)役割を明確に区切る, というアプローチは有効そうな気がします.<br/>
+今後, この方針がどのように進展していくかが, とても気になる発表でした!</p>
+
+<p>charsbarさんは, CPANTSやCPANモジュールのKwalitee, MinilやMinillaを使ったモジュール開発等々についてのお話でした.<br/>
+何故か自分がKwaliteeランキングで10位に入っていましたが, あれは｢よしKwaliteeランキングで上位に入ってやろう!｣と思って頑張った訳ではなくて, モジュール開発の為に漬かっているMinillaがよしなにやってくれただけだと思います.
+そういう意味を含めて, Minillaはとても便利なツールなので, これからモジュールを作る! という方はMinillaを採用することをおすすめしますし, 既存モジュールも, 積極的にMinillaに切り替えていく価値があると思っています.</p>
+
+<p>ヒラタさんの発表は, 社内の余興で某クイズ番組をPHPやNodeを駆使して再現した, というお話.
+弊社も割とそういう空気がありますが, ああいう余興(?)に全力を尽くせるノリっていいなあ... と感じました.
+というか, あのシステムはすごい出来が良いので, 某局とコラボするとか, ロゴ等々のマズい部分をなんとかしてOSSのような形で公開したりとか, そういう展開があってもいいですよね. 今後どうなるか期待です.</p>
+
+<h2>自分のトーク</h2>
+
+<p>で, 自分ですが｢GPGPUとXSとわたし｣というタイトルで, PerlにおけるGPGPUの現状と, XSについての話をして来ました.<br/>
+資料はこちらです(後でアップします...)</p>
+
+<p>前半は割と学術っぽいネタで, 後半はXSという人を選ぶ中級者向けなネタだったので, ビギナーな方には｢あー, こういう世界があるんだなー｣というのを感じて頂けるように努力... したつもりなんですが如何でしたでしょうか.<br/>
+人を選ぶネタなので, お昼寝兼内職タイムになっちゃうのでは? と懸念していたのですあg, 予想以上に興味部書く聞いて頂けましたし, 質問もいくつか飛んできたので非常に嬉しかったです.</p>
+
+<p>あと, PerCUDAの成果として完成した｢PerCUDA::Backend::GPU｣ですが, これ普通にPerlからPTXをデバイスAPIを使って呼び出すツールとして使える気がするので, ｢CUDA::DeviceAPI｣みたいな名前で独立したモジュールとして公開してもいいんじゃないかなー, と思ったりしました.<br/>
+人柱よろしくです! (To GPGPUで研究をしている八王子在住のPerl Monger)</p>
+
+<h2>福岡最高!</h2>
+
+<p>常日頃から言っていますが, 福岡は自分にとって最高の都市の1つです.<br/>
+まず都市の規模が程よくコンパクトで, 移動がとても楽. 東京で言えば新宿と渋谷と銀座が徒歩圏内にある, みたいなイメージでしょうか.
+あと空港から中心部までの距離が異常に近いのも良いですね. 博多駅から福岡空港まで, 地下鉄で2駅ですし.</p>
+
+<p>あと食いしん坊バンザイな自分やゆーすけべーさんからすると, 屋台だったり居酒屋だったり, 飲食店のレベルが高いのも高印象でした. 要するに, 適当な店に行っても大抵メシがウマイ.
+そして焼酎がとても安いですね! 黒霧島とか, 多分大阪や東京の100〜200円引きくらいの値段で飲めます.</p>
+
+<p>そしてあれです. Fukuoka.pmとかに行くと, 地元の方が自信を持っておすすめするお店とかに行く事になるので, まあマズいはずがないですよね, ええ.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/nabe.jpg" alt="モツ鍋" /></p>
+
+<p>こちらのモツ鍋は, Fukuoka.pmの懇親会(1次回)で行ったモツ鍋屋のモツ.<br/>
+ちなみにこの後, 2次会でラーソーメンを食べ, 3次会で屋台に行って鶏の炭火焼や餃子を食べたりしてました.<br/>
+最終的な解散時間は午前1時...! そして地元の方はずっとビールなり焼酎なりを飲み続けていました. お酒に強すぎィ!</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/mentaiko.jpg" alt="明太子御飯" /></p>
+
+<p>こちらの明太子御飯は, Fukuoka.pmの翌日(つまり今日), ｢ここ超よさそうじゃね!?｣とゆーすけべーさんが見つけたお店で食べたもの.<br/>
+多分, これ東京で食べたら間違いなく1.5〜2倍くらいの値段がするんじゃないかなあ...</p>
+
+<h2>さいごに</h2>
+
+<p>Fukuoka.pm最高! 呼ばれなくてもまた来ますし, 呼ばれたら絶対に行きます!!!<br/>
+ちなみに次のFukuoka.pmには<a href="http://yancha.hachiojipm.org/quot?id=168623,168617">｢ツールチェインギャング見習い｣として有名なmoznion氏も参加</a>するみたいなので, とても楽しみですね!</p>
+
+<p>Fukuoka.pm #24に参加された皆様, そして交通費をスポンサードして頂いたゆーすけべーさん, uzullaさん, てつじさん, 本当に本当に, ありがとうございました!</p>
+
+<center>Fukuoka.pm最高〜〜〜〜〜〜〜〜〜〜〜ッ!!!!!</center>
+
+
+
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-10-27 17:22</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-10-27 17:22</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
