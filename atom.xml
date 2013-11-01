@@ -3,9 +3,83 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-10-27T17:24:39+09:00</updated>
+<updated>2013-11-01T20:03:02+09:00</updated>
+<entry>
+<title type="text">Minilla（Module::Build）でproveオプションを渡したい</title>
+<link href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>Minilla（Module::Build）でproveオプションを渡したい</h1>
+
+<p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
+
+<h2>proveのオプションって？</h2>
+
+<p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
+
+<p>テストの並列処理とかカラーリングとか時間出したりできます。モジュールのテストでも並列処理させたいことはしばしばあると思いますので、結構ニーズあるような設定だと思いますね。</p>
+
+<h2>Makefile.PLの場合</h2>
+
+<p><a href="http://perl-users.jp/articles/advent-calendar/2011/test/18">テストのためにデーモンを自動的に起動するやりかた2011年版</a>にあるように、.provercとかもりもりかいて、以下のようにMakefile.PLに書けばいいのです。</p>
+
+<pre><code>sub MY::test_via_harness { "\tprove --rc=t/proverc t\n" }
+</code></pre>
+
+<p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
+
+<h2>MinillaのModule::Buildでproveの並列オプションの渡し方</h2>
+
+<p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
+
+<pre><code>HARNESS_OPTIONS=j19 minil test
+</code></pre>
+
+<p>で、毎回環境変数渡すのだ類のでMinillaにいれたいんですが、Build.PLを自動生成するMinillaなので、どうするかというと、<a href="http://search.cpan.org/~tokuhirom/Minilla/lib/Minilla.pm#CONFIGURATION">Minillaのminil.tomlの設定のドキュメント</a>とtokuhiromさんの<a href="http://blog.64p.org/entry/20111202/1322803079">Module::Buildでテストの前とかあとにフックする方法</a>を参考に以下のようになります。</p>
+
+<h3>minil.tomlで以下のようにオレオレbuild_classを設定</h3>
+
+<pre><code>[build]
+build_class = "builder::MyBuilder"
+</code></pre>
+
+<h3>オレオレbuildクラスで以下のようにテストをフック</h3>
+
+<p>./buidler/ディレクトリ作って、vi /builder/MyBuilder.pmに書き込みます</p>
+
+<pre><code>package builder::MyBuilder;
+use strict;
+use warnings;
+use parent qw(Module::Build);
+
+sub ACTION_test {
+    my $self = shift;
+
+    local $ENV{HARNESS_OPTIONS} = ($ENV{HARNESS_OPTIONS} ||'') . 'j19';
+    $self-&gt;SUPER::ACTION_test(@_);
+}
+
+1;
+</code></pre>
+
+<h3>いろいろ渡す方法</h3>
+
+<p><a href="http://search.cpan.org/~ovid/Test-Harness-3.29/lib/Test/Harness.pm#ENVIRONMENT_VARIABLES_THAT_AFFECT_TEST::HARNESS">HARNESS_OPTIONSのドキュメント</a>をみると、たくさんオプションを渡すときは、「:」区切りで渡すようです。</p>
+
+<pre><code>HARNESS_OPTIONS=j9:c make test
+</code></pre>
+
+<h3>余談、do_system('prove --jobs 19 -r t')には注意</h3>
+
+<p>最初ACTION_testの中で、$self->SUPER::ACTION_test(@_)呼ばないで、$self->do_system('prove --jobs 19 -r t')でやればよくね？って思ってやったんですが、Minillaがいい感じに裏でやっていると思われるxt系のテストがよばれなくなっちゃうので、ちとうれしくないと思いやめました。xt系のテストあまりわかっていないので、とりあえず、tokurhiromオススメを不都合が出るまで使っておきましょうという感じです。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-11-01:entry-2013-11-03-minilla-tips1.html</id>
+<published>2013-11-01T03:03:02+0900</published>
+<updated>2013-11-01T20:03:02+09:00</updated>
+</entry>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />

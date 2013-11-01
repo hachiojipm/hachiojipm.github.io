@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Minilla（Module::Build）でproveオプションを渡したい | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html">Fukuoka.pmに乱入してきた!</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Minilla（Module::Build）でproveオプションを渡したい</h1>
+
+<p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
+
+<h2>proveのオプションって？</h2>
+
+<p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
+
+<p>テストの並列処理とかカラーリングとか時間出したりできます。モジュールのテストでも並列処理させたいことはしばしばあると思いますので、結構ニーズあるような設定だと思いますね。</p>
+
+<h2>Makefile.PLの場合</h2>
+
+<p><a href="http://perl-users.jp/articles/advent-calendar/2011/test/18">テストのためにデーモンを自動的に起動するやりかた2011年版</a>にあるように、.provercとかもりもりかいて、以下のようにMakefile.PLに書けばいいのです。</p>
+
+<pre><code>sub MY::test_via_harness { "\tprove --rc=t/proverc t\n" }
+</code></pre>
+
+<p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
+
+<h2>MinillaのModule::Buildでproveの並列オプションの渡し方</h2>
+
+<p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
+
+<pre><code>HARNESS_OPTIONS=j19 minil test
+</code></pre>
+
+<p>で、毎回環境変数渡すのだ類のでMinillaにいれたいんですが、Build.PLを自動生成するMinillaなので、どうするかというと、<a href="http://search.cpan.org/~tokuhirom/Minilla/lib/Minilla.pm#CONFIGURATION">Minillaのminil.tomlの設定のドキュメント</a>とtokuhiromさんの<a href="http://blog.64p.org/entry/20111202/1322803079">Module::Buildでテストの前とかあとにフックする方法</a>を参考に以下のようになります。</p>
+
+<h3>minil.tomlで以下のようにオレオレbuild_classを設定</h3>
+
+<pre><code>[build]
+build_class = "builder::MyBuilder"
+</code></pre>
+
+<h3>オレオレbuildクラスで以下のようにテストをフック</h3>
+
+<p>./buidler/ディレクトリ作って、vi /builder/MyBuilder.pmに書き込みます</p>
+
+<pre><code>package builder::MyBuilder;
+use strict;
+use warnings;
+use parent qw(Module::Build);
+
+sub ACTION_test {
+    my $self = shift;
+
+    local $ENV{HARNESS_OPTIONS} = ($ENV{HARNESS_OPTIONS} ||'') . 'j19';
+    $self-&gt;SUPER::ACTION_test(@_);
+}
+
+1;
+</code></pre>
+
+<h3>いろいろ渡す方法</h3>
+
+<p><a href="http://search.cpan.org/~ovid/Test-Harness-3.29/lib/Test/Harness.pm#ENVIRONMENT_VARIABLES_THAT_AFFECT_TEST::HARNESS">HARNESS_OPTIONSのドキュメント</a>をみると、たくさんオプションを渡すときは、「:」区切りで渡すようです。</p>
+
+<pre><code>HARNESS_OPTIONS=j9:c make test
+</code></pre>
+
+<h3>余談、do_system('prove --jobs 19 -r t')には注意</h3>
+
+<p>最初ACTION_testの中で、$self->SUPER::ACTION_test(@_)呼ばないで、$self->do_system('prove --jobs 19 -r t')でやればよくね？って思ってやったんですが、Minillaがいい感じに裏でやっていると思われるxt系のテストがよばれなくなっちゃうので、ちとうれしくないと思いやめました。xt系のテストあまりわかっていないので、とりあえず、tokurhiromオススメを不都合が出るまで使っておきましょうという感じです。</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-11-01 20:03</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-11-01 20:03</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
