@@ -13,9 +13,9 @@
 <aside class="tags">
   <h1>Tags</h1>
   <ul class="tags">
-  :     for $blog.tags() -> $tag {
-  <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :>(<: $tag.count :>)</a></li>
-  :      }
+  : for $blog.tags().sort(-> $a, $b {$a.name cmp $b.name}) -> $tag {
+  <li style="font-size: <: $tag.count + 8 :>px"><a href="<: $tag.site_path | uri_for :>"><: $tag.name :>(<: $tag.count :>)</a></li>
+  : }
   </ul>
 </aside>
 :   }

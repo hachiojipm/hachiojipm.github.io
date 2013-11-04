@@ -2,3 +2,9 @@ body {
     max-width: 45em;
     margin: 0 auto;
 }
+
+ul.tags li {
+    list-style-type: none;
+    display: inline-block;
+}
+
