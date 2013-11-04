@@ -1,4 +1,4 @@
-tags: Perl Fukuoka.pm
+tags: Perl FukuokaPM
 ---
 # Fukuoka.pmに乱入してきた!
 
