@@ -5,179 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-11-04T15:42:59+09:00</updated>
-<entry>
-<title type="text">Fukuoka.pmに乱入してきた!</title>
-<link href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>Fukuoka.pmに乱入してきた!</h1>
-
-<p>皆さんこんにちは, 提督業と修論業で慌ただしい日々を送っている｢地域PMエバンジェリスト(自称)｣ことpapixです.<br/>
-最近は駆逐艦の良さがわかってきた気がしています. ...あ, そういう意味ではないですヨ?</p>
-
-<p>...さて今日は, 紆余曲折を経て10月26日(土)に開催された｢Fukuoka.pm #24｣に行ってきたので, その感想レポートをお送りしたいと思います.</p>
-
-<h2>スポンサー紹介</h2>
-
-<p>今回, Fukuoka.pmへ参加するにあたり, 往路の交通費を以下の方々にスポンサードして頂きました.<br/>
-この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
-
-<ul>
-<li><a href="https://twitter.com/yusukebe">@yusukebe</a>さん</li>
-<li><a href="https://twitter.com/uzulla">@uzulla</a>さん</li>
-<li><a href="https://twitter.com/xtetsuji">@xtetsuji</a>さん</li>
-</ul>
-
-
-<h2>Fukuoka.pm #24</h2>
-
-<p>Fukuoka.pmの雰囲気等々についてはゆーすけべーさんの感想ブログ記事, ｢<a href="http://yusuke.be/post/65193797413">福岡のPerl Workshop「Fukuoka.pm#24」に行ってきました！</a>｣がよくまとまっているので, こちらを読めばいいのではないでしょうか.</p>
-
-<p>ゆーすけべーさんもブログ記事で書いていますが, 参加人数が少ない分(ATNDの参加申し込み人数で14人), 発表者と参加者の距離が近いので, 参加者の反応を感じやすかったですし, 質疑応答やツッコミといったコミュニケーションが生まれやすい雰囲気が出来ていたので, とても良かったです.</p>
-
-<h2>トーク</h2>
-
-<p>今回のスピーカーは, JPAの講師派遣制度で来ていたゆーすけべーさん, 東京から参戦のcharsbarさん, Fukuoka.pmのヒラタさん(<a href="https://twitter.com/debility">@debility</a>), そして私の4人でした.</p>
-
-<p>ゆーすけべーさんのトークは, 最近チャレンジしているボケての構造化について.
-ざっくりまとめると, ｢フロントエンド(テンプレートエンジンとかを使って, 実際にブラウザに表示する部分を担う)｣と, ｢APIフレームワーク(フロントエンドのAPIリクエストに応じて, DBにアクセスしたりして, 適切な(フロントエンドで表示したい)データを返す)｣の2つに分離して, 分業化するというアイデアを実践している... という話でした.</p>
-
-<p>社内プロダクトならともかく, ボケてのような社の垣根を越えた少人数のチームで開発している場合, このように(開発者の/Webサービスの)役割を明確に区切る, というアプローチは有効そうな気がします.<br/>
-今後, この方針がどのように進展していくかが, とても気になる発表でした!</p>
-
-<p>charsbarさんは, CPANTSやCPANモジュールのKwalitee, MinilやMinillaを使ったモジュール開発等々についてのお話でした.<br/>
-何故か自分がKwaliteeランキングで10位に入っていましたが, あれは｢よしKwaliteeランキングで上位に入ってやろう!｣と思って頑張った訳ではなくて, モジュール開発の為に漬かっているMinillaがよしなにやってくれただけだと思います.
-そういう意味を含めて, Minillaはとても便利なツールなので, これからモジュールを作る! という方はMinillaを採用することをおすすめしますし, 既存モジュールも, 積極的にMinillaに切り替えていく価値があると思っています.</p>
-
-<p>ヒラタさんの発表は, 社内の余興で某クイズ番組をPHPやNodeを駆使して再現した, というお話.
-弊社も割とそういう空気がありますが, ああいう余興(?)に全力を尽くせるノリっていいなあ... と感じました.
-というか, あのシステムはすごい出来が良いので, 某局とコラボするとか, ロゴ等々のマズい部分をなんとかしてOSSのような形で公開したりとか, そういう展開があってもいいですよね. 今後どうなるか期待です.</p>
-
-<h2>自分のトーク</h2>
-
-<p>で, 自分ですが｢GPGPUとXSとわたし｣というタイトルで, PerlにおけるGPGPUの現状と, XSについての話をして来ました.<br/>
-資料はこちらです(後でアップします...)</p>
-
-<p>前半は割と学術っぽいネタで, 後半はXSという人を選ぶ中級者向けなネタだったので, ビギナーな方には｢あー, こういう世界があるんだなー｣というのを感じて頂けるように努力... したつもりなんですが如何でしたでしょうか.<br/>
-人を選ぶネタなので, お昼寝兼内職タイムになっちゃうのでは? と懸念していたのですが, 予想以上に興味津々な感じで聞いて頂けましたし, 質問もいくつか飛んできたので非常に嬉しかったです.</p>
-
-<p>あと, PerCUDAの成果として完成した｢PerCUDA::Backend::GPU｣ですが, これ普通にPerlからPTXをデバイスAPIを使って呼び出すツールとして使える気がするので, ｢CUDA::DeviceAPI｣みたいな名前で独立したモジュールとして公開してもいいんじゃないかなー, と思ったりしました.<br/>
-人柱よろしくです! (To GPGPUで研究をしている八王子在住のPerl Monger)</p>
-
-<h2>福岡最高!</h2>
-
-<p>常日頃から言っていますが, 福岡は自分にとって最高の都市の1つです.<br/>
-まず都市の規模が程よくコンパクトで, 移動がとても楽. 東京で言えば新宿と渋谷と銀座が徒歩圏内にある, みたいなイメージでしょうか.
-あと空港から中心部までの距離が異常に近いのも良いですね. 博多駅から福岡空港まで, 地下鉄で2駅ですし.</p>
-
-<p>あと食いしん坊バンザイな自分やゆーすけべーさんからすると, 屋台だったり居酒屋だったり, 飲食店のレベルが高いのも高印象でした. 要するに, 適当な店に行っても大抵メシがウマイ.
-そして焼酎がとても安いですね! 黒霧島とか, 多分大阪や東京の100〜200円引きくらいの値段で飲めます.</p>
-
-<p>そしてあれです. Fukuoka.pmとかに行くと, 地元の方が自信を持っておすすめするお店とかに行く事になるので, まあマズいはずがないですよね, ええ.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/nabe.jpg" alt="モツ鍋" /></p>
-
-<p>こちらのモツ鍋は, Fukuoka.pmの懇親会(1次回)で行ったモツ鍋屋のモツ.<br/>
-ちなみにこの後, 2次会でラーソーメンを食べ, 3次会で屋台に行って鶏の炭火焼や餃子を食べたりしてました.<br/>
-最終的な解散時間は午前1時...! そして地元の方はずっとビールなり焼酎なりを飲み続けていました. お酒に強すぎィ!</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/mentaiko.jpg" alt="明太子御飯" /></p>
-
-<p>こちらの明太子御飯は, Fukuoka.pmの翌日(つまり今日), ｢ここ超よさそうじゃね!?｣とゆーすけべーさんが見つけたお店で食べたもの.<br/>
-多分, これ東京で食べたら間違いなく1.5〜2倍くらいの値段がするんじゃないかなあ...</p>
-
-<h2>さいごに</h2>
-
-<p>Fukuoka.pm最高! 呼ばれなくてもまた来ますし, 呼ばれたら絶対に行きます!!!<br/>
-ちなみに次のFukuoka.pmには<a href="http://yancha.hachiojipm.org/quot?id=168623,168617">｢ツールチェインギャング見習い｣として有名なmoznion氏も参加</a>するみたいなので, とても楽しみですね!</p>
-
-<p>Fukuoka.pm #24に参加された皆様, そして交通費をスポンサードして頂いたゆーすけべーさん, uzullaさん, てつじさん, 本当に本当に, ありがとうございました!</p>
-
-<center>Fukuoka.pm最高〜〜〜〜〜〜〜〜〜〜〜ッ!!!!!</center>
-
-
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-10-27:entry-2013-10-27-fukuokapm.html</id>
-<published>2013-10-27T22:22:55+0900</published>
-<updated>2013-11-04T15:42:59+09:00</updated>
-</entry>
-<entry>
-<title type="text">Minilla（Module::Build）でproveオプションを渡したい</title>
-<link href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html" />
-<author>
-<name>Hiroyuki Akabane</name>
-</author>
-<content><![CDATA[<h1>Minilla（Module::Build）でproveオプションを渡したい</h1>
-
-<p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
-
-<h2>proveのオプションって？</h2>
-
-<p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
-
-<p>テストの並列処理とかカラーリングとか時間出したりできます。モジュールのテストでも並列処理させたいことはしばしばあると思いますので、結構ニーズあるような設定だと思いますね。</p>
-
-<h2>Makefile.PLの場合</h2>
-
-<p><a href="http://perl-users.jp/articles/advent-calendar/2011/test/18">テストのためにデーモンを自動的に起動するやりかた2011年版</a>にあるように、.provercとかもりもりかいて、以下のようにMakefile.PLに書けばいいのです。</p>
-
-<pre><code>sub MY::test_via_harness { "\tprove --rc=t/proverc t\n" }
-</code></pre>
-
-<p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
-
-<h2>MinillaのModule::Buildでproveの並列オプションの渡し方</h2>
-
-<p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
-
-<pre><code>HARNESS_OPTIONS=j19 minil test
-</code></pre>
-
-<p>で、毎回環境変数渡すのだ類のでMinillaにいれたいんですが、Build.PLを自動生成するMinillaなので、どうするかというと、<a href="http://search.cpan.org/~tokuhirom/Minilla/lib/Minilla.pm#CONFIGURATION">Minillaのminil.tomlの設定のドキュメント</a>とtokuhiromさんの<a href="http://blog.64p.org/entry/20111202/1322803079">Module::Buildでテストの前とかあとにフックする方法</a>を参考に以下のようになります。</p>
-
-<h3>minil.tomlで以下のようにオレオレbuild_classを設定</h3>
-
-<pre><code>[build]
-build_class = "builder::MyBuilder"
-</code></pre>
-
-<h3>オレオレbuildクラスで以下のようにテストをフック</h3>
-
-<p>./buidler/ディレクトリ作って、vi /builder/MyBuilder.pmに書き込みます</p>
-
-<pre><code>package builder::MyBuilder;
-use strict;
-use warnings;
-use parent qw(Module::Build);
-
-sub ACTION_test {
-    my $self = shift;
-
-    local $ENV{HARNESS_OPTIONS} = ($ENV{HARNESS_OPTIONS} ||'') . 'j19';
-    $self-&gt;SUPER::ACTION_test(@_);
-}
-
-1;
-</code></pre>
-
-<h3>いろいろ渡す方法</h3>
-
-<p><a href="http://search.cpan.org/~ovid/Test-Harness-3.29/lib/Test/Harness.pm#ENVIRONMENT_VARIABLES_THAT_AFFECT_TEST::HARNESS">HARNESS_OPTIONSのドキュメント</a>をみると、たくさんオプションを渡すときは、「:」区切りで渡すようです。</p>
-
-<pre><code>HARNESS_OPTIONS=j9:c make test
-</code></pre>
-
-<h3>余談、do_system('prove --jobs 19 -r t')には注意</h3>
-
-<p>最初ACTION_testの中で、$self->SUPER::ACTION_test(@_)呼ばないで、$self->do_system('prove --jobs 19 -r t')でやればよくね？って思ってやったんですが、Minillaがいい感じに裏でやっていると思われるxt系のテストがよばれなくなっちゃうので、ちとうれしくないと思いやめました。xt系のテストあまりわかっていないので、とりあえず、tokurhiromオススメを不都合が出るまで使っておきましょうという感じです。</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-11-01:entry-2013-11-03-minilla-tips1.html</id>
-<published>2013-11-01T03:03:02+0900</published>
-<updated>2013-11-01T20:03:02+09:00</updated>
-</entry>
+<updated>2013-11-04T18:02:29+09:00</updated>
 <entry>
 <title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
 <link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
@@ -197,6 +25,16 @@ sub ACTION_test {
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2013/11/04(月) </td>
+<td> papix      </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html">CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</a></td>
+</tr>
+<tr>
+<td>2013/11/01(金) </td>
+<td> hirobanex  </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html">Minilla（Module::Build）でproveオプションを渡したい</a></td>
+</tr>
 <tr>
 <td>2013/10/27(日) </td>
 <td> papix      </td>
@@ -316,7 +154,337 @@ sub ACTION_test {
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
-<updated>2013-10-27T17:24:39+09:00</updated>
+<updated>2013-11-04T18:02:29+09:00</updated>
+</entry>
+<entry>
+<title type="text">Fukuoka.pmに乱入してきた!</title>
+<link href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>Fukuoka.pmに乱入してきた!</h1>
+
+<p>皆さんこんにちは, 提督業と修論業で慌ただしい日々を送っている｢地域PMエバンジェリスト(自称)｣ことpapixです.<br/>
+最近は駆逐艦の良さがわかってきた気がしています. ...あ, そういう意味ではないですヨ?</p>
+
+<p>...さて今日は, 紆余曲折を経て10月26日(土)に開催された｢Fukuoka.pm #24｣に行ってきたので, その感想レポートをお送りしたいと思います.</p>
+
+<h2>スポンサー紹介</h2>
+
+<p>今回, Fukuoka.pmへ参加するにあたり, 往路の交通費を以下の方々にスポンサードして頂きました.<br/>
+この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
+
+<ul>
+<li><a href="https://twitter.com/yusukebe">@yusukebe</a>さん</li>
+<li><a href="https://twitter.com/uzulla">@uzulla</a>さん</li>
+<li><a href="https://twitter.com/xtetsuji">@xtetsuji</a>さん</li>
+</ul>
+
+
+<h2>Fukuoka.pm #24</h2>
+
+<p>Fukuoka.pmの雰囲気等々についてはゆーすけべーさんの感想ブログ記事, ｢<a href="http://yusuke.be/post/65193797413">福岡のPerl Workshop「Fukuoka.pm#24」に行ってきました！</a>｣がよくまとまっているので, こちらを読めばいいのではないでしょうか.</p>
+
+<p>ゆーすけべーさんもブログ記事で書いていますが, 参加人数が少ない分(ATNDの参加申し込み人数で14人), 発表者と参加者の距離が近いので, 参加者の反応を感じやすかったですし, 質疑応答やツッコミといったコミュニケーションが生まれやすい雰囲気が出来ていたので, とても良かったです.</p>
+
+<h2>トーク</h2>
+
+<p>今回のスピーカーは, JPAの講師派遣制度で来ていたゆーすけべーさん, 東京から参戦のcharsbarさん, Fukuoka.pmのヒラタさん(<a href="https://twitter.com/debility">@debility</a>), そして私の4人でした.</p>
+
+<p>ゆーすけべーさんのトークは, 最近チャレンジしているボケての構造化について.
+ざっくりまとめると, ｢フロントエンド(テンプレートエンジンとかを使って, 実際にブラウザに表示する部分を担う)｣と, ｢APIフレームワーク(フロントエンドのAPIリクエストに応じて, DBにアクセスしたりして, 適切な(フロントエンドで表示したい)データを返す)｣の2つに分離して, 分業化するというアイデアを実践している... という話でした.</p>
+
+<p>社内プロダクトならともかく, ボケてのような社の垣根を越えた少人数のチームで開発している場合, このように(開発者の/Webサービスの)役割を明確に区切る, というアプローチは有効そうな気がします.<br/>
+今後, この方針がどのように進展していくかが, とても気になる発表でした!</p>
+
+<p>charsbarさんは, CPANTSやCPANモジュールのKwalitee, MinilやMinillaを使ったモジュール開発等々についてのお話でした.<br/>
+何故か自分がKwaliteeランキングで10位に入っていましたが, あれは｢よしKwaliteeランキングで上位に入ってやろう!｣と思って頑張った訳ではなくて, モジュール開発の為に漬かっているMinillaがよしなにやってくれただけだと思います.
+そういう意味を含めて, Minillaはとても便利なツールなので, これからモジュールを作る! という方はMinillaを採用することをおすすめしますし, 既存モジュールも, 積極的にMinillaに切り替えていく価値があると思っています.</p>
+
+<p>ヒラタさんの発表は, 社内の余興で某クイズ番組をPHPやNodeを駆使して再現した, というお話.
+弊社も割とそういう空気がありますが, ああいう余興(?)に全力を尽くせるノリっていいなあ... と感じました.
+というか, あのシステムはすごい出来が良いので, 某局とコラボするとか, ロゴ等々のマズい部分をなんとかしてOSSのような形で公開したりとか, そういう展開があってもいいですよね. 今後どうなるか期待です.</p>
+
+<h2>自分のトーク</h2>
+
+<p>で, 自分ですが｢GPGPUとXSとわたし｣というタイトルで, PerlにおけるGPGPUの現状と, XSについての話をして来ました.<br/>
+資料はこちらです(後でアップします...)</p>
+
+<p>前半は割と学術っぽいネタで, 後半はXSという人を選ぶ中級者向けなネタだったので, ビギナーな方には｢あー, こういう世界があるんだなー｣というのを感じて頂けるように努力... したつもりなんですが如何でしたでしょうか.<br/>
+人を選ぶネタなので, お昼寝兼内職タイムになっちゃうのでは? と懸念していたのですが, 予想以上に興味津々な感じで聞いて頂けましたし, 質問もいくつか飛んできたので非常に嬉しかったです.</p>
+
+<p>あと, PerCUDAの成果として完成した｢PerCUDA::Backend::GPU｣ですが, これ普通にPerlからPTXをデバイスAPIを使って呼び出すツールとして使える気がするので, ｢CUDA::DeviceAPI｣みたいな名前で独立したモジュールとして公開してもいいんじゃないかなー, と思ったりしました.<br/>
+人柱よろしくです! (To GPGPUで研究をしている八王子在住のPerl Monger)</p>
+
+<h2>福岡最高!</h2>
+
+<p>常日頃から言っていますが, 福岡は自分にとって最高の都市の1つです.<br/>
+まず都市の規模が程よくコンパクトで, 移動がとても楽. 東京で言えば新宿と渋谷と銀座が徒歩圏内にある, みたいなイメージでしょうか.
+あと空港から中心部までの距離が異常に近いのも良いですね. 博多駅から福岡空港まで, 地下鉄で2駅ですし.</p>
+
+<p>あと食いしん坊バンザイな自分やゆーすけべーさんからすると, 屋台だったり居酒屋だったり, 飲食店のレベルが高いのも高印象でした. 要するに, 適当な店に行っても大抵メシがウマイ.
+そして焼酎がとても安いですね! 黒霧島とか, 多分大阪や東京の100〜200円引きくらいの値段で飲めます.</p>
+
+<p>そしてあれです. Fukuoka.pmとかに行くと, 地元の方が自信を持っておすすめするお店とかに行く事になるので, まあマズいはずがないですよね, ええ.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/nabe.jpg" alt="モツ鍋" /></p>
+
+<p>こちらのモツ鍋は, Fukuoka.pmの懇親会(1次回)で行ったモツ鍋屋のモツ.<br/>
+ちなみにこの後, 2次会でラーソーメンを食べ, 3次会で屋台に行って鶏の炭火焼や餃子を食べたりしてました.<br/>
+最終的な解散時間は午前1時...! そして地元の方はずっとビールなり焼酎なりを飲み続けていました. お酒に強すぎィ!</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/mentaiko.jpg" alt="明太子御飯" /></p>
+
+<p>こちらの明太子御飯は, Fukuoka.pmの翌日(つまり今日), ｢ここ超よさそうじゃね!?｣とゆーすけべーさんが見つけたお店で食べたもの.<br/>
+多分, これ東京で食べたら間違いなく1.5〜2倍くらいの値段がするんじゃないかなあ...</p>
+
+<h2>さいごに</h2>
+
+<p>Fukuoka.pm最高! 呼ばれなくてもまた来ますし, 呼ばれたら絶対に行きます!!!<br/>
+ちなみに次のFukuoka.pmには<a href="http://yancha.hachiojipm.org/quot?id=168623,168617">｢ツールチェインギャング見習い｣として有名なmoznion氏も参加</a>するみたいなので, とても楽しみですね!</p>
+
+<p>Fukuoka.pm #24に参加された皆様, そして交通費をスポンサードして頂いたゆーすけべーさん, uzullaさん, てつじさん, 本当に本当に, ありがとうございました!</p>
+
+<center>Fukuoka.pm最高〜〜〜〜〜〜〜〜〜〜〜ッ!!!!!</center>
+
+
+
+]]></content>
+<id>tag:hachiojipm.github.io,2013-10-27:entry-2013-10-27-fukuokapm.html</id>
+<published>2013-10-27T22:22:55+0900</published>
+<updated>2013-11-04T18:02:29+09:00</updated>
+</entry>
+<entry>
+<title type="text">CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</title>
+<link href="http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</h1>
+
+<p>おはようございます. 三連休で生活リズムが崩れに崩れ, 朝6時に寝て昼15時に起きるという生活をしているpapixです.<br/>
+今日は, 艦これのイベントのE-5で詰んでしまったので, 修論の一環で作成した拙作モジュール, <a href="https://github.com/papix/CUDA-DeviceAPI">CUDA::DeviceAPI</a>についていろいろ書いて行きたいと思います.</p>
+
+<h2>GPGPUとは?</h2>
+
+<p><a href="http://ja.wikipedia.org/wiki/GPGPU">GPGPU</a>は, GPU(グラフィックボード)の演算資源を画像処理以外に応用する技術のことです.<br/>
+複数の計算を, GPUが持つ多数のコア(64個とか128個とか...)で並列に計算することで, シミュレーションや暗号解読などを高速に処理することができます.</p>
+
+<p>ここ最近, いわゆるLL言語でのGPGPUという分野が多少活発になりつつあります. 有名どころだと, PythonのPyCUDAとかはその一例です.<br/>
+学術研究レベルでも, 東大が開発した<a href="http://www.graco.c.u-tokyo.ac.jp/ppp/index.php?Projects%2FRubyGPU">Ikra</a>や, 同志社大学が開発した<a href="http://mikilab.doshisha.ac.jp/research/graduate_thesis/2011/nakamura/rnakamura.pdf">ParaRuby</a>など, いくつかのフレームワークが研究･実装されています.</p>
+
+<p>Perlではどうなのか? というと, CPANにはあがっていませんが, <a href="https://github.com/run4flat/perl-CUDA-Minimal">CUDA::Minimal</a>というモジュールが存在します.<br/>
+これは, CUDAのランタイムAPIを利用して, Inline::CのようにCUDAのコード(CUDA C言語)を書いて, GPUで実行することができる... というものです.</p>
+
+<p>今回紹介する｢CUDA::DeviceAPI｣は, CUDAが持つもう1つのAPI, デバイスAPIを使って, PerlからGPGPUを利用するモジュールです.</p>
+
+<h2>CUDA::DeviceAPIのインストール</h2>
+
+<p>CUDA::DeviceAPIはCUDA 5.0を要求します. 最新版のCUDA 5.5だと動かない... んじゃないでしょうか. 試してませんが.<br/>
+CUDAのインストールは基本的にめんどくさいのですが, Ubuntu 13.04以降だと,</p>
+
+<pre><code>$ sudo apt-get install nvidia-common nvidia-cuda-dev nvidia-cuda-toolkit
+</code></pre>
+
+<p>でインストールできるようになっています. いやはや, 便利な時代になったものです...<br/>
+なお, 言うまでもありませんがNVIDIA製のGPUが搭載されていることが前提条件ですので今すぐ日本橋か秋葉原にでも行って買ってきましょう. GPUを使えばPerCUDAの開発者になれる上, Minecraftとかもサクサク動くようになるので一石二鳥です.</p>
+
+<p>CUDAのインストールが終われば,</p>
+
+<pre><code>$ git clone https://github.com/papix/CUDA-DeviceAPI.git
+$ cd CUDA-DeviceAPI
+$ minil install
+</code></pre>
+
+<p>とかすれば, インストールが出来るはずです.</p>
+
+<h2>CUDA::DeviceAPIを使ってみる</h2>
+
+<p>さて, 早速CUDA::DeviceAPIを使って, PerlからCUDAを使ってみましょう.
+まず, CUDAで実行するコードを用意します.</p>
+
+<pre><code>extern "C" __global__ void kernel(float *a, float *b, float *c, int n)
+{
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    c[col + row * n] = 0;
+    if(col &lt; n &amp;&amp; row &lt; n) {
+        float tmp = 0.0f;
+        for (int i = 0; i &lt; n; i++) {
+            tmp = tmp + a[row * n + i] * a[col + n * i];
+        }
+        c[col + row * n] = tmp;
+    }
+}
+</code></pre>
+
+<p>この<code>kernel</code>関数は, n行n列のfloat型配列を3つ受け取り, 1つ目のfloat型配列と2つ目のfloat型配列の乗算を計算して, 3つ目のfloat型配列に格納する, というコードです. 多分.<br/>
+今回は, このコードを<code>sample.cu</code>という名前で保存します.</p>
+
+<p>このコードを, CUDA::DeviceAPIから実行できるように, CUDAのアセンブリ表現であるPTXに変換します.<br/>
+CUDAのインストールが終わっていれば, <code>nvcc</code>というCUDA用コンパイラが使えるようになっているはずなので,</p>
+
+<pre><code>$ nvcc -ptx sample.cu
+</code></pre>
+
+<p>すると, <code>sample.ptx</code>というファイルが生成されるはずです.</p>
+
+<p>最後に, 生成したPTXを呼び出すPerlのコードを書きます.</p>
+
+<pre><code>use strict;
+use warnings;
+
+use CUDA::DeviceAPI;
+use CUDA::DeviceAPI::Array;
+use Data::Dumper;
+
+my $LENGTH = 4;
+my $block_size = 32;
+
+my $matrix = [
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+];
+
+my $path = 'sample.ptx';
+my $host_data = CUDA::DeviceAPI::Array-&gt;new($matrix);
+
+my $ctx = CUDA::DeviceAPI-&gt;new();
+
+my $dev_ptr_1 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
+my $dev_ptr_2 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
+my $dev_ptr_3 = $ctx-&gt;malloc($host_data-&gt;size() =&gt; 'f');
+
+my $size = $ctx-&gt;ceil($LENGTH / $block_size);
+
+$ctx-&gt;run($path, 'kernel_sum', [
+    $dev_ptr_1 =&gt; 'p',
+    $dev_ptr_2 =&gt; 'p',
+    $dev_ptr_3 =&gt; 'p',
+    $LENGTH    =&gt; 'i',
+], [
+    $size, $size, 1, $block_size, $block_size, 1
+]
+);
+
+my $result = $ctx-&gt;return($dev_ptr_3);
+
+print Dumper $result;
+</code></pre>
+
+<p>今回は, 4行4列の配列の乗算を計算してみました.</p>
+
+<p>計算する行列は<code>my $matrix</code>に入っていて, これを<code>CUDA::DeviceAPI::Array-&gt;new($matrix)</code>とすることで, CUDA::DeviceAPIでよしなに扱える形式にしています.</p>
+
+<p><code>malloc_from</code>は<code>CUDA::DeviceAPI::Array</code>型のオブジェクトを第1引数に受け取って, 第2引数の型(今回は<code>f</code>なのでfloat型)でGPUのメモリに領域を確保し, 値を配置するメソッドです.<br/>
+<code>malloc</code>は, 第1引数に<code>{ x =&gt; 3, y =&gt; 2, z =&gt; 1 }</code>のようなハッシュリファレンスを受け取ると, 第2引数の型に応じて, 第1引数で指定したサイズの配列を格納する為に必要な領域を, GPUのメモリに確保してくれます.</p>
+
+<p>あとは, ここまで生成した値を利用してPTXを呼び出し, 実行するだけです.<br/>
+実行は<code>run</code>メソッドから行います.<br/>
+このメソッドの第1引数は実行するPTXへのパス, 第2引数は実行する関数の名前を指定します.</p>
+
+<p>第3引数は関数に渡す引数を配列リファレンスで指定しています.
+配列リファレンスの2n番目には, GPUで実行する関数のn番目の引数となるポインタ(<code>malloc_from</code>や<code>malloc</code>が返すもの)ないし数値を指定します. <br/>
+配列リファレンスの2n + 1番目には, 2n番目で指定した引数の構造を指定します. 配列のポインタであれば<code>p</code>, 整数であれば<code>i</code>, float型の数値であれば<code>f</code>といった形です.</p>
+
+<p>第4引数はCUDAのグリッドサイズやブロックサイズを指定する部分になります.</p>
+
+<p>最後に, GPUで計算した結果は, <code>return</code>で取得する事ができます.<br/>
+引数に<code>malloc_from</code>や<code>malloc</code>で生成したポインタを指定すれば, そのポインタが指す値をGPUから取得し, 適切な配列リファレンス構造に変換した上で返します.</p>
+
+<h2>まとめ, そしてCUDA::DeviceAPIからPerCUDAへ...</h2>
+
+<p>...というわけで, Perlから, CUDAのデバイスAPIを利用してGPGPUを実現するCUDA::DeviceAPIというモジュールを作りました.</p>
+
+<p>CUDA::DeviceAPIやCUDA::Minimalによって, PerlからCUDAを利用する環境というのは整いつつありますが, まだまだ使い勝手が万全, という訳ではありません.<br/>
+そこで現在, このモジュールを利用して, PerCUDAというPerl向けGPGPUフレームワークを作ろうとしています.</p>
+
+<p>PerCUDAでは, CUDA::DeviceAPIの分かりにくい部分を極力隠蔽するのはもちろん, Perlのコードから自動的にPTXを生成し, ｢Perlのコーディングのみ｣でGPGPUを実現できるようにする予定です.</p>
+
+<p>これによって｢GPUがない場合はPerlのみで実行｣, ｢GPUがある場合はPerl + GPUで実行｣という2つの手法を簡単に使い分けることができるようになるので, ｢GPUがないPC(例えばMBAやノートPC)でコードを書いて小規模の計算で検証｣, ｢細かな調整と大規模な計算はGPUがあるPCで高速に実行｣といった開発手法ができるようになる, ...はずです.</p>
+
+<p>近日中にPerCUDAの方もコードを公開したいと思っておりますので, CUDA::DeviceAPIともども, patchやissue, バグ報告等々をお待ちしております!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-11-04:entry-2013-11-04-cuda-device-api.html</id>
+<published>2013-11-04T02:02:29+0900</published>
+<updated>2013-11-04T18:02:29+09:00</updated>
+</entry>
+<entry>
+<title type="text">Minilla（Module::Build）でproveオプションを渡したい</title>
+<link href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>Minilla（Module::Build）でproveオプションを渡したい</h1>
+
+<p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
+
+<h2>proveのオプションって？</h2>
+
+<p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
+
+<p>テストの並列処理とかカラーリングとか時間出したりできます。モジュールのテストでも並列処理させたいことはしばしばあると思いますので、結構ニーズあるような設定だと思いますね。</p>
+
+<h2>Makefile.PLの場合</h2>
+
+<p><a href="http://perl-users.jp/articles/advent-calendar/2011/test/18">テストのためにデーモンを自動的に起動するやりかた2011年版</a>にあるように、.provercとかもりもりかいて、以下のようにMakefile.PLに書けばいいのです。</p>
+
+<pre><code>sub MY::test_via_harness { "\tprove --rc=t/proverc t\n" }
+</code></pre>
+
+<p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
+
+<h2>MinillaのModule::Buildでproveの並列オプションの渡し方</h2>
+
+<p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
+
+<pre><code>HARNESS_OPTIONS=j19 minil test
+</code></pre>
+
+<p>で、毎回環境変数渡すのだ類のでMinillaにいれたいんですが、Build.PLを自動生成するMinillaなので、どうするかというと、<a href="http://search.cpan.org/~tokuhirom/Minilla/lib/Minilla.pm#CONFIGURATION">Minillaのminil.tomlの設定のドキュメント</a>とtokuhiromさんの<a href="http://blog.64p.org/entry/20111202/1322803079">Module::Buildでテストの前とかあとにフックする方法</a>を参考に以下のようになります。</p>
+
+<h3>minil.tomlで以下のようにオレオレbuild_classを設定</h3>
+
+<pre><code>[build]
+build_class = "builder::MyBuilder"
+</code></pre>
+
+<h3>オレオレbuildクラスで以下のようにテストをフック</h3>
+
+<p>./buidler/ディレクトリ作って、vi /builder/MyBuilder.pmに書き込みます</p>
+
+<pre><code>package builder::MyBuilder;
+use strict;
+use warnings;
+use parent qw(Module::Build);
+
+sub ACTION_test {
+    my $self = shift;
+
+    local $ENV{HARNESS_OPTIONS} = ($ENV{HARNESS_OPTIONS} ||'') . 'j19';
+    $self-&gt;SUPER::ACTION_test(@_);
+}
+
+1;
+</code></pre>
+
+<h3>いろいろ渡す方法</h3>
+
+<p><a href="http://search.cpan.org/~ovid/Test-Harness-3.29/lib/Test/Harness.pm#ENVIRONMENT_VARIABLES_THAT_AFFECT_TEST::HARNESS">HARNESS_OPTIONSのドキュメント</a>をみると、たくさんオプションを渡すときは、「:」区切りで渡すようです。</p>
+
+<pre><code>HARNESS_OPTIONS=j9:c make test
+</code></pre>
+
+<h3>余談、do_system('prove --jobs 19 -r t')には注意</h3>
+
+<p>最初ACTION_testの中で、$self->SUPER::ACTION_test(@_)呼ばないで、$self->do_system('prove --jobs 19 -r t')でやればよくね？って思ってやったんですが、Minillaがいい感じに裏でやっていると思われるxt系のテストがよばれなくなっちゃうので、ちとうれしくないと思いやめました。xt系のテストあまりわかっていないので、とりあえず、tokurhiromオススメを不都合が出るまで使っておきましょうという感じです。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-11-01:entry-2013-11-03-minilla-tips1.html</id>
+<published>2013-11-01T03:03:02+0900</published>
+<updated>2013-11-01T20:03:02+09:00</updated>
 </entry>
 <entry>
 <title type="text">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</title>
@@ -3052,224 +3220,6 @@ $(function(){
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-13:entry-2013-09-13-01.html</id>
 <published>2013-09-13T05:05:36+0900</published>
-<updated>2013-09-14T22:33:26+09:00</updated>
-</entry>
-<entry>
-<title type="text">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-12-01.html" />
-<author>
-<name>uzulla</name>
-</author>
-<content><![CDATA[<h1>PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</h1>
-
-<p>みなさん今日もPHP書いてますか？（挨拶）ここのブログの一番したにAuthorとかかいてあるけど、実際には初めてこのブログに触る<a href="http://twitter.com/uzulla/">uzulla</a>です。</p>
-
-<p>まこぴーさんファンの皆様、もうしわけございません、まこぴー氏多忙につき繰り上げの代替原稿です。</p>
-
-<p>普段は<a href="http://uzulla.hateblo.jp/">自分のブログ</a>に記事かいてるのですが、なんか寄稿しないと気まずいので寄稿します。</p>
-
-<p>私は今日も元気にPHPをかいてます。勿論イヤイヤなどではありません、私はPHPerです！</p>
-
-<h2>ところで</h2>
-
-<p>来週Perlのお祭りである所の<a href="http://yapcasia.org/2013/">YAPC::Asia Tokyo 2013</a>が開催されますね、最高のイベントです、皆さん行くと思います。
-私は前夜祭にて、<a href="http://hachiojipm.org/">hachioji.pm</a>の面々と、LTソン::Tinyを開催します</p>
-
-<p><a href="http://ltthon-yapc2013.hachiojipm.org/">http://ltthon-yapc2013.hachiojipm.org/</a></p>
-
-<p>先日からトーカーを募集しておりますが、今のところ去年同様に非常にスロースタートな感じで、人があつまらなくて主催の胃がいたいので、YAPC前夜祭に参加する方で、LTしたいかもしれない！という方は是非お待ちしております。</p>
-
-<p>去年同様、飛び込みも（出切る範囲で）受け入れたいと思いますので、一身上や宗教上の理由などでATNDに登録できなくとも、当日は是非宜しくお願い致します。</p>
-
-<p>あ、YAPCはPerlの祭典ですけど、LTソンはPHPでも全然いいですよ。去年もPerlまったく関係ない楽しいトーク沢山ありましたし。なにせ司会がPHPerですから、PHPなら優遇する可能性すらあります。（というか去年、PHPだけは居なかった感）</p>
-
-<h2>さて本題もおわりましたので、余談です。</h2>
-
-<p>PHP 5.4からはいった、PHPのBuilt-in Server，皆さん活用していることとおもわれます。してますよね？
-してないし、phpなんか今後も使う気がない、という人はここまでの宣伝もよんでいただけましたでしょうし、有り難うございました、お気を付けてお帰りください。</p>
-
-<p>さて、知らない人に説明すると、DocRootに相当するDirに移動してから</p>
-
-<pre><code>php -S 127.0.0.1:1234
-</code></pre>
-
-<p>などとすると、Httpdがたちあがって、そのままPHPや、ウェブサイトの開発ができちゃう、というもの凄い便利な憎いやつです。
-世の中には「ワンライナーでHTTPを立ち上げて確認」などいうお役立ち情報に注目があつまる事がありますが、PHPならコマンド一発ですよ、まったくすごい。</p>
-
-<p>私も最近はできるだけBSで開発するようになっています、楽なので。
-もうApache+mod_phpの環境を何個もならべるのには疲れたのですよ…。</p>
-
-<p>ただ、今現在ちょっとしたところで躓いたので、その話です。
-ちなみに、わたし は今php5.5.1で作業をしています。</p>
-
-<h2>PHP Builtin Serverの挙動</h2>
-
-<p>PHP Builtin serverは、</p>
-
-<pre><code>http://127.0.0.1:1234/hogehoge/test
-</code></pre>
-
-<p>などしてアクセスしたとき、内部的にindex.phpをよびだすように</p>
-
-<pre><code>/index.php/hogehoge/test
-</code></pre>
-
-<p>等と変換してくれて、世間一般的に.htaccessとかで設定される感じの、まあ良い感じにしてくれるのですが、</p>
-
-<p>この時、</p>
-
-<pre><code>/hogehoge/pseudo_file_name.html
-</code></pre>
-
-<p>とかURLにドットがはいると、index.phpに渡されずに、静的ファイルを探しに行ってしまいます。当然404になってつらい</p>
-
-<p>その場合、</p>
-
-<pre><code>php -S 127.0.0.1:1234 index.php
-</code></pre>
-
-<p>などとして、ルータのPHPファイルを強制指定してあげると良いよ〜というのが定番の解決策です。</p>
-
-<p>でも、これやると全部がPHPの処理になっちゃうから静的ファイルどうするの？不便だ！とおもわれるかもしれません。
-大丈夫です、余り細かく説明はしませんが、もし静的ファイルを送りたいときは、<code>return false</code>でおとすと
-再度PHPがファイルをさがしにいってくれるので、ちょっとした追記で心配ご無用の助です（本エントリ後半に、軽いサンプルコードあります）。</p>
-
-<p><a href="http://php.net/manual/pt_BR/features.commandline.webserver.php">http://php.net/manual/pt_BR/features.commandline.webserver.php</a></p>
-
-<h2>しかし…</h2>
-
-<p>そういう風に説明はされているんですけど、
-.がはいってると、どうも$_SERVERまわりの変数が、.なしとくらべてかわってしまうのですよね、具体的にはPATH_INFOがおかしくなる。</p>
-
-<p>例えば,</p>
-
-<pre><code>&lt;?php
-var_dump($_SERVER);
-</code></pre>
-
-<p>をindex.phpとしておいてある場合に、</p>
-
-<pre><code>http://127.0.0.1:1234/
--出力-
-array (size=21)
-（略
-  'REQUEST_URI' =&gt; string '/' (length=1)
-  'REQUEST_METHOD' =&gt; string 'GET' (length=3)
-  'SCRIPT_NAME' =&gt; string '/index.php' (length=10)
-  'SCRIPT_FILENAME' =&gt; string '/Users/uzulla/dev/mygreat_app/htdocs/index.php' (length=48)
-  'PHP_SELF' =&gt; string '/index.php' (length=10)
-（略
-</code></pre>
-
-<p>と</p>
-
-<pre><code>http://127.0.0.1:1234/test
--出力-
-array (size=22)
-（略
-  'REQUEST_URI' =&gt; string '/test' (length=5)
-  'REQUEST_METHOD' =&gt; string 'GET' (length=3)
-  'SCRIPT_NAME' =&gt; string '/index.php' (length=10)
-  'SCRIPT_FILENAME' =&gt; string '/Users/uzulla/dev/mygreat_app/htdocs/index.php' (length=48)
-  'PATH_INFO' =&gt; string '/test' (length=5)
-  'PHP_SELF' =&gt; string '/index.php/test' (length=15)
-（略
-</code></pre>
-
-<p>以上二つは良いのですけれど、ここで<code>test.php</code>などとしてみると</p>
-
-<pre><code>http://127.0.0.1:1234/test.php
--出力-
-array (size=21)
-（略
-  'REQUEST_URI' =&gt; string '/test.php' (length=9)
-  'REQUEST_METHOD' =&gt; string 'GET' (length=3)
-  'SCRIPT_NAME' =&gt; string '/test.php' (length=9)
-  'SCRIPT_FILENAME' =&gt; string '/Users/uzulla/dev/mygreat_app/htdocs/index.php' (length=48)
-  'PHP_SELF' =&gt; string '/test.php' (length=9)
-（略
-</code></pre>
-
-<p>こうなってしまって、<code>/test</code>と<code>/test.php</code>で、<code>PATH_INFO</code>が変わってしまって辛い。</p>
-
-<p>最近のWAFは<code>PATH_INFO</code>を積極的につかって、routingやargのキャプチャを実現していますが、そいつがコケてしまう…。つらい。</p>
-
-<h2>惜しい</h2>
-
-<p>まあ、解決策がないわけではなくて、BSの時だけ、処理の前段でPATH_INFOが無い場合にREQUEST_URIを加工して、PATH_INFOをねつ造するというテクもあるのですが、たとえばこういうかんじ。</p>
-
-<pre><code>// Builtin Serverの時だけ処理する、Apacheなどでは無視される
-if (php_sapi_name() == 'cli-server') {
-    // PATH_INFOを捏造
-    if(!isset($_SERVER['PATH_INFO'])){
-            $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'];
-    }
-
-    // ここで、適切な正規表現で静的ファイルか、PHPへのリクエストかきりわける。
-    // 静的ファイルならreturn falseさせるように、色々判定させる
-    if ( !preg_match('#^/(blog|post|nom)/#', $_SERVER["PATH_INFO"])) {
-        return false;
-    }
-    if ( preg_match('#\.(jpg|png|gif|js|css|and_other)$#', $_SERVER["PATH_INFO"])) {
-        return false;
-    }
-}
-
-// ここから先、通常の処理
-var_dump($_SERVER);
-</code></pre>
-
-<p>まあ、あんまりやりたくないですよね。ここらへん直って欲しいなぁ〜〜。静的ファイルがなかったら、処理するという.htaccessでいうところの</p>
-
-<pre><code>RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [QSA,L]
-</code></pre>
-
-<p>このような挙動をする実装になっていてくれたほうがありがたかった。</p>
-
-<p>PATH_INFOのリカバリが基本になったり、登録されていないrouteならreturn falseしてくれるような感じにWAF側にとりこまれてもいいのですが…。</p>
-
-<p>PHP Builtin serverは開発にとってもイイナイスなものですが、既存環境との差もちらほらあります、これがどう今後埋まっていくのか？という感じですね！</p>
-
-<p>この辺り、もっと良い感じになってくれるといいなーとかおもって今日の話は終わりです。</p>
-
-<h2>非常になげやりで、謎な宣伝</h2>
-
-<p>友人かつhachioji.pm メンバーのmoznion君（彼女募集中）が承認欲求不満なそうなので、皆さん大変お手数なのですが、ブクマ乞食にブクマをめぐんであげて下さい…。</p>
-
-<p><a href="http://moznion.hatenadiary.com/entry/2013/09/11/163554">http://moznion.hatenadiary.com/entry/2013/09/11/163554</a></p>
-
-<p><img src="http://cdn-ak.f.st-hatena.com/images/fotolife/c/cocodrips/20130906/20130906225609.png" alt="承認欲求の権化" /></p>
-
-<p>ここの所「アイドルに勝ちたい！まけられない！勝たなければセップクしかない！超えられるなら、毛髪をかけてもよい！きえええええ！！！」と大騒ぎしていて、さっさとアイドルのブクマをぬいてもらってmoznion君（彼女募集中）におかれましては精神を安定して頂きたい所です。
-<a href="http://yancha.hachiojipm.org/quot?id=115773,115771,115770,115557,115552,115551,115533,115499,115492,115086,115082,115076,114745,114743,114523,114522,114517,114514,114513,114512,114511,114505,114492,114485,114483">参考</a></p>
-
-<p>今確認したら、あとちょっとでこえられそう、あと一息、あと一息でございます！</p>
-
-<p>一応本文についても触れておくと、マトモなことがかかれています。テック的な話は勿論参考になりますし（俺もはてなインターンで修行したい！と思った、両手で足りないほど遅い）、紋切り型の読書感想文みたいなものではなく、moznion君（彼女募集中）がインターンで得たものを彼なりに説明しているので、良エントリだと思います。moznion君（彼女募集中）の気づきはみなさんにとって既知かもしれませんが、オトク情報だけがネットではありません。</p>
-
-<p>ただ、個人的にいわせてもらえば、ブクマ稼ぎたいならもっと煽ったりネタ画像を貼るべきだった、moznion君（彼女募集中）の実直さ、誠実さが邪魔をしたのでしょう。</p>
-
-<p>そして、LTソンの宣伝をすべきだった。</p>
-
-<p>さておき、「で、誰？」というブクマだけでもよろこばれると思いますので、是非。</p>
-
-<p><a href="http://moznion.hatenadiary.com/entry/2013/09/11/163554">http://moznion.hatenadiary.com/entry/2013/09/11/163554</a></p>
-
-<p><img src="http://cdn-ak.f.st-hatena.com/images/fotolife/c/cocodrips/20130906/20130906225609.png" alt="承認欲求の権化" /></p>
-
-<p>ところで、この写真ボクは<a href="http://blogimg.goo.ne.jp/user_image/56/b1/31a3dbb6d2470b712e2140a5c7b30a81.jpg">変わり兜</a>をかぶった武将にしかみえないんですけど、ボクだけですかね？</p>
-
-<h2>さ〜て、明日のHachioji.pm日めくりテックトークは？</h2>
-
-<p>東の東（ひがしのあずまさん）さんこと、ytnobodyさんです。</p>
-
-<p>（期待してたまこぴーさんファンは、もうちょ〜っとまっててネ！）</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-12:entry-2013-09-12-01.html</id>
-<published>2013-09-12T46:46:52+0900</published>
 <updated>2013-09-14T22:33:26+09:00</updated>
 </entry>
 </feed>

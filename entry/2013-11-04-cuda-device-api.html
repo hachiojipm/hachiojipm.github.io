@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+CUDA::DeviceAPIでPerlからお手軽GPGPUライフ! | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html">Minilla（Module::Build）でproveオプションを渡したい</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/CUDA.html">CUDA</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/GPGPU.html">GPGPU</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</h1>
+
+<p>おはようございます. 三連休で生活リズムが崩れに崩れ, 朝6時に寝て昼15時に起きるという生活をしているpapixです.<br/>
+今日は, 艦これのイベントのE-5で詰んでしまったので, 修論の一環で作成した拙作モジュール, <a href="https://github.com/papix/CUDA-DeviceAPI">CUDA::DeviceAPI</a>についていろいろ書いて行きたいと思います.</p>
+
+<h2>GPGPUとは?</h2>
+
+<p><a href="http://ja.wikipedia.org/wiki/GPGPU">GPGPU</a>は, GPU(グラフィックボード)の演算資源を画像処理以外に応用する技術のことです.<br/>
+複数の計算を, GPUが持つ多数のコア(64個とか128個とか...)で並列に計算することで, シミュレーションや暗号解読などを高速に処理することができます.</p>
+
+<p>ここ最近, いわゆるLL言語でのGPGPUという分野が多少活発になりつつあります. 有名どころだと, PythonのPyCUDAとかはその一例です.<br/>
+学術研究レベルでも, 東大が開発した<a href="http://www.graco.c.u-tokyo.ac.jp/ppp/index.php?Projects%2FRubyGPU">Ikra</a>や, 同志社大学が開発した<a href="http://mikilab.doshisha.ac.jp/research/graduate_thesis/2011/nakamura/rnakamura.pdf">ParaRuby</a>など, いくつかのフレームワークが研究･実装されています.</p>
+
+<p>Perlではどうなのか? というと, CPANにはあがっていませんが, <a href="https://github.com/run4flat/perl-CUDA-Minimal">CUDA::Minimal</a>というモジュールが存在します.<br/>
+これは, CUDAのランタイムAPIを利用して, Inline::CのようにCUDAのコード(CUDA C言語)を書いて, GPUで実行することができる... というものです.</p>
+
+<p>今回紹介する｢CUDA::DeviceAPI｣は, CUDAが持つもう1つのAPI, デバイスAPIを使って, PerlからGPGPUを利用するモジュールです.</p>
+
+<h2>CUDA::DeviceAPIのインストール</h2>
+
+<p>CUDA::DeviceAPIはCUDA 5.0を要求します. 最新版のCUDA 5.5だと動かない... んじゃないでしょうか. 試してませんが.<br/>
+CUDAのインストールは基本的にめんどくさいのですが, Ubuntu 13.04以降だと,</p>
+
+<pre><code>$ sudo apt-get install nvidia-common nvidia-cuda-dev nvidia-cuda-toolkit
+</code></pre>
+
+<p>でインストールできるようになっています. いやはや, 便利な時代になったものです...<br/>
+なお, 言うまでもありませんがNVIDIA製のGPUが搭載されていることが前提条件ですので今すぐ日本橋か秋葉原にでも行って買ってきましょう. GPUを使えばPerCUDAの開発者になれる上, Minecraftとかもサクサク動くようになるので一石二鳥です.</p>
+
+<p>CUDAのインストールが終われば,</p>
+
+<pre><code>$ git clone https://github.com/papix/CUDA-DeviceAPI.git
+$ cd CUDA-DeviceAPI
+$ minil install
+</code></pre>
+
+<p>とかすれば, インストールが出来るはずです.</p>
+
+<h2>CUDA::DeviceAPIを使ってみる</h2>
+
+<p>さて, 早速CUDA::DeviceAPIを使って, PerlからCUDAを使ってみましょう.
+まず, CUDAで実行するコードを用意します.</p>
+
+<pre><code>extern "C" __global__ void kernel(float *a, float *b, float *c, int n)
+{
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    c[col + row * n] = 0;
+    if(col &lt; n &amp;&amp; row &lt; n) {
+        float tmp = 0.0f;
+        for (int i = 0; i &lt; n; i++) {
+            tmp = tmp + a[row * n + i] * a[col + n * i];
+        }
+        c[col + row * n] = tmp;
+    }
+}
+</code></pre>
+
+<p>この<code>kernel</code>関数は, n行n列のfloat型配列を3つ受け取り, 1つ目のfloat型配列と2つ目のfloat型配列の乗算を計算して, 3つ目のfloat型配列に格納する, というコードです. 多分.<br/>
+今回は, このコードを<code>sample.cu</code>という名前で保存します.</p>
+
+<p>このコードを, CUDA::DeviceAPIから実行できるように, CUDAのアセンブリ表現であるPTXに変換します.<br/>
+CUDAのインストールが終わっていれば, <code>nvcc</code>というCUDA用コンパイラが使えるようになっているはずなので,</p>
+
+<pre><code>$ nvcc -ptx sample.cu
+</code></pre>
+
+<p>すると, <code>sample.ptx</code>というファイルが生成されるはずです.</p>
+
+<p>最後に, 生成したPTXを呼び出すPerlのコードを書きます.</p>
+
+<pre><code>use strict;
+use warnings;
+
+use CUDA::DeviceAPI;
+use CUDA::DeviceAPI::Array;
+use Data::Dumper;
+
+my $LENGTH = 4;
+my $block_size = 32;
+
+my $matrix = [
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+    [ 1, 2, 3, 4 ],
+];
+
+my $path = 'sample.ptx';
+my $host_data = CUDA::DeviceAPI::Array-&gt;new($matrix);
+
+my $ctx = CUDA::DeviceAPI-&gt;new();
+
+my $dev_ptr_1 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
+my $dev_ptr_2 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
+my $dev_ptr_3 = $ctx-&gt;malloc($host_data-&gt;size() =&gt; 'f');
+
+my $size = $ctx-&gt;ceil($LENGTH / $block_size);
+
+$ctx-&gt;run($path, 'kernel_sum', [
+    $dev_ptr_1 =&gt; 'p',
+    $dev_ptr_2 =&gt; 'p',
+    $dev_ptr_3 =&gt; 'p',
+    $LENGTH    =&gt; 'i',
+], [
+    $size, $size, 1, $block_size, $block_size, 1
+]
+);
+
+my $result = $ctx-&gt;return($dev_ptr_3);
+
+print Dumper $result;
+</code></pre>
+
+<p>今回は, 4行4列の配列の乗算を計算してみました.</p>
+
+<p>計算する行列は<code>my $matrix</code>に入っていて, これを<code>CUDA::DeviceAPI::Array-&gt;new($matrix)</code>とすることで, CUDA::DeviceAPIでよしなに扱える形式にしています.</p>
+
+<p><code>malloc_from</code>は<code>CUDA::DeviceAPI::Array</code>型のオブジェクトを第1引数に受け取って, 第2引数の型(今回は<code>f</code>なのでfloat型)でGPUのメモリに領域を確保し, 値を配置するメソッドです.<br/>
+<code>malloc</code>は, 第1引数に<code>{ x =&gt; 3, y =&gt; 2, z =&gt; 1 }</code>のようなハッシュリファレンスを受け取ると, 第2引数の型に応じて, 第1引数で指定したサイズの配列を格納する為に必要な領域を, GPUのメモリに確保してくれます.</p>
+
+<p>あとは, ここまで生成した値を利用してPTXを呼び出し, 実行するだけです.<br/>
+実行は<code>run</code>メソッドから行います.<br/>
+このメソッドの第1引数は実行するPTXへのパス, 第2引数は実行する関数の名前を指定します.</p>
+
+<p>第3引数は関数に渡す引数を配列リファレンスで指定しています.
+配列リファレンスの2n番目には, GPUで実行する関数のn番目の引数となるポインタ(<code>malloc_from</code>や<code>malloc</code>が返すもの)ないし数値を指定します. <br/>
+配列リファレンスの2n + 1番目には, 2n番目で指定した引数の構造を指定します. 配列のポインタであれば<code>p</code>, 整数であれば<code>i</code>, float型の数値であれば<code>f</code>といった形です.</p>
+
+<p>第4引数はCUDAのグリッドサイズやブロックサイズを指定する部分になります.</p>
+
+<p>最後に, GPUで計算した結果は, <code>return</code>で取得する事ができます.<br/>
+引数に<code>malloc_from</code>や<code>malloc</code>で生成したポインタを指定すれば, そのポインタが指す値をGPUから取得し, 適切な配列リファレンス構造に変換した上で返します.</p>
+
+<h2>まとめ, そしてCUDA::DeviceAPIからPerCUDAへ...</h2>
+
+<p>...というわけで, Perlから, CUDAのデバイスAPIを利用してGPGPUを実現するCUDA::DeviceAPIというモジュールを作りました.</p>
+
+<p>CUDA::DeviceAPIやCUDA::Minimalによって, PerlからCUDAを利用する環境というのは整いつつありますが, まだまだ使い勝手が万全, という訳ではありません.<br/>
+そこで現在, このモジュールを利用して, PerCUDAというPerl向けGPGPUフレームワークを作ろうとしています.</p>
+
+<p>PerCUDAでは, CUDA::DeviceAPIの分かりにくい部分を極力隠蔽するのはもちろん, Perlのコードから自動的にPTXを生成し, ｢Perlのコーディングのみ｣でGPGPUを実現できるようにする予定です.</p>
+
+<p>これによって｢GPUがない場合はPerlのみで実行｣, ｢GPUがある場合はPerl + GPUで実行｣という2つの手法を簡単に使い分けることができるようになるので, ｢GPUがないPC(例えばMBAやノートPC)でコードを書いて小規模の計算で検証｣, ｢細かな調整と大規模な計算はGPUがあるPCで高速に実行｣といった開発手法ができるようになる, ...はずです.</p>
+
+<p>近日中にPerCUDAの方もコードを公開したいと思っておりますので, CUDA::DeviceAPIともども, patchやissue, バグ報告等々をお待ちしております!</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-11-04 18:02</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-11-04 18:02</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
