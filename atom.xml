@@ -166,6 +166,12 @@
 
 <p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
 
+<h2>感謝！</h2>
+
+<p>この記事書いたらtokuhiromさんがコメントくれて、しかもMinilla v0.8.2をリリースし、tap_harness_argsというModule::Buildのオプションに対応して頂けました！詳細は後述。</p>
+
+<p>ありがとうございます！！！！</p>
+
 <h2>proveのオプションって？</h2>
 
 <p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
@@ -181,7 +187,30 @@
 
 <p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
 
-<h2>MinillaのModule::Buildでproveの並列オプションの渡し方</h2>
+<h2>Build.PLの場合</h2>
+
+<p><a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>にもよくみたらかいてあるんですが、全然よくわかりません（苦笑）</p>
+
+<p>Mminilla( v0.8.2)が生成するBuild.PLをみるとよくわかります。生でBuild.PLを書く場合は以下の設定します。</p>
+
+<pre><code>my $builder = Module::Build-&gt;new(
+    tap_harness_args =&gt; {"jobs" =&gt; 19,"timer" =&gt; "true","color" =&gt; "true"},
+);
+</code></pre>
+
+<h2>[追記]Minillaのproveの並列オプションの渡し方 ～tap_harness_args編～</h2>
+
+<p>Minilla v0.8.2では、以下のようにminil.tomlに設定するということです。</p>
+
+<pre><code>[tap_harness_args]
+jobs=19
+color=true
+timer=true
+</code></pre>
+
+<h2>[元記事]Minillaのproveの並列オプションの渡し方 ～オレオレbuild_class編～</h2>
+
+<p>builder::MyBuilderでカスタマイズできるという参考程度に。</p>
 
 <p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
 
