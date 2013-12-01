@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+Time::PieceのParseで%zを使うのは無理ゲー | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</a>
+    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-02-travel02.html">地域PM遠征を支える技術 〜関東関西移動編〜</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>Time::PieceのParseで%zを使うのは無理ゲー</h1>
+
+<p>「タイムゾーンマタギはおいておいて、そうでないケースにおいて、Date::Timeはオワコンで、Time::Pieceが主流」的なノリになってからだいぶ長いですが、最近やっとTime::Pieceを使い始めたのですが、メールのヘッダーのDateのところをぴっぱろうとしたらはまったんで、そのあたりをまとめておきます。あまり、直接的なタイトルの日本語記事がなかったので。</p>
+
+<h2>ダメのコード</h2>
+
+<p>さて、問題となる具体的なコードは以下です。</p>
+
+<pre><code>#!/usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+use Time::Piece;
+
+{
+    my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
+    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S %z (%Z)'));
+    warn $t-&gt;datetime; # 2013-11-28T09:32:29
+}
+
+{
+    my $datetime = "Thu, 28 Nov 2013 18:32:29";
+    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S'));
+    warn $t-&gt;datetime; # 2013-11-28T18:32:29
+}
+</code></pre>
+
+<p><a href="http://www2u.biglobe.ne.jp/MAS/perl/waza/strftime.html">日付の書式指定</a>にあるように、日付をいろいろパースするときの記号はいろいろあるわけですが、「%z」という「+0900」という「タイムゾーンのGMTへのオフセット時間」ってやつが、Time::Pieceでうまくいかないのはご存知でしょうか。</p>
+
+<p>下の方ではしっかりパースできるのに、上の「+0900 (JST)」のコードのほうが、見事に9時間ズレてしまっています。</p>
+
+<h2>既存文献と対応方法</h2>
+
+<p>重要な問題だからこそでしょうが<a href="http://blog.64p.org/entry/2013/03/01/112510">Time::Piece::strftime and time zone issue</a>という英語の記事でtokuhiromさんが、問題と対応方法を書いているんですが、なんかややっこしいので、どうしたものかと思ったら、sonmguさんが、<a href="http://search.cpan.org/~gaas/HTTP-Date-6.02/lib/HTTP/Date.pm">HTTP::Date</a>を使うのがいいかもねって教えてもらったので、ぼくはそうしました。</p>
+
+<pre><code>use HTTP::Date;
+
+my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
+my $t = localtime(HTTP::Date::str2time(HTTP::Date::parse_date($datetime)));
+warn $t-&gt;datetime; # 2013-11-28T18:32:29 
+</code></pre>
+
+<p>まぁ便利でわかりやすい。Date::Time使うのとCPUとかメモリのコストがどれほど違うのかよくわかりませんが、わかりやすさ間違いないでしょう。毎度、sonmgu++という感じでいつか恩返ししなきゃいけないところです。</p>
+
+<h2>終わりに</h2>
+
+<p>日付周りのモジュールは何が何だったかすっかり忘れてことが多いので、しっかりメモっておきたい今日この頃です。</p>
+
+<p>こういう軽いTipsをこちこちやっていきたいところです。年末はたくさんアドベントカレンダーあるんで、ちょっと胃もたれがちですからねー。</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-12-02 05:56</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-12-02 05:56</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
