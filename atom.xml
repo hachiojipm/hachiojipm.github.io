@@ -7,19 +7,19 @@
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
 <updated>2013-12-02T16:07:00+09:00</updated>
 <entry>
-<title type="text">地域PM遠征を支える技術 〜首都圏宿泊編〜</title>
+<title type="text">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html" />
 <author>
 <name>papix</name>
 </author>
-<content><![CDATA[<h1>地域PM遠征を支える技術 〜首都圏宿泊編〜</h1>
+<content><![CDATA[<h1>地域PM遠征を支える技術 〜首都圏宿泊施設編〜</h1>
 
 <p>というわけでスタートしてしまった｢Hachioji.pm Advent Calendar 2013｣の第1日目, 先陣はこの私, papixが切らせて頂きます!<br/>
 ...というか, 書いてくれる人がいなければ, 30日分(25日分)を全部自分が書かないといけない感じになってしまったので, 皆さん積極的に書いて行きましょう...!</p>
 
 <p><img src="http://hachiojipm.github.io/static/image/hachioji-advent-2013.png" alt="適当〜" /></p>
 
-<p>今回の教訓は, 勢いで適当な事を言うと後で公開する, ということですね!</p>
+<p>今回の教訓は, <strong>勢いで適当な事を言うと後で後悔する</strong>, ということですね!</p>
 
 <h2>首都圏の格安宿泊施設</h2>
 
@@ -78,6 +78,10 @@
 
 <p>山手線西側エリアにある同系列の漫画喫茶としては, 他に渋谷の<a href="http://www.utahiro.com/store/storelist/storeinfo/tabid/64/pdid/0204/Default.aspx">｢カラNET24 渋谷道玄坂店｣</a>と池袋の｢まんが広場 北池袋店｣がありますが, 前者は1500円, 後者は12時間1180円で, 新宿三丁目店に比べるとやや値段が高いです. <br/>
 が, ｢朝早くにヒカリエに行く｣などという場合, 新宿三丁目店に泊まると東京の朝ラッシュに巻き込まれる事になるので, 若干コストがかかりますが, 渋谷道玄坂店を使うという手も考慮する価値が出てくると思います.</p>
+
+<p>余談ですが, 新宿三丁目店の近くには, <a href="http://www.koukaiya.co.jp/">｢航海屋｣</a>というラーメン屋の新宿店があります.<br/>
+この店のチャーシューおこわがとてもとても美味なので, 是非行きましょう!
+チャーシューおこわは2回おかわりできるので, 1杯目は普通に, 2杯目は辛い薬味を乗せて, 3杯目はつけ麺のスープと薬味でお茶漬け風にして頂くと, 最高です.</p>
 
 <h2>ホテル</h2>
 
@@ -387,7 +391,7 @@ print Dumper $result;
 <tr>
 <td>2013/12/01(日) </td>
 <td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html">地域PM遠征を支える技術 〜首都圏宿泊編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"></a></td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"></a></td>
 </tr>
 <tr>
 <td>2013/11/04(月) </td>
