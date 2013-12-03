@@ -5,18 +5,14 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-03T12:23:20+09:00</updated>
+<updated>2013-12-03T12:28:15+09:00</updated>
 <entry>
 <title type="text">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html" />
 <author>
 <name>papix</name>
 </author>
-<content><![CDATA[<p>tags: Travel Advent-Calendar-2013</p>
-
-<h2>pubdate: 2013-12-01 23:59  </h2>
-
-<h1>地域PM遠征を支える技術 〜首都圏宿泊施設編〜</h1>
+<content><![CDATA[<h1>地域PM遠征を支える技術 〜首都圏宿泊施設編〜</h1>
 
 <p>というわけでスタートしてしまった｢Hachioji.pm Advent Calendar 2013｣の第1日目, 先陣はこの私, papixが切らせて頂きます!<br/>
 ...というか, これから先, 一緒にこのアドベントカレンダーを書いてくれる人がいなければ, 30日分(25日分)を全部自分が書かないといけない感じになってしまったので, 皆さん積極的に書いて行きましょう...!</p>
@@ -116,8 +112,8 @@
 <p>明日, 12月2日(月)は再びpapixで, ｢地域PM遠征を支える技術 〜関東関西移動編〜｣をお送りします. お楽しみに!</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-02:entry-2013-12-01-travel01.html</id>
-<published>2013-12-02T07:07:00+0900</published>
-<updated>2013-12-03T12:23:20+09:00</updated>
+<published>2013-12-01T59:59:00+0900</published>
+<updated>2013-12-03T12:28:15+09:00</updated>
 </entry>
 <entry>
 <title type="text">地域PM遠征を支える技術 〜関東関西移動編〜</title>
@@ -125,11 +121,7 @@
 <author>
 <name>papix</name>
 </author>
-<content><![CDATA[<p>tags: Travel Advent-Calendar-2013</p>
-
-<h2>pubdate: 2013-12-02 23:59  </h2>
-
-<h1>地域PM遠征を支える技術 〜関東関西移動編〜</h1>
+<content><![CDATA[<h1>地域PM遠征を支える技術 〜関東関西移動編〜</h1>
 
 <p>というわけでHachioji.pm Advent Calendarの2日目です. 今日の担当はpapixです.</p>
 
@@ -259,8 +251,8 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 王道というか, 普通は十中八九飛行機を使うと思うのですが, それ以外にも面白いルートがあるんだよ! と感じて頂けるようにかんばります.</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-03:entry-2013-12-02-travel02.html</id>
-<published>2013-12-03T33:33:43+0900</published>
-<updated>2013-12-03T12:23:20+09:00</updated>
+<published>2013-12-02T59:59:00+0900</published>
+<updated>2013-12-03T12:28:15+09:00</updated>
 </entry>
 <entry>
 <title type="text">地域PM遠征を支える技術 〜北海道/鉄道編〜</title>
@@ -268,9 +260,7 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 <author>
 <name>papix</name>
 </author>
-<content><![CDATA[<h2>tags: Travel Advent-Calendar-2013    </h2>
-
-<h1>地域PM遠征を支える技術 〜北海道/鉄道編〜</h1>
+<content><![CDATA[<h1>地域PM遠征を支える技術 〜北海道/鉄道編〜</h1>
 
 <p>ぱんぱかぱ〜ん! (挨拶) Hachioji.pm Advent Calendar, はっじまっるよー!<br/>
 というわけで今日の担当もpapixです. 3日連続です. そろそろネタ切れそうです.</p>
@@ -385,7 +375,7 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-03:entry-2013-12-03-travel03.html</id>
 <published>2013-12-03T23:23:20+0900</published>
-<updated>2013-12-03T12:23:20+09:00</updated>
+<updated>2013-12-03T12:28:15+09:00</updated>
 </entry>
 <entry>
 <title type="text">Fukuoka.pmに乱入してきた!</title>
@@ -668,12 +658,12 @@ print Dumper $result;
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-03-travel03.html">地域PM遠征を支える技術 〜北海道/鉄道編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-03-travel03.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-03-travel03.html"></a></td>
 </tr>
 <tr>
-<td>2013/12/03(火) </td>
+<td>2013/12/02(月) </td>
 <td> papix </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-02-travel02.html">地域PM遠征を支える技術 〜関東関西移動編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"></a></td>
 </tr>
 <tr>
-<td>2013/12/02(月) </td>
+<td>2013/12/01(日) </td>
 <td> papix </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"></a></td>
 </tr>
