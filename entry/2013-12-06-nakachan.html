@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+App::Nakachanを作ってみた | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html">Hackを支える作業用BGM事情</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Travel.html">Travel</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Advent-Calendar-2013.html">Advent-Calendar-2013</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Kancolle.html">Kancolle</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>App::Nakachanを作ってみた</h1>
+
+<p><strong>気合! 入れて! 書きます!!!</strong></p>
+
+<p>...という訳で皆様, 師走ですね. アドベントカレンダーの時期ですね.
+本日は, Hachioji.pm Advent Calendar 兼 <a href="http://atnd.org/events/45245">艦これAdvent Calendar</a>の6日目という事でお送りしていきます.</p>
+
+<p>さて皆さん. 突然ですが, ｢遠征｣の情報ってどうやって確認していますか?
+移動時間や作業時間の間に, 愛しい艦娘が提督の為に資源をかき集めてくれる遠征は, 艦これの醍醐味(?)であり, もはやなくてはならない要素の1つです.</p>
+
+<p>要求Lv, 所要時間, 報酬, 遠征を成功させる為に必要な編成... 遠征を効率よく, かつ失敗させずに行う為には, 遠征に関する諸々の情報を覚えておく必要があるのですが, 流石にこれらを全て覚えているのは, 記憶力のいい人か<strong>艦これ廃人</strong>のいずれかだと思います.
+おそらく多くの方は<a href="http://wikiwiki.jp/kancolle/?%B1%F3%C0%AC">｢艦隊これくしょん -艦これ- 攻略Wiki｣の遠征ページ</a>とかで確認しているのではないでしょうか.</p>
+
+<p>今回は, 艦これの遠征に関する情報をコマンドラインで確認できるツール, ｢App::Nakachan｣というものを作ってみたので, 紹介したいと思います.
+余談ですが, ここのところ学会論文や修士論文の執筆に追われていて, App::Nakachanを完成させる為に久々に2時間程度コーディングをしたのですが, <strong>とても楽しかったです.</strong></p>
+
+<h2>App::Nakachanのインストール</h2>
+
+<p>App::Nakachanのコードは, githubで公開しています.</p>
+
+<p><a href="https://github.com/papix/App-Nakachan">https://github.com/papix/App-Nakachan</a></p>
+
+<p>Perlで書いているので, <strong>よしなにインストールしましょう.</strong></p>
+
+<h2>App::Nakachanの使い方</h2>
+
+<p>App::Nakachanをインストールすると, <code>nakachan</code>コマンドが使えるようになります.
+とりあえず今日のアドベントカレンダーに間に合わせる為に機能はあまりありません.</p>
+
+<p><code>nakachan --id 4</code>と打ち込むと, 遠征IDが4である遠征の情報が表示されます.</p>
+
+<p>```
+$ nakachan --id 4</p>
+
+<h1>Select: Expedition - ID: 4</h1>
+
+<p>04 - [D] 対潜警戒任務 (鎮守府海域) / 要求Lv 3 / 所要時間 00:50:00
+  報酬: 石油 0 / 弾薬 60 / 鋼材 0 / ボーキ 0
+        高速修復材 0,1
+  編成: 全3隻 軽1隻, 駆2隻
+  消費: 燃料 5目盛り / 弾薬 0目盛り
+```</p>
+
+<p>また, <code>nakachan --area [0-4]</code>と打ち込むと, 該当する海域の遠征を全て見ることができます.
+ちなみに, 0が鎮守府海域, 1が南西諸島海域, 2が北方海域, 3が西方海域, 4が南方海域です.</p>
+
+<p>```
+$ perl -Ilib bin/nakachan --area 4</p>
+
+<h1>Select: Expedition - Area ID: 4</h1>
+
+<p>33 - [E] 前衛支援任務 (南方海域) / 要求Lv unknown / 所要時間 00:15:00
+  報酬: 石油 0 / 弾薬 0 / 鋼材 0 / ボーキ 0
+  編成: 全2隻 駆2隻</p>
+
+<h1>  消費: 燃料 5目盛り / 弾薬 4,8目盛り</h1>
+
+<p>34 - [E] 艦隊決戦支援任務 (南方海域) / 要求Lv unknown / 所要時間 00:30:00
+  報酬: 石油 0 / 弾薬 0 / 鋼材 0 / ボーキ 0
+  編成: 全2隻 駆2隻</p>
+
+<h1>  消費: 燃料 5目盛り / 弾薬 4,8目盛り</h1>
+
+<p>35 - [S] MO作戦 (南方海域) / 要求Lv 40 / 所要時間 07:00:00
+  報酬: 石油 0 / 弾薬 0 / 鋼材 240 / ボーキ 280
+        (開発資材 0,1)
+  編成: 全6隻 空母2隻, 駆1隻, 重1隻</p>
+
+<h1>  消費: 燃料 8目盛り / 弾薬 8目盛り</h1>
+
+<p>36 - [S] 水上機基地建設 (南方海域) / 要求Lv 30 / 所要時間 09:00:00
+  報酬: 石油 300 / 弾薬 0 / 鋼材 150 / ボーキ 150
+        (高速修復材 0,1)
+  編成: 全6隻 水母2隻, 軽1隻, 駆1隻</p>
+
+<h1>  消費: 燃料 8目盛り / 弾薬 8目盛り</h1>
+
+<p>```</p>
+
+<p>便利... なのか...?
+将来的には, ｢あるを効率良く獲得できる遠征一覧｣とかを出せるようにすれば, もっと便利になりそうです.</p>
+
+<h2>まとめ</h2>
+
+<p>艦これの遠征情報をコマンドラインで確認するツール, ｢App::Nakachan｣を作ってみました.
+今日のアドベントカレンダーに間に合わせるために2時間でガサっと実装した機能だけでは, 正直そこまでありがたみがないので, 細かい検索を出来るようにしたり, あるいは艦娘のステータス情報とかも検索･表示できるようになればいいなー, と思っています.</p>
+
+<p>というわけで, 明日の艦これアドベントカレンダーは@pugiemonnさん, 明日のHachioji.pm Advent Calendarは@hirobanexさんの予定です. お楽しみに!</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-12-06 00:36</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-12-06 00:36</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
