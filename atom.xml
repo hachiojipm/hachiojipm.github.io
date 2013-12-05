@@ -5,10 +5,13 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-03T12:28:15+09:00</updated>
+<updated>2013-12-05T20:10:44+09:00</updated>
 <entry>
 <title type="text">Hackを支える作業用BGM事情</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html" />
+<author>
+<name>ytnobody</name>
+</author>
 <content><![CDATA[<h1>Hackを支える作業用BGM事情</h1>
 
 <h2>作業用BGMが支えてきた僕のOSSプロジェクト</h2>
@@ -102,8 +105,8 @@
 <p>さーて、次回のはちぴーアドベントカレンダーは、またしても大御所P氏こと<strong>papix</strong>さんが書いてくれるらしいですよ！お楽しみに！</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-05:entry-2013-12-05-shoutcast.html</id>
-<published>2013-12-05T10:10:16+0900</published>
-<updated>2013-12-05T20:10:16+09:00</updated>
+<published>2013-12-05T10:10:44+0900</published>
+<updated>2013-12-05T20:10:44+09:00</updated>
 </entry>
 <entry>
 <title type="text">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</title>
@@ -753,7 +756,7 @@ print Dumper $result;
 <tbody>
 <tr>
 <td>2013/12/05(木) </td>
-<td>  </td>
+<td> ytnobody </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html">Hackを支える作業用BGM事情</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html"></a></td>
 </tr>
 <tr>
