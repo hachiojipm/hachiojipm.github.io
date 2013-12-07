@@ -5,7 +5,67 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-02T05:56:49+09:00</updated>
+<updated>2013-12-07T19:27:37+09:00</updated>
+<entry>
+<title type="text">Time::PieceのParseで%zを使うのは無理ゲー</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>Time::PieceのParseで%zを使うのは無理ゲー</h1>
+
+<p>「タイムゾーンマタギはおいておいて、そうでないケースにおいて、Date::Timeはオワコンで、Time::Pieceが主流」的なノリになってからだいぶ長いですが、最近やっとTime::Pieceを使い始めたのですが、メールのヘッダーのDateのところをぴっぱろうとしたらはまったんで、そのあたりをまとめておきます。あまり、直接的なタイトルの日本語記事がなかったので。</p>
+
+<h2>ダメのコード</h2>
+
+<p>さて、問題となる具体的なコードは以下です。</p>
+
+<pre><code>#!/usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+use Time::Piece;
+
+{
+    my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
+    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S %z (%Z)'));
+    warn $t-&gt;datetime; # 2013-11-28T09:32:29
+}
+
+{
+    my $datetime = "Thu, 28 Nov 2013 18:32:29";
+    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S'));
+    warn $t-&gt;datetime; # 2013-11-28T18:32:29
+}
+</code></pre>
+
+<p><a href="http://www2u.biglobe.ne.jp/MAS/perl/waza/strftime.html">日付の書式指定</a>にあるように、日付をいろいろパースするときの記号はいろいろあるわけですが、「%z」という「+0900」という「タイムゾーンのGMTへのオフセット時間」ってやつが、Time::Pieceでうまくいかないのはご存知でしょうか。</p>
+
+<p>下の方ではしっかりパースできるのに、上の「+0900 (JST)」のコードのほうが、見事に9時間ズレてしまっています。</p>
+
+<h2>既存文献と対応方法</h2>
+
+<p>重要な問題だからこそでしょうが<a href="http://blog.64p.org/entry/2013/03/01/112510">Time::Piece::strftime and time zone issue</a>という英語の記事でtokuhiromさんが、問題と対応方法を書いているんですが、なんかややっこしいので、どうしたものかと思ったら、sonmguさんが、<a href="http://search.cpan.org/~gaas/HTTP-Date-6.02/lib/HTTP/Date.pm">HTTP::Date</a>を使うのがいいかもねって教えてもらったので、ぼくはそうしました。</p>
+
+<pre><code>use HTTP::Date;
+
+my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
+my $t = localtime(HTTP::Date::str2time(HTTP::Date::parse_date($datetime)));
+warn $t-&gt;datetime; # 2013-11-28T18:32:29 
+</code></pre>
+
+<p>まぁ便利でわかりやすい。Date::Time使うのとCPUとかメモリのコストがどれほど違うのかよくわかりませんが、わかりやすさ間違いないでしょう。毎度、sonmgu++という感じでいつか恩返ししなきゃいけないところです。</p>
+
+<h2>終わりに</h2>
+
+<p>日付周りのモジュールは何が何だったかすっかり忘れてことが多いので、しっかりメモっておきたい今日この頃です。</p>
+
+<p>こういう軽いTipsをこちこちやっていきたいところです。年末はたくさんアドベントカレンダーあるんで、ちょっと胃もたれがちですからねー。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-07:entry-2013-12-07-time-piece-trap.html</id>
+<published>2013-12-07T27:27:37+0900</published>
+<updated>2013-12-07T19:27:37+09:00</updated>
+</entry>
 <entry>
 <title type="text">App::Nakachanを作ってみた</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-06-nakachan.html" />
@@ -660,66 +720,6 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 <updated>2013-12-03T12:28:15+09:00</updated>
 </entry>
 <entry>
-<title type="text">Time::PieceのParseで%zを使うのは無理ゲー</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html" />
-<author>
-<name>Hiroyuki Akabane</name>
-</author>
-<content><![CDATA[<h1>Time::PieceのParseで%zを使うのは無理ゲー</h1>
-
-<p>「タイムゾーンマタギはおいておいて、そうでないケースにおいて、Date::Timeはオワコンで、Time::Pieceが主流」的なノリになってからだいぶ長いですが、最近やっとTime::Pieceを使い始めたのですが、メールのヘッダーのDateのところをぴっぱろうとしたらはまったんで、そのあたりをまとめておきます。あまり、直接的なタイトルの日本語記事がなかったので。</p>
-
-<h2>ダメのコード</h2>
-
-<p>さて、問題となる具体的なコードは以下です。</p>
-
-<pre><code>#!/usr/bin/env perl
-use strict;
-use warnings;
-use utf8;
-use Time::Piece;
-
-{
-    my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
-    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S %z (%Z)'));
-    warn $t-&gt;datetime; # 2013-11-28T09:32:29
-}
-
-{
-    my $datetime = "Thu, 28 Nov 2013 18:32:29";
-    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S'));
-    warn $t-&gt;datetime; # 2013-11-28T18:32:29
-}
-</code></pre>
-
-<p><a href="http://www2u.biglobe.ne.jp/MAS/perl/waza/strftime.html">日付の書式指定</a>にあるように、日付をいろいろパースするときの記号はいろいろあるわけですが、「%z」という「+0900」という「タイムゾーンのGMTへのオフセット時間」ってやつが、Time::Pieceでうまくいかないのはご存知でしょうか。</p>
-
-<p>下の方ではしっかりパースできるのに、上の「+0900 (JST)」のコードのほうが、見事に9時間ズレてしまっています。</p>
-
-<h2>既存文献と対応方法</h2>
-
-<p>重要な問題だからこそでしょうが<a href="http://blog.64p.org/entry/2013/03/01/112510">Time::Piece::strftime and time zone issue</a>という英語の記事でtokuhiromさんが、問題と対応方法を書いているんですが、なんかややっこしいので、どうしたものかと思ったら、sonmguさんが、<a href="http://search.cpan.org/~gaas/HTTP-Date-6.02/lib/HTTP/Date.pm">HTTP::Date</a>を使うのがいいかもねって教えてもらったので、ぼくはそうしました。</p>
-
-<pre><code>use HTTP::Date;
-
-my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
-my $t = localtime(HTTP::Date::str2time(HTTP::Date::parse_date($datetime)));
-warn $t-&gt;datetime; # 2013-11-28T18:32:29 
-</code></pre>
-
-<p>まぁ便利でわかりやすい。Date::Time使うのとCPUとかメモリのコストがどれほど違うのかよくわかりませんが、わかりやすさ間違いないでしょう。毎度、sonmgu++という感じでいつか恩返ししなきゃいけないところです。</p>
-
-<h2>終わりに</h2>
-
-<p>日付周りのモジュールは何が何だったかすっかり忘れてことが多いので、しっかりメモっておきたい今日この頃です。</p>
-
-<p>こういう軽いTipsをこちこちやっていきたいところです。年末はたくさんアドベントカレンダーあるんで、ちょっと胃もたれがちですからねー。</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-02:entry-2013-12-07-time-piece-trap.html</id>
-<published>2013-12-02T56:56:49+0900</published>
-<updated>2013-12-02T05:56:49+09:00</updated>
-</entry>
-<entry>
 <title type="text">Fukuoka.pmに乱入してきた!</title>
 <link href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html" />
 <author>
@@ -995,6 +995,11 @@ print Dumper $result;
 </thead>
 <tbody>
 <tr>
+<td>2013/12/07(土) </td>
+<td> Hiroyuki Akabane </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html">Time::PieceのParseで%zを使うのは無理ゲー</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"></a></td>
+</tr>
+<tr>
 <td>2013/12/06(金) </td>
 <td> papix </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-06-nakachan.html">App::Nakachanを作ってみた</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-06-nakachan.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-06-nakachan.html"></a></td>
@@ -1018,11 +1023,6 @@ print Dumper $result;
 <td>2013/12/02(月) </td>
 <td> papix </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-02-travel02.html">地域PM遠征を支える技術 〜関東関西移動編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/02(月) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html">Time::PieceのParseで%zを使うのは無理ゲー</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"></a></td>
 </tr>
 <tr>
 <td>2013/12/01(日) </td>
