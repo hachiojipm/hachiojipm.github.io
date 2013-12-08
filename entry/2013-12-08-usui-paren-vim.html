@@ -7,7 +7,7 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
   <title>
-Time::PieceのParseで%zを使うのは無理ゲー | Hachioji.pm 日めくりテックトーク
+usui-paren.vimってやつを書いた | Hachioji.pm 日めくりテックトーク
   </title>
 </head>
 <body>
@@ -17,8 +17,7 @@ Time::PieceのParseで%zを使うのは無理ゲー | Hachioji.pm 日めくり�
   <section>
 <nav>
   <ul class="paginate">
-    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-06-nakachan.html">App::Nakachanを作ってみた</a>
-    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">usui-paren.vimってやつを書いた</a>
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html">Time::PieceのParseで%zを使うのは無理ゲー</a>
   </ul>
 </nav>
 
@@ -35,68 +34,25 @@ Time::PieceのParseで%zを使うのは無理ゲー | Hachioji.pm 日めくり�
   <aside class="tags">
     <h1 class="tags">Tags</h1>
     <ul class="tags">
-      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Vim.html">Vim</a></li>
     </ul>
   </aside>
   <div class="entry">
-    <h1>Time::PieceのParseで%zを使うのは無理ゲー</h1>
+    <h1>usui-paren.vimってやつを書いた</h1>
 
-<p>「タイムゾーンマタギはおいておいて、そうでないケースにおいて、Date::Timeはオワコンで、Time::Pieceが主流」的なノリになってからだいぶ長いですが、最近やっとTime::Pieceを使い始めたのですが、メールのヘッダーのDateのところをぴっぱろうとしたらはまったんで、そのあたりをまとめておきます。あまり、直接的なタイトルの日本語記事がなかったので。</p>
+<p>Hachioji.pm Advent Calendarの8日目の記事です．<br/>
+以下をどうぞ！</p>
 
-<h2>ダメのコード</h2>
-
-<p>さて、問題となる具体的なコードは以下です。</p>
-
-<pre><code>#!/usr/bin/env perl
-use strict;
-use warnings;
-use utf8;
-use Time::Piece;
-
-{
-    my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
-    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S %z (%Z)'));
-    warn $t-&gt;datetime; # 2013-11-28T09:32:29
-}
-
-{
-    my $datetime = "Thu, 28 Nov 2013 18:32:29";
-    my $t = localtime(Time::Piece-&gt;strptime($datetime,'%a, %d %h %Y %H:%M:%S'));
-    warn $t-&gt;datetime; # 2013-11-28T18:32:29
-}
-</code></pre>
-
-<p><a href="http://www2u.biglobe.ne.jp/MAS/perl/waza/strftime.html">日付の書式指定</a>にあるように、日付をいろいろパースするときの記号はいろいろあるわけですが、「%z」という「+0900」という「タイムゾーンのGMTへのオフセット時間」ってやつが、Time::Pieceでうまくいかないのはご存知でしょうか。</p>
-
-<p>下の方ではしっかりパースできるのに、上の「+0900 (JST)」のコードのほうが、見事に9時間ズレてしまっています。</p>
-
-<h2>既存文献と対応方法</h2>
-
-<p>重要な問題だからこそでしょうが<a href="http://blog.64p.org/entry/2013/03/01/112510">Time::Piece::strftime and time zone issue</a>という英語の記事でtokuhiromさんが、問題と対応方法を書いているんですが、なんかややっこしいので、どうしたものかと思ったら、sonmguさんが、<a href="http://search.cpan.org/~gaas/HTTP-Date-6.02/lib/HTTP/Date.pm">HTTP::Date</a>を使うのがいいかもねって教えてもらったので、ぼくはそうしました。</p>
-
-<pre><code>use HTTP::Date;
-
-my $datetime = "Thu, 28 Nov 2013 18:32:29 +0900 (JST)";
-my $t = localtime(HTTP::Date::str2time(HTTP::Date::parse_date($datetime)));
-warn $t-&gt;datetime; # 2013-11-28T18:32:29 
-</code></pre>
-
-<p>まぁ便利でわかりやすい。Date::Time使うのとCPUとかメモリのコストがどれほど違うのかよくわかりませんが、わかりやすさ間違いないでしょう。毎度、sonmgu++という感じでいつか恩返ししなきゃいけないところです。</p>
-
-<h2>終わりに</h2>
-
-<p>日付周りのモジュールは何が何だったかすっかり忘れてことが多いので、しっかりメモっておきたい今日この頃です。</p>
-
-<p>こういう軽いTipsをこちこちやっていきたいところです。年末はたくさんアドベントカレンダーあるんで、ちょっと胃もたれがちですからねー。</p>
+<p><a href="http://moznion.hatenadiary.com/entry/2013/12/08/230734">usui-paren.vimってやつを書いた - その手の平は尻もつかめるさ</a></p>
 
   </div>
   <dl class="meta">
       <dt class="author">created by</dt>
-      <dd class="author">Hiroyuki Akabane</dd>
+      <dd class="author">moznion</dd>
       <dt class="time">created at</dt>
-      <dd class="time"><time>2013-12-07 19:27</time></dd>
+      <dd class="time"><time>2013-12-08 23:12</time></dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-12-07 19:27</dd>
+      <dd class="time">2013-12-08 23:12</dd>
   </dl>
 </article>
 <section>
