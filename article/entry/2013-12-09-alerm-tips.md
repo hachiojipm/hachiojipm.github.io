@@ -65,7 +65,7 @@ plackupして放置しているプロセスとかそういうのいい感じに�
 
         $proclet->service(
             tag  => 'psgi',
-            code => "cd /home/hirobanex/project/$project plackup $psgi_path -L Shotgun -p $port",
+            code => "cd /home/hirobanex/project/$project && plackup $psgi_path -L Shotgun -p $port",
         );
 
         $proclet->run;
