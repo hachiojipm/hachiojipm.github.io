@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+x秒後に消滅するpsgiプロセスをPerlで実装したい | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">usui-paren.vimってやつを書いた</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>x秒後に消滅するpsgiプロセスをPerlで実装したい</h1>
+
+<p>plackupして放置しているプロセスとかそういうのいい感じに消えてほしいのですが、そいうやつの実装についてのアイデアと疑問をば。</p>
+
+<h2>前置き：要件的なやつ</h2>
+
+<p>例えばですが、自分のローカルPCの中にたくさんのプロジェクトが入っていて、それらのプロジェクトを個別に詳しく機能追加とかするわけじゃないんだけど、それぞれの管理画面だけどんなんだったかな？って眺めてみたいとして、一枚の一覧HTMLだけたちあげておいて、そここからリンクをクリックすれば、適当に空いているportゲットして個別のプロジェクトの管理画面用のpsgiファイルをplackupしてそのURLにリダイレクトするみたいなのがほしいとします。</p>
+
+<p>ただ、このとき、いろんなportをばかばかと使ってプロセスが立ち上がりっぱなしになると痛いので、立ち上げたpsgiのプロセスがいい感じに消えてほしいわけですね。</p>
+
+<p>つまり、以下のようなイメージですね。</p>
+
+<ul>
+<li>http://project_admin:8080/luancher/my_app_1にアクセスする</li>
+<li>/luancherのエンドポイントで、いい感じにport取得し、system("plackup ./somepath/my_app_1.psgi -p $port -L Shotgun")的なことして、http://project_admin:$port/にリダイレクト</li>
+<li>その後、my_app_1.psgiはいい感じに消滅</li>
+</ul>
+
+
+<p>さて、具体的なイメージわきましたでしょうか（笑）まぁ意味不明ですね。。。</p>
+
+<p>とりあえず、いい感じにportを取得するのは、テストでもないですが、Test::TCPに任せるか、内部で使っているportとってくるモジュールでも使えばいいとして、問題は、「psgiがいい感じに消滅」です。</p>
+
+<h2>いい感じに消滅　≒　起動にalarmで指定した秒後に消滅</h2>
+
+<p>こんなURL「/luancher?project=HogeProject&amp;psgi_path=script/app.psgi」にアクセスすると、以下のようなコントローラーにとおって</p>
+
+<pre><code>    ### MyAdmin::Web::C::Luancher
+    use Test::TCP;
+    use IO::Interface::Simple;
+
+    sub run {
+        my ($class,$c) = @_;
+
+        my $project   = $c-&gt;req-&gt;param('project');
+        my $psgi_path = $c-&gt;req-&gt;param('psgi_path');
+
+
+        my $server = Test::TCP-&gt;new(
+            code =&gt; sub {
+                my $port = shift;
+                system("perl ./script/psgi/proclet.pl $project $psgi_path $port");
+            },
+        );
+
+        $c-&gt;redirect("http://".IO::Interface::Simple-&gt;new('eth0')-&gt;address.":".$server-&gt;port());
+    }
+</code></pre>
+
+<p>以下のような「assets/script/psgi/proclet.pl」をたたくって感じですね。ちょっとそれますが、「IO::Interface::Simple」とか何気覚えておきたい便利モジュールですね。あと、なんかもうTest::TCPを直使いしてますが、昔のやっつけコードなので記念に残しておきますw</p>
+
+<pre><code>    ### assets/script/psgi/proclet.pl
+
+    use strict;
+    use warnings;
+    use Proclet;
+
+    my $project   = $ARGV[0];
+    my $psgi_path = $ARGV[1];
+    my $port      = $ARGV[2];
+
+    local $SIG{ALRM} = sub { kill 'TERM',$$; };
+
+    alarm $timeout;
+
+    my $proclet = Proclet-&gt;new(color =&gt; 1);
+
+    $proclet-&gt;service(
+        tag  =&gt; 'psgi',
+        code =&gt; "cd /home/hirobanex/project/$project plackup $psgi_path -L Shotgun -p $port",
+    );
+
+    $proclet-&gt;run;
+</code></pre>
+
+<p>ポイントは、あえてProcletでラップしたスクリプト内でalermの設定をしてをたたくということですね。</p>
+
+<p>立ち上げるPSGIプロセスは、なんとなく-L Shotgunとか-Rとかつけたいのですが、これって内部でフォークしているので、素のpsgiファイルにalerm仕込んでも、子プロセスが死ぬだけで親プロセスが残っちゃうんですねー。</p>
+
+<p>Procletでラップしてあげることで、親プロセス毎まるっと、alermで死ぬという感じです。</p>
+
+<h2>いい感じに消滅　≒　アクセスがあった時から指定した秒後に消滅</h2>
+
+<p>上記の方法でもいいんですが、そうすると30分とか1時間とかある程度まとまった時間をいれておかないと使いずらい気がするのですが、そうすると細かくプロセスを立ち上げまくっていくとportが埋まってしまいそうな恐怖感（あくまで恐怖感）に陥ります。</p>
+
+<p>で、アクセスがあるたびに毎回消滅時間が延長されるというか、リセットされたほうが筋が良い実装な気がするんですね。</p>
+
+<p>ただ、どうやっていいのか思いつかず。。。。苦笑</p>
+
+<p>AnyEventとかでイベント実装すればいい気がするんですが、AnyEventって全く使っていなくてよくわかんす。。。</p>
+
+<p>今回のケースではここまで頑張らなくていい気もしますが、なんかこういうことがいい感じにできると、何か応用できそうな・・・・という気がしたりです。</p>
+
+<h2>結び</h2>
+
+<p>結局、「alermの紹介じゃないっすか」って感じの記事になってしまいましたが、まぁ「select」とか「fork」とかUnixネイティブなオーラの漂う関数ってCとかやっていないとヒヤっとするので、そういうのPerlから入門していく電子書籍とかあるとうれしいなーと思いますので、誰か記事書いてくださいーw</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">Hiroyuki Akabane</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-12-09 23:59</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-12-09 23:59</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
