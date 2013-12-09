@@ -107,7 +107,7 @@ x秒後に消滅するpsgiプロセスをPerlで実装したい | Hachioji.pm �
 
     $proclet-&gt;service(
         tag  =&gt; 'psgi',
-        code =&gt; "cd /home/hirobanex/project/$project plackup $psgi_path -L Shotgun -p $port",
+        code =&gt; "cd /home/hirobanex/project/$project &amp;&amp; plackup $psgi_path -L Shotgun -p $port",
     );
 
     $proclet-&gt;run;

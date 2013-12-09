@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-09T22:50:24+09:00</updated>
+<updated>2013-12-09T22:52:08+09:00</updated>
 <entry>
 <title type="text">x秒後に消滅するpsgiプロセスをPerlで実装したい</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html" />
@@ -81,7 +81,7 @@
 
     $proclet-&gt;service(
         tag  =&gt; 'psgi',
-        code =&gt; "cd /home/hirobanex/project/$project plackup $psgi_path -L Shotgun -p $port",
+        code =&gt; "cd /home/hirobanex/project/$project &amp;&amp; plackup $psgi_path -L Shotgun -p $port",
     );
 
     $proclet-&gt;run;
