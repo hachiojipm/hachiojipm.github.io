@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法 | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html">x秒後に消滅するpsgiプロセスをPerlで実装したい</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Travel.html">Travel</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Advent-Calendar-2013.html">Advent-Calendar-2013</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Minilla.html">Minilla</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</h1>
+
+<p>Hachioji.pm Advent Calendarもついに10日目. そんな2桁記念日に颯爽と登場したるはpapixです. 今日も宜しくお願い致します.<br/>
+今日は時間がないので, 若干あっさり目で行きたいと思います.</p>
+
+<p>...さて. 最近, <a href="https://travis-ci.org/">Travis CI</a>や<a href="https://coveralls.io/">Coveralls</a>を使っている人が増えてきているような気がします.<br/>
+これらのサービスは, GitHubのリポジトリを結びつけておくと, 自動的にテストを回してくれたり, テストのカバー率を表示したりしてくれるのでとても便利です.<br/>
+更に, GitHubのリポジトリ内のREADME.mdにこれらのバッヂを貼り付けておけば, README.mdの内容はリポジトリのトップページ(?)に表示されるのでこれらの状況をとても確認しやすくなります.</p>
+
+<p>ただ, Minillaでモジュールを管理している場合, README.mdは<code>minil build</code>や<code>minil test</code>をすると自動的に再度生成されるので, その都度バッヂを貼る必要があります.<br/>
+かといって, 元のPODにバッヂを貼るのはよろしくないです.</p>
+
+<p>...というのを悩んでいたところ, 実は<code>minil.toml</code>で設定すれば, README.mdに対して自動的にバッヂを生成できる, ということを昨日知りました.<br/>
+この設定をしておけば, <code>minil.toml</code>にこういう感じで書けば, <code>minil build</code>や<code>minil test</code>などで再度生成されるREADME.mdに, 自動的にバッヂが貼り付けられます! 便利!!!</p>
+
+<p><code>  
+badges = ['travis', 'coveralls']  
+</code></p>
+
+<p>badgesを含む<code>minil.toml</code>の設定等々については, <a href="https://github.com/tokuhirom/Minilla#configuration">Minillaのドキュメント</a>に書かれていますので一度読んでみるといいかもしれません.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>PerlモジュールのREADME.mdにTravis CIのバッジ貼りたいけど、README.mdがminilaが生成するPODベースの文章を使ってるのでPOD内に含める必要がありそうだけど、POD内だとCPAN上に表示するときダメそう??</p>&mdash; ıɐɯɐu ıɥsoʇɐs (@ainame) <a href="https://twitter.com/ainame/statuses/410325755181031425">2013, 12月 10</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>今日, こんなやりとりもあったので, 俺得備忘録を兼ねて, Hachioji.pm Advent Calendarでメモさせていただきたいと思います.</p>
+
+<h1>次回予告</h1>
+
+<p>明日は再び@hirobanexさんが登場の予定です! お楽しみに.</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-12-10 23:59</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-12-11 02:44</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>

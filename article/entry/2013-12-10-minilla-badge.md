@@ -21,10 +21,10 @@ badges = ['travis', 'coveralls']
 ```  
   
 badgesを含む`minil.toml`の設定等々については, [Minillaのドキュメント](https://github.com/tokuhirom/Minilla#configuration)に書かれていますので一度読んでみるといいかもしれません.  
-  
-<blockquote class="twitter-tweet" lang="ja"><p>PerlモジュールのREADME.mdにTravis CIのバッジ貼りたいけど、README.mdがminilaが生成するPODベースの文章を使ってるのでPOD内に含める必要がありそうだけど、POD内だとCPAN上に表示するときダメそう??</p>&mdash; ıɐɯɐu ıɥsoʇɐs (@ainame) <a href="https://twitter.com/ainame/statuses/410325755181031425">2013, 12月 10</a></blockquote>  
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>  
-  
+
+<blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/ainame">@ainame</a> minil.tomlにbadgesてのが書けます <a href="https://t.co/TZiPXTYy0J">https://t.co/TZiPXTYy0J</a></p>&mdash; songmu (@songmu) <a href="https://twitter.com/songmu/statuses/410327396726738944">2013, 12月 10</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 今日, こんなやりとりもあったので, 俺得備忘録を兼ねて, Hachioji.pm Advent Calendarでメモさせていただきたいと思います.  
   
 # 次回予告  

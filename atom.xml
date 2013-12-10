@@ -3,9 +3,56 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-09T22:52:08+09:00</updated>
+<updated>2013-12-11T02:44:56+09:00</updated>
+<entry>
+<title type="text">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</h1>
+
+<p>Hachioji.pm Advent Calendarもついに10日目. そんな2桁記念日に颯爽と登場したるはpapixです. 今日も宜しくお願い致します.<br/>
+今日は時間がないので, 若干あっさり目で行きたいと思います.</p>
+
+<p>...さて. 最近, <a href="https://travis-ci.org/">Travis CI</a>や<a href="https://coveralls.io/">Coveralls</a>を使っている人が増えてきているような気がします.<br/>
+これらのサービスは, GitHubのリポジトリを結びつけておくと, 自動的にテストを回してくれたり, テストのカバー率を表示したりしてくれるのでとても便利です.<br/>
+更に, GitHubのリポジトリ内のREADME.mdにこれらのバッヂを貼り付けておけば, README.mdの内容はリポジトリのトップページ(?)に表示されるのでこれらの状況をとても確認しやすくなります.</p>
+
+<p>ただ, Minillaでモジュールを管理している場合, README.mdは<code>minil build</code>や<code>minil test</code>をすると自動的に再度生成されるので, その都度バッヂを貼る必要があります.<br/>
+かといって, 元のPODにバッヂを貼るのはよろしくないです.</p>
+
+<p>...というのを悩んでいたところ, 実は<code>minil.toml</code>で設定すれば, README.mdに対して自動的にバッヂを生成できる, ということを昨日知りました.<br/>
+この設定をしておけば, <code>minil.toml</code>にこういう感じで書けば, <code>minil build</code>や<code>minil test</code>などで再度生成されるREADME.mdに, 自動的にバッヂが貼り付けられます! 便利!!!</p>
+
+<p><code>  
+badges = ['travis', 'coveralls']  
+</code></p>
+
+<p>badgesを含む<code>minil.toml</code>の設定等々については, <a href="https://github.com/tokuhirom/Minilla#configuration">Minillaのドキュメント</a>に書かれていますので一度読んでみるといいかもしれません.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>PerlモジュールのREADME.mdにTravis CIのバッジ貼りたいけど、README.mdがminilaが生成するPODベースの文章を使ってるのでPOD内に含める必要がありそうだけど、POD内だとCPAN上に表示するときダメそう??</p>&mdash; ıɐɯɐu ıɥsoʇɐs (@ainame) <a href="https://twitter.com/ainame/statuses/410325755181031425">2013, 12月 10</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>今日, こんなやりとりもあったので, 俺得備忘録を兼ねて, Hachioji.pm Advent Calendarでメモさせていただきたいと思います.</p>
+
+<h1>次回予告</h1>
+
+<p>明日は再び@hirobanexさんが登場の予定です! お楽しみに.</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-11:entry-2013-12-10-minilla-badge.html</id>
+<published>2013-12-10T59:59:00+0900</published>
+<updated>2013-12-11T02:44:56+09:00</updated>
+</entry>
 <entry>
 <title type="text">x秒後に消滅するpsgiプロセスをPerlで実装したい</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html" />
@@ -1118,6 +1165,11 @@ print Dumper $result;
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2013/12/10(火) </td>
+<td> papix </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html"></a></td>
+</tr>
 <tr>
 <td>2013/12/09(月) </td>
 <td> Hiroyuki Akabane </td>
@@ -2500,79 +2552,5 @@ sub id(Int $n) r
 <id>tag:hachiojipm.github.io,2013-09-25:entry-2013-09-25-get_started_seis.html</id>
 <published>2013-09-25T19:19:27+0900</published>
 <updated>2013-09-25T01:27:59+09:00</updated>
-</entry>
-<entry>
-<title type="text">phpcon2013所見</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html" />
-<author>
-<name>Hiroyuki Akabane</name>
-</author>
-<content><![CDATA[<h1>phpcon2013所見</h1>
-
-<p>こんにちは！！一日忘れていて遅れてしまったhirobanexです！！！YAPC::Asia2013が行われる前の週にPHPカンファレンスっていうPHPのお祭りがやっていたのはご存知かな？？今回、Perl Mongerのphper初心者として<a href="http://phpcon.php.gr.jp/w/2013/">PHPカンファレンス2013</a>に参加したので、その感想をレポートするよ！！</p>
-
-<h2>YAPC::Asia2013 vs PHPカンファレンス2013</h2>
-
-<p>きっと、このブログの読者はPHPカンファレンスに行ったことがある人より、YAPC::Asia2013に行ったことがある人が多いと思うので、その前提で両社を比較してみるよ！！</p>
-
-<p>phpconはYAPC::Asiaに比べて</p>
-
-<ul>
-<li>参加人数：多い</li>
-<li>参加費：無料</li>
-<li>総セッション数：同じか少ない</li>
-<li>開催日数：少ない（1日だけ）</li>
-<li>企業の宣伝：ガン攻めできる</li>
-</ul>
-
-
-<p>という気がしました。セッションの傾向としては、デザイナーとかホームページ制作者からの視点が多分に入っていたり、PHPの内部実装についての話などが多い傾向にあるように感じました。またYAPC::Asiaに比べて「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がします。</p>
-
-<p>あと、YAPCだと公式ページにセッションの内容を詳しく書かれていて</p>
-
-<ul>
-<li>タイトル</li>
-<li>説明</li>
-<li>タグ（ビギナー向け or 中級者向け、DB系 or アプリケーション、etc）</li>
-<li>YouTube</li>
-<li>slide</li>
-</ul>
-
-
-<p>結構参考になりまくりなんだけど、PHPカンファレンスはそういうことがなくて後で見返すの大変だなーと思う一方、リアルな現場に参加した感の貴重さを味わえるのかなーと思いました。</p>
-
-<h2>2013の個別のセッションについて</h2>
-
-<p>ぼくが参加したセッションは正直個人的に外れ感があったので、微妙だったんですが、Perlユーザーでphp初心者の観点を中心に考えると、以下のセッションのYouTubeなりスライドなりをみるのが興味深いと思いました。</p>
-
-<ul>
-<li><a href="http://www.slideshare.net/hirokawa/php-con2013ub">基調講演 PHPの今とこれから2013</a> : phpって毎年バージョンアップすることになったんですって！知ってました？</li>
-<li><a href="https://speakerdeck.com/yandod/cakephpdemoshi-eru-composerwohuo-yong-sitamodannakai-fa-shou-fa">Composerを活用したモダンなCakePHPアプリの開発手法</a> : phpにもcarton的なのってあるんですよ！そして、pear後のpackagist.orgってcpan的なのあるんですよ！知ってました？</li>
-<li><a href="http://www.slideshare.net/shin1x1/vagrant-php">Vagrantで作るPHP開発環境 [実践編]</a> : phpもVagrantで開発環境作るんですって！知ってました？</li>
-<li><a href="http://www.slideshare.net/MiuraKatsu/ss-26186401">FuelPHPで３種のProfilerを使ってみた</a> : PHPには結構いけるプロファイラーあったりするんですよ！</li>
-</ul>
-
-
-<p>ちなみに公式ではなく<a href="http://unsolublesugar.com/20130915/005329/">PHPカンファレンス2013 &amp; WordCamp Tokyo 2013 講演資料まとめ</a>というのがあるので実際のところは後から見放題で大変感謝。</p>
-
-<h2>PHPについても含めながらダラダラと</h2>
-
-<p>なんか、LLってだいたい書き方同じだよなーとか、rubyとかpythonの超入門をみて思っていたんですが、いざphpでちょっと詳しく触りだすと、Perlでやっているいつものアレの書き方できなくて困りますね。(unlessとか、defined-orとか)</p>
-
-<p>それでも、ComporserでCartonみたいなことできるし、開発向けビルドインサーバーも入っていちいちApacheとかいれなくても簡単な確認できるようになったし、名前空間もできたし、phpenvっていうのがよりまともになって流行りだせば1つのOSに1つのphp.iniでグローバル設定乙みたいなことなくなると思いますし、より手軽に開発できるようになっていくんじゃないでしょうかねー。</p>
-
-<p>あと、PHPはモヒカンみたいな人、少ない気がしますねー。できる人はたくさんいるはずなんですが、あくまでツールのユーザー視点が強い気がします。上述しました「こういうの作ったんだぜ！みんな使ってよ！！」って感じなかった気がするところにも影響している気がするのですが、Perlだとモヒカンみたいな人たちがトークもしてLTもして、すげー強烈なイメージを植え付けていくんですが、そういうところの印象が今一つ弱かったですね。Packagistが普及していくと、そのあたりが強くなっていくんでしょうかねー。</p>
-
-<p>とりあえず、カンファレンスの動員人数としては2000人規模らしいので、なんですかね、それで無料ってやっぱりすごいですよね。</p>
-
-<h2>終わりに　～ぼっちではなくまたどこかへ～</h2>
-
-<p>今回は、Hachioji.pmの仲間のuzullaさんやkkotaro0111さんが参加されていたので、全然ぼっちでもなかったし、やっぱり言語関係なく出会える仲間がいるとうれしいですね！！</p>
-
-<p>後、正直高々一回では、しっかりと比較することは難しんですが、いろいろところに出向いても仲間がいるとうれしいですよね！！</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-18:entry-2013-09-23-phpcon2013.html</id>
-<published>2013-09-23T23:23:00+0900</published>
-<updated>2013-09-23T20:35:21+09:00</updated>
 </entry>
 </feed>
