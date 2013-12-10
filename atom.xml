@@ -3,9 +3,157 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-11T02:47:32+09:00</updated>
+<updated>2013-12-10T13:06:00+09:00</updated>
+<entry>
+<title type="text">carton bundle &amp;&amp; carton install --cachedの使いどころ</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>carton bundle &amp;&amp; carton install --cachedの使いどころ</h1>
+
+<p>carton bundleとか「*.tar.gzでモジュールをインストールできて何が嬉しいの？」と疑問に思っていたんですが、この度、carton bundleの使いどころが分かったので、経緯をばしたためておきたいと思います。</p>
+
+<h2>ゆるふわにCarton使うと、installとexecしか使わない</h2>
+
+<p>なんか、いろいろ調べるといろいろ書いてあったりするけど（<a href="http://gihyo.jp/dev/serial/01/perl-hackers-hub/002103?page=2">Carton &amp; cpanm―Perlモジュール管理最新事情（3）| Perl Hackers Hub</a>,<a href="http://blog.livedoor.jp/lestrrat-practical_modern_perl/archives/25002846.html">1.3 Cartonによるアプリケーションの実行環境の構築</a>）
+結局のところ、開発環境だろうと本番だろうと以下のようにすれば、Cartonを使ったモジュール管理ができて楽ちんよって感じが普通だと思います。</p>
+
+<pre><code>    cpanm Carton
+    #プロジェクトの依存モジュールcpanfileに書く
+    carton install #モジュールのインストール
+    carton exec -- plackup ./app.psgi
+</code></pre>
+
+<p>なので、cartonっていろいろコマンドあるっぽいけど、結局</p>
+
+<ul>
+<li>carton install</li>
+<li>carton exec</li>
+</ul>
+
+
+<p>の二つを使っておしまいで、他のコマンドの使いどころが意味不明ーって長らく思っていました、すみませんw</p>
+
+<h2>GitHubにあったりのモジュールをDarkPANで入れたプロジェクトで危機に遭遇</h2>
+
+<p>最近、<a href="https://metacpan.org/pod/OrePAN2::Server">OrePAN2::Server</a>っていうOrePAN2のサーバー版をCPANにアップすることが出来まして、意気揚々とこれを使って、社内モジュールをがしがしmyDarkPANにアップしていまして、Carton使う時なんかも</p>
+
+<pre><code>    PERL_CARTON_MIRROR=http://oreprepanan/ carton install
+</code></pre>
+
+<p>って感じで、ゴリゴリ入れたんですが、この度初めて社外のVPSにデプロイして運用する機会が生まれまして、「そういや、VPS的な本番環境だと、このオレオレなOrePANサーバーにアクセスできなくね？」って思ったのです。</p>
+
+<p>なんと！！！これは大変な事件だ！！！もう、後数時間後から稼働させるってみんなに言っちゃったのに！！！</p>
+
+<p>で、まず解決策として思いついたのが、cartonが作るlocalごとrsyncで飛ばせばいいやーという案でした。</p>
+
+<p>開発環境と本番環境が同じならこれで済んだとおもんですが、しかし、実はぼくのローカルPCのMySQLのバージョンが5.1で、本番は「最近はせめて5.5くらいにしておきたいよねー」とか頑張っちゃって5.5にしていてたので、実際に、「carton exec -- plackup ./app.psgi」とかして動かしたら、localディレクトリに入っているDBD::mysqlだかなんだかか、libmysqlclient16がないよとかエラーがでてきて、ツンだ感じになりました。。。</p>
+
+<p>「やっぱり本番環境でcarton install掛けなきゃいけないのかーーーつらいなー」と思いつつ、そういやlocalのディレクトリの中見ていたら、cacheって中にモジュールの「*.tar.gz」ファイルがたくさんあって、とりあえず、もうcartonとかわすれて、これをシェルスクリプトで、cpanmでグルグルまわして、とりあえず、ユーザーのPerlディレクトリにつっこんじゃおーって思いつつ、ふと、「そもそもcartonになんかそういう機能あるんじゃね？」って思い、ikasm_aさんに記事を見直したらやっとcarton bundleというコマンドにたどり着きました。</p>
+
+<h2>carton bundle &amp;&amp; carton install --cachedを使ったモジュールのインストールとデプロイ</h2>
+
+<p>とりあえず、リアリティを出すために実際にディレクトリ構成を用いて説明します。</p>
+
+<p>こんな感じのAmon2なディレクトリ構成になっているとして、localにはガッシリ、オレオレなCPANにアップされていないモジュールが入っています。</p>
+
+<pre><code>    Build.PL
+    Changes
+    META.json
+    builder/
+    config/
+    cpanfile
+    cpanfile.snapshot
+    daemontools/
+    db/
+    deploy.process
+    lib/
+    local/ #carton installで入れたモジュールが入っている
+    log/
+    minil.toml
+    script/
+    sql/
+    static/
+    t/
+    tmpl/
+    xt/
+</code></pre>
+
+<p>で、まず、開発環境でcarton bundleとうちます。</p>
+
+<pre><code>    Build.PL
+    Changes
+    META.json
+    builder/
+    config/
+    cpanfile
+    cpanfile.snapshot
+    daemontools/
+    db/
+    deploy.process
+    lib/
+    local/ #carton installで入れたモジュールが入っている
+    log/
+    minil.toml
+    script/
+    sql/
+    static/
+    t/
+    tmpl/
+    vendor/ #carton bundleコマンドでできたディレクトリ
+    xt/
+</code></pre>
+
+<p>すると、vendorというディレクトリができます。そんで、rsyncを打ちます。</p>
+
+<pre><code>    rsync -avz  --delete --exclude="*.swo" --exclude="*.swp" --exclude='log/*.log.*' --exclude='daemontools/*/log/main' --exclude='daemontools/*/log/supervise' --exclude='daemontools/*/supervise' --exclude=local --exclude=META.yml --exclude=MYMETA.json --exclude=MYMETA.yml --exclude=.carton /home/hirobanex/project/MyApp myapp-server:/home/production/project/
+</code></pre>
+
+<p>これで、意味の分からんファイルは同期されれずに、プロジェクトのディレクトリがvendorも含め同期されます。</p>
+
+<p>そんで、以下のように作業します。</p>
+
+<pre><code>    ssh myapp-server #本番サーバーに移動して
+    cd /home/production/project/MyApp #プロジェクトTOPに移動
+    carton install --deployment --cached ##ここに注目
+</code></pre>
+
+<p>「caton install」のオプションとして、「 --cached」っていうのを使うとvendorディレクト内の*.tar.gz圧縮ファイルからモジュールをインストールしてくれるのです。とりあえず、高速かつOrePAN的なモジュールもわざわざOrePANサーバーにアクセスする必要ないので気が楽です。</p>
+
+<p>ちなみに、「--deployment」を付けると、「cpanfile.snapshot」が更新されないので、本番でキモいことにならずに済みます。</p>
+
+<p>蛇足ですが、実際は、以下のようにスクリプトにまとめておけば、小規模環境のプチデプロイスクリプトになり便利。別にサーバー何個もあるわけじゃないから、とりあえず、こんなシェルスクリプトで十分。</p>
+
+<pre><code>    #/bin/sh
+    carton bundle
+    rsync -avz  --delete .....(上述のため省略)
+    ssh myapp-server "cd /home/production/project/MyApp &amp;&amp; /home/production/.plenv/versions/5.x.x/bin/carton install --deployment --cached"
+    ssh myapp-server "sudo svc -h /etc/service/myapp-web-server"
+    ssh myapp-server "sudo svc -h /etc/service/myapp-admin-server"
+    ssh myapp-server "sudo svc -h /etc/service/myapp-worker"
+</code></pre>
+
+<h2>carton install --cachedvendorのキャッシュから入れるからマジ楽</h2>
+
+<p>「OrePANとかで運用しているモジュールもないし、おいらには関係のない話だー」と思う人もいるかもですが、新しいプロジェクトに入った時とか、ローカルにcarton installするだけでもマジ時間かかって何していたか忘れるくらいだと思うので、「vendor」ディレクトリもgitでコミットしてしまうか、あるいは、別のサブモジュールとかに切り出すかとかして管理して、新しく入った人も開発環境で、carton install --cachedで依存モジュール落とせばマジで好感度アップ間違いなしだと思う次第です。突然誰かがいじりたいって言っても、vendorディレクトリを適当にどっかにあげて、rsyncでひっぱってもらえば、さくっと入れられるし、なんかtar.gzファイル便利w</p>
+
+<h2>まとめ～carton bundleとcarton install --cachedのつかいどころ～</h2>
+
+<ul>
+<li>OrePAN運用モジュールのアクセスの拡張を気にせず、積極的に使える</li>
+<li>2番目の人から依存モジュールのインストールが楽ちんに</li>
+</ul>
+
+
+<p>ということで、have nice carton life!!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-10:entry-2013-12-11-carton-bundle.html</id>
+<published>2013-12-11T59:59:00+0900</published>
+<updated>2013-12-11T23:59:00+09:00</updated>
+</entry>
 <entry>
 <title type="text">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html" />
@@ -1160,6 +1308,11 @@ print Dumper $result;
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2013/12/11(水) </td>
+<td> Hiroyuki Akabane </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html">carton bundle &amp;&amp; carton install --cachedの使いどころ</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html"></a></td>
+</tr>
 <tr>
 <td>2013/12/10(火) </td>
 <td> papix </td>
@@ -2419,133 +2572,5 @@ while (1) {
 <id>tag:hachiojipm.github.io,2013-09-26:entry-2013-09-24-selenium.html</id>
 <published>2013-09-24T59:59:00+0900</published>
 <updated>2013-09-26T00:11:51+09:00</updated>
-</entry>
-<entry>
-<title type="text">Perl6をかいま見るためにSeisを使ってみる</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html" />
-<author>
-<name>mackee</name>
-</author>
-<content><![CDATA[<h1>Perl6をかいま見るためにSeisを使ってみる</h1>
-
-<p><a href="http://mackee.hatenablog.com/entry/2013/09/22/211305">自分の感想ブログ</a>でFuture Perlのトーク聞いて思ったこととか書いてたんですが、<a href="https://metacpan.org/module/Seis">Seis</a>の話はそういえば全然していなかったなーって思って、じゃあ実際にどうなのかって思って、おもむろに<a href="http://metacpan.org/">metacpan</a>でSeisって打ったら上がっていたので勢いでcpanmしてみました。</p>
-
-<p>で、どうなったかというと。</p>
-
-<pre><code>[- o -] $ cpanm Seis
---&gt; Working on Seis
-Fetching http://www.cpan.org/authors/id/T/TO/TOKUHIROM/Seis-0.12.tar.gz ... OK
-Configuring Seis-0.12 ... OK
-Needs perl 5.018000, you have 5.016003
-! Installing the dependencies failed: Installed version (5.016003) of perl is not in range '5.018000'
-! Bailing out the installation for Seis-0.12
-</code></pre>
-
-<p>マジかよ、Perl 5.18以上じゃないとダメ！　とはとんがってる。
-というわけでおもむろにPerl5.18.1を入れる</p>
-
-<pre><code>[- o -] $ plenv install 5.18.1
-...
-[- o -] $ plenv local 5.18.1
-[- o -] $ plenv install-cpanm
-...
-</code></pre>
-
-<p>で、cpanm Seis</p>
-
-<pre><code>[- o -] $ cpanm Seis
---&gt; Working on Seis
-Fetching http://www.cpan.org/authors/id/T/TO/TOKUHIROM/Seis-0.12.tar.gz ... OK
-Configuring Seis-0.12 ... OK
-Building and testing Seis-0.12 ... FAIL
-! Installing Seis failed. See /Users/mackee/.cpanm/work/1379948870.12803/build.log for details. Retry with --force to force install it.
-</code></pre>
-
-<p>oops、build.logを見てみる</p>
-
-<pre><code>[- o -] $ less /Users/mackee/.cpanm/work/1379948870.12803/build.log
-...
-t/spec/roast/S32-io/file-tests.t ................................ ok
-Can't locate Path/Tiny.pm in @INC (you may need to install the Path::Tiny module) (@INC contains: CODE(0x7ff96a8386c0) /Users/mackee/.cpanm/work/1379948870.12803/Seis-0.12/blib/lib /Users/mackee/.cpanm/work/1379948870.12803/Seis-0.12/blib/arch /Users/mackee/.cpanm/work/1379948870.12803/Seis-0.12/_build/lib /Users/mackee/.plenv/versions/5.18.1/lib/perl5/site_perl/5.18.1/darwin-2level /Users/mackee/.plenv/versions/5.18.1/lib/perl5/site_perl/5.18.1 /Users/mackee/.plenv/versions/5.18.1/lib/perl5/5.18.1/darwin-2level /Users/mackee/.plenv/versions/5.18.1/lib/perl5/5.18.1 .) at /Users/mackee/.cpanm/work/1379948870.12803/Seis-0.12/blib/lib/Seis/IO/Path.pm line 50.
-t/spec/roast/S32-io/io-path.t ...................................
-Dubious, test returned 2 (wstat 512, 0x200)
-Failed 8/13 subtests
-t/spec/roast/S32-io/path.t ...................................... ok
-...
-</code></pre>
-
-<p>見てみると何故かPath::Tinyがないよとテストで言われていてコケているみたい。他の人も一緒なのかなと思って<a href="http://cpanstesters.org/">CPANTesters</a>見に行ったら他の人も同じ理由でコケているのでとりあえず入れる！</p>
-
-<pre><code>[- o -] $ cpanm Path::Tiny
-...
-</code></pre>
-
-<p>ちゃんと入ったのでSeisもう一度</p>
-
-<pre><code>[- o -] $ cpanm Seis
-...
-Successfully installed Seis-0.12
-1 distribution installed
-</code></pre>
-
-<p>よし、OK！
-はい、ここまででcpanmで一発で入らなくてもくじけない編(裏タイトル)は以上です。</p>
-
-<p>じゃあSeis使ってみる。トークではseisコマンドでREPLに入っていたので</p>
-
-<pre><code>[- o -] $ seis
-seis&gt;
-</code></pre>
-
-<p>なんか入れたっぽい。<a href="http://mackee.hatenablog.com/entry/2013/09/22/211305">僕のブログで前やった</a>Reduction operatorを使ってみる。</p>
-
-<p><a href="http://perlcabal.org/syn/S03.html#Reduction_operators">Reduction Operators</a></p>
-
-<pre><code>seis&gt; [+] 1..100
-$VAR1 = 5050;
-</code></pre>
-
-<p>やばい、ていうかめちゃくちゃ早い。</p>
-
-<pre><code>[- o -] $ time perl6 -e 'say [+] 1..100'
-5050
-perl6 -e 'say [+] 1..100'  0.61s user 0.14s system 99% cpu 0.750 total
-[- o -] $ time perl -E '$a += $_ for 1..100; say $a'
-5050
-perl -E '$a += $_ for 1..100; say $a'  0.02s user 0.03s system 51% cpu 0.111 total
-[- o -] $ time seis -e '$a = [+] 1..100; say $a'
-5050
-seis -e '$a = [+] 1..100; say $a'  0.15s user 0.04s system 97% cpu 0.196 total
-</code></pre>
-
-<p>上からRakudo Star + Parrot、Perl 5.16.3、Seis 0.12 + Perl 5.18.1でございます。
-十分実用範囲内の速度な気がします。</p>
-
-<p>Perl6だとこんなかんじで仮引数の型を指定してやることもOK</p>
-
-<p><a href="http://perlcabal.org/syn/S02.html#Parameter_types">Parameter Types</a></p>
-
-<pre><code>[- o -] $ seis -e 'sub id(Int $n) { return $n }; my $a = id("aaa"); say $a'
-Can't locate object method "throw" via package "Seis::Exception::ArgumentType" (perhaps you forgot to load "Seis::Exception::ArgumentType"?) at -e line 3.
-</code></pre>
-
-<p>ちゃんとコケてくれてますね。</p>
-
-<p>でもまだPerl6のすべての仕様が実装されているわけではなさそうで、このように返り値の型指定をするとコケたりします。</p>
-
-<p><a href="http://perlcabal.org/syn/S02.html#Of_types">Of types</a></p>
-
-<pre><code>[- o -] $ seis -e 'sub id(Int $n) returns Int { return $n }; my $a = id(1); say $a'
-Can't parse -e:
-Syntax error! Around:
-sub id(Int $n) r
-   at /Users/mackee/.plenv/versions/5.18.1/lib/perl5/site_perl/5.18.1/darwin-2level/Seis/Compiler.pm line 56.
-</code></pre>
-
-<p>でもXSやC、そしてPerl5で書かれているので既存の開発者でもPerl6を理解するための窓口にはなりやすそうです。Authorの<a href="https://twitter.com/tokuhirom/">@tokuhirom</a>さんが言われているようにPerl6の機能をPerl5にフィードバックしてPerl5を進化させるのにはもってこいの実験室だと思われます。</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-25:entry-2013-09-25-get_started_seis.html</id>
-<published>2013-09-25T19:19:27+0900</published>
-<updated>2013-09-25T01:27:59+09:00</updated>
 </entry>
 </feed>
