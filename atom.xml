@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-11T02:46:34+09:00</updated>
+<updated>2013-12-11T02:47:32+09:00</updated>
 <entry>
 <title type="text">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html" />
@@ -27,9 +27,8 @@
 <p>...というのを悩んでいたところ, 実は<code>minil.toml</code>で設定すれば, README.mdに対して自動的にバッヂを生成できる, ということを昨日知りました.<br/>
 この設定をしておけば, <code>minil.toml</code>にこういう感じで書けば, <code>minil build</code>や<code>minil test</code>などで再度生成されるREADME.mdに, 自動的にバッヂが貼り付けられます! 便利!!!</p>
 
-<p><code>  
-badges = ['travis', 'coveralls']  
-</code></p>
+<pre><code>badges = ['travis', 'coveralls']  
+</code></pre>
 
 <p>badgesを含む<code>minil.toml</code>の設定等々については, <a href="https://github.com/tokuhirom/Minilla#configuration">Minillaのドキュメント</a>に書かれていますので一度読んでみるといいかもしれません.</p>
 
@@ -47,7 +46,7 @@ badges = ['travis', 'coveralls']
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-11:entry-2013-12-10-minilla-badge.html</id>
 <published>2013-12-10T59:59:00+0900</published>
-<updated>2013-12-11T02:46:34+09:00</updated>
+<updated>2013-12-11T02:47:32+09:00</updated>
 </entry>
 <entry>
 <title type="text">x秒後に消滅するpsgiプロセスをPerlで実装したい</title>
