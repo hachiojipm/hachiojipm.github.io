@@ -16,9 +16,7 @@ Hachioji.pm Advent Calendarもついに10日目. そんな2桁記念日に颯爽
 ...というのを悩んでいたところ, 実は`minil.toml`で設定すれば, README.mdに対して自動的にバッヂを生成できる, ということを昨日知りました.  
 この設定をしておけば, `minil.toml`にこういう感じで書けば, `minil build`や`minil test`などで再度生成されるREADME.mdに, 自動的にバッヂが貼り付けられます! 便利!!!  
   
-```  
-badges = ['travis', 'coveralls']  
-```  
+    badges = ['travis', 'coveralls']  
   
 badgesを含む`minil.toml`の設定等々については, [Minillaのドキュメント](https://github.com/tokuhirom/Minilla#configuration)に書かれていますので一度読んでみるといいかもしれません.  
 

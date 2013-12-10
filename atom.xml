@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-11T02:44:56+09:00</updated>
+<updated>2013-12-11T02:46:34+09:00</updated>
 <entry>
 <title type="text">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html" />
@@ -33,15 +33,11 @@ badges = ['travis', 'coveralls']
 
 <p>badgesを含む<code>minil.toml</code>の設定等々については, <a href="https://github.com/tokuhirom/Minilla#configuration">Minillaのドキュメント</a>に書かれていますので一度読んでみるといいかもしれません.</p>
 
-<blockquote class="twitter-tweet" lang="ja"><p>PerlモジュールのREADME.mdにTravis CIのバッジ貼りたいけど、README.mdがminilaが生成するPODベースの文章を使ってるのでPOD内に含める必要がありそうだけど、POD内だとCPAN上に表示するときダメそう??</p>&mdash; ıɐɯɐu ıɥsoʇɐs (@ainame) <a href="https://twitter.com/ainame/statuses/410325755181031425">2013, 12月 10</a></blockquote>
+<blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/ainame">@ainame</a> minil.tomlにbadgesてのが書けます <a href="https://t.co/TZiPXTYy0J">https://t.co/TZiPXTYy0J</a></p>&mdash; songmu (@songmu) <a href="https://twitter.com/songmu/statuses/410327396726738944">2013, 12月 10</a></blockquote>
 
-
-<p></p>
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
-<p></p>
 
 <p>今日, こんなやりとりもあったので, 俺得備忘録を兼ねて, Hachioji.pm Advent Calendarでメモさせていただきたいと思います.</p>
 
@@ -51,7 +47,7 @@ badges = ['travis', 'coveralls']
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-11:entry-2013-12-10-minilla-badge.html</id>
 <published>2013-12-10T59:59:00+0900</published>
-<updated>2013-12-11T02:44:56+09:00</updated>
+<updated>2013-12-11T02:46:34+09:00</updated>
 </entry>
 <entry>
 <title type="text">x秒後に消滅するpsgiプロセスをPerlで実装したい</title>
