@@ -62,8 +62,8 @@ __半分以上俺じゃねーか!__
   
 ![野菜](<: '/static/image/gourmet-ohita-jigokumushi-02.jpg' | uri_for :>)  
 ![魚介](<: '/static/image/gourmet-ohita-jigokumushi-03.jpg' | uri_for :>)  
-![根菜](<: '/static/image/gourmet-ohita-jigokumushi-03.jpg' | uri_for :>)  
-![チキン](<: '/static/image/gourmet-ohita-jigokumushi-04.jpg' | uri_for :>)  
+![根菜](<: '/static/image/gourmet-ohita-jigokumushi-04.jpg' | uri_for :>)  
+![チキン](<: '/static/image/gourmet-ohita-jigokumushi-05.jpg' | uri_for :>)  
   
 どれもこれも美味しいのですが, 特にオススメは野菜.  
 キャベツやかぼちゃが持つ, 野菜の甘みというものが最高に引きたてられていました.  
