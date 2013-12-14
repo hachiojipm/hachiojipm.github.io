@@ -3,12 +3,15 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-13T22:00:39+09:00</updated>
+<updated>2013-12-14T00:05:59+09:00</updated>
 <entry>
 <title type="text">PerlにおけるBOM付utf8の扱い</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
 <content><![CDATA[<h2>PerlにおけるBOM付utf8の扱い</h2>
 
 <p>ごくごくたまに遭遇するファイルの文字コード扱いでうざいのが、まさに爆弾のBOM付utf8ですが、今日はこいつPerlでいい感じに扱うモジュールの紹介です。</p>
@@ -39,7 +42,7 @@ open my $fh, "&lt; :encoding(utf8):via(File::BOM)", "hogehoge.csv"
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-14:entry-2013-12-13-file-bom.html</id>
 <published>2013-12-13T59:59:00+0900</published>
-<updated>2013-12-14T00:05:33+09:00</updated>
+<updated>2013-12-14T00:05:59+09:00</updated>
 </entry>
 <entry>
 <title type="text">papixのグルメ 〜九州･中国地方編〜</title>
@@ -1491,7 +1494,7 @@ print Dumper $result;
 <tbody>
 <tr>
 <td>2013/12/13(金) </td>
-<td>  </td>
+<td> Hiroyuki Akabane </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html">PerlにおけるBOM付utf8の扱い</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"></a></td>
 </tr>
 <tr>
