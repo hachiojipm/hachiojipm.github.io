@@ -7,7 +7,7 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
   <title>
-PerlにおけるBOM付utf8の扱い | Hachioji.pm 日めくりテックトーク
+Perlにおいて配列を逆順にするいくつかの方法 | Hachioji.pm 日めくりテックトーク
   </title>
 </head>
 <body>
@@ -17,8 +17,7 @@ PerlにおけるBOM付utf8の扱い | Hachioji.pm 日めくりテックトーク
   <section>
 <nav>
   <ul class="paginate">
-    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html">papixのグルメ 〜九州･中国地方編〜</a>
-    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html">Perlにおいて配列を逆順にするいくつかの方法</a>
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html">PerlにおけるBOM付utf8の扱い</a>
   </ul>
 </nav>
 
@@ -39,42 +38,69 @@ PerlにおけるBOM付utf8の扱い | Hachioji.pm 日めくりテックトーク
     </ul>
   </aside>
   <div class="entry">
-    <h2>PerlにおけるBOM付utf8の扱い</h2>
+    <h1>Perlにおいて配列を逆順にするいくつかの方法</h1>
 
-<p>ごくごくたまに遭遇するファイルの文字コード扱いでうざいのが、まさに爆弾のBOM付utf8ですが、今日はこいつPerlでいい感じに扱うモジュールの紹介です。</p>
+<p>よくあるアルゴリズム問題ですね。たぶんいろんなところで既出のような気がしますが、昔某氏に教えてもらったことを思い出しながら書きます。</p>
 
-<h2>そもそもBOM付UTF8とは</h2>
+<h2>問題</h2>
 
-<p>BOMとは文字コードの識別用のファイルの先頭につく文字列で、Byte Order Markの略らしいです。</p>
-
-<p>Windowsのメモ帳で保存したファイルとかなんだかよくわからないシステムが吐き出すファイルとかについてきます。</p>
-
-<p>UTF8でBOMつけるメリットはよく知りません。ぼくの知識はそんなもんです。</p>
-
-<h2>File::BOMが便利</h2>
-
-<p>でPerlでよろしくやる方法なんですが、<a href="http://search.cpan.org/~mattlaw/File-BOM-0.14/lib/File/BOM.pm">File::BOM</a>ってモジュールを使います。</p>
-
-<pre><code>#!/usr/bin/env perl
-use File::BOM;
-open my $fh, "&lt; :encoding(utf8):via(File::BOM)", "hogehoge.csv"
-    or die "OutPutByExcel.csv: $!";
+<pre><code>my @array = (1..2014);
 </code></pre>
 
-<p>で、こんな感じです。open関数の第三引数とかに「:via(File::BOM)」を加えればいいんですね。そもそも、ぼくはopen関数の第三引数の意味あまりわかっていないので、「つなげられるんだ！」ということに驚きました。</p>
+<p>という配列があったとして、この並びを逆にするにはどんな方法があるでしょうか？？</p>
 
-<h2>終わりに</h2>
+<h2>reverseに決まっとるがじゃ！！</h2>
 
-<p>実は、このネタ<a href="http://hachiojipm.org/?p=548">7月のTakao.mt 2013</a>の夜の飲み会wで相談したら、ytnobodyさんとxtetsujiさんにもろもろアドバイスもらって、これでいいんだって安心したというhachiojipm++な小ネタなのでした。</p>
+<p>基本的に、マニアでなければPerlの基本的な関数であるreverseを使うと思います。</p>
+
+<pre><code>    my @reversed = reverse @array;
+</code></pre>
+
+<h2>プログラム始めました的な人とか</h2>
+
+<h3>popとの合わせ技</h3>
+
+<pre><code>my @reversed;
+for  (1..scalar @array) {
+    push @reversed,pop @array;
+}
+</code></pre>
+
+<h3>unshiftとの合わせ技</h3>
+
+<pre><code>my @reversed;
+for  my $var (@array) {
+    unshift (@reversed,$var);
+}
+</code></pre>
+
+<p>と、まぁいろいろあるわけですね。</p>
+
+<h2>なんか速そうな技</h2>
+
+<p>で、だいたい最後に出てくるのがこれですね。</p>
+
+<pre><code>my @reversed = @array;
+for  my $i (1..int(scalar @array/2)) {
+    $reversed[-$i]  = $array[$i-1];
+    $reversed[$i-1] = $array[-$i];
+}
+</code></pre>
+
+<p>なんか、もっときれいに掛けた気がするけど忘れちゃった。。。</p>
+
+<h2>で、ベンチは？</h2>
+
+<p>どれが早いかは、是非、ベンチをとってみてくださいという感じで、古き良きネタのどぶさらいははおしまいー。</p>
 
   </div>
   <dl class="meta">
       <dt class="author">created by</dt>
       <dd class="author">Hiroyuki Akabane</dd>
       <dt class="time">created at</dt>
-      <dd class="time"><time>2013-12-13 23:59</time></dd>
+      <dd class="time"><time>2013-12-14 23:59</time></dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-12-14 00:05</dd>
+      <dd class="time">2013-12-16 17:13</dd>
   </dl>
 </article>
 <section>

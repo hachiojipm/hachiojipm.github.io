@@ -3,9 +3,74 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-14T00:05:59+09:00</updated>
+<updated>2013-12-16T17:13:57+09:00</updated>
+<entry>
+<title type="text">Perlにおいて配列を逆順にするいくつかの方法</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>Perlにおいて配列を逆順にするいくつかの方法</h1>
+
+<p>よくあるアルゴリズム問題ですね。たぶんいろんなところで既出のような気がしますが、昔某氏に教えてもらったことを思い出しながら書きます。</p>
+
+<h2>問題</h2>
+
+<pre><code>my @array = (1..2014);
+</code></pre>
+
+<p>という配列があったとして、この並びを逆にするにはどんな方法があるでしょうか？？</p>
+
+<h2>reverseに決まっとるがじゃ！！</h2>
+
+<p>基本的に、マニアでなければPerlの基本的な関数であるreverseを使うと思います。</p>
+
+<pre><code>    my @reversed = reverse @array;
+</code></pre>
+
+<h2>プログラム始めました的な人とか</h2>
+
+<h3>popとの合わせ技</h3>
+
+<pre><code>my @reversed;
+for  (1..scalar @array) {
+    push @reversed,pop @array;
+}
+</code></pre>
+
+<h3>unshiftとの合わせ技</h3>
+
+<pre><code>my @reversed;
+for  my $var (@array) {
+    unshift (@reversed,$var);
+}
+</code></pre>
+
+<p>と、まぁいろいろあるわけですね。</p>
+
+<h2>なんか速そうな技</h2>
+
+<p>で、だいたい最後に出てくるのがこれですね。</p>
+
+<pre><code>my @reversed = @array;
+for  my $i (1..int(scalar @array/2)) {
+    $reversed[-$i]  = $array[$i-1];
+    $reversed[$i-1] = $array[-$i];
+}
+</code></pre>
+
+<p>なんか、もっときれいに掛けた気がするけど忘れちゃった。。。</p>
+
+<h2>で、ベンチは？</h2>
+
+<p>どれが早いかは、是非、ベンチをとってみてくださいという感じで、古き良きネタのどぶさらいははおしまいー。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-16:entry-2013-12-14-array-reverse.html</id>
+<published>2013-12-14T59:59:00+0900</published>
+<updated>2013-12-16T17:13:57+09:00</updated>
+</entry>
 <entry>
 <title type="text">PerlにおけるBOM付utf8の扱い</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html" />
@@ -1493,6 +1558,11 @@ print Dumper $result;
 </thead>
 <tbody>
 <tr>
+<td>2013/12/14(土) </td>
+<td> Hiroyuki Akabane </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html">Perlにおいて配列を逆順にするいくつかの方法</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"></a></td>
+</tr>
+<tr>
 <td>2013/12/13(金) </td>
 <td> Hiroyuki Akabane </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html">PerlにおけるBOM付utf8の扱い</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"></a></td>
@@ -2154,285 +2224,5 @@ foreach my $i (@arg) {
 <id>tag:hachiojipm.github.io,2013-10-14:entry-2013-10-14-codegenerator-llvm.html</id>
 <published>2013-10-14T35:35:28+0900</published>
 <updated>2013-10-14T23:35:28+09:00</updated>
-</entry>
-<entry>
-<title type="text">Perl の文字列エンコーディングの話</title>
-<link href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html" />
-<author>
-<name>moznion</name>
-</author>
-<content><![CDATA[<h1>Perl の文字列エンコーディングの話</h1>
-
-<p>ハァイ，先日 <a href="https://metacpan.org/module/Plack::Request::WithEncoding">Plack::Request::WithEncoding</a> というモジュールをリリースしました，<a href="https://twitter.com/moznion">@moznion</a> です．皆様いかがお過ごしでしょうか．<br/>
-さて，このモジュールを書いてて Perl の文字列エンコーディングに関する知識を幾ばくか深めましたので，共有したいと思います．まあ大体の皆さんは「そんなこと知ってるぜ！！　常識だろ！」という趣だと存じ上げますが……</p>
-
-<p>ただまあ，「文字化けしてつらい！！」みたいなのは誰しも通る道だと思いますので記しておくこととします！</p>
-
-<h2>TL;DR</h2>
-
-<blockquote><p>入り口で decode して，内部ではすべて flagged utf8 で扱い，出口で encode する．これがすべてです！とにかくこの基本方針をまもっていれば幸せになれます．</p>
-
-<p>from <a href="http://blog.64p.org/entry/20080408/1207619640">Perl で utf8 化けしたときにどうしたらいいか - blog.64p.org</a></p></blockquote>
-
-<p>ぶっちゃけ，上記のエントリ良すぎるのでそれ読めば良いです．<br/>
-以下はもう蛇足ですね！</p>
-
-<h2>注意</h2>
-
-<p>本エントリで示すソースコードでは，紙面の都合上</p>
-
-<pre><code>use strict;
-use warnings;
-</code></pre>
-
-<p>が省略されていますが，存在するものとして読み下して下さい．<br/>
-<code>use strict</code> しないと世界が滅びます．</p>
-
-<h2>このエントリで説明しないこと</h2>
-
-<ul>
-<li>Perl とは何か</li>
-<li>文字コードとは何か</li>
-</ul>
-
-
-<h2>Perl の処理系における文字列の扱い</h2>
-
-<p>Perl における文字列の扱いは，大きく2つに分けると「Perl 内部表現」と「バイト列 (latin-1)」に分類出来ます．</p>
-
-<p>Perl 内部表現はその名の通り Perl が内部的に利用・保持する文字列のことです．よく“内部表現”だとか“内部文字列”だとか“flagged utf8”だとか呼ばれていますが，本エントリではわかりやすいので“内部表現”と呼ぶことにします．<br/>
-内部表現ではない文字列に関して，Perl は バイト列 (latin-1) として扱います．</p>
-
-<h2>エンコーディング</h2>
-
-<p>本エントリで述べる「エンコード」は内部表現を指定したエンコーディング方式によりバイト列に変換する処理，
-「デコード」はバイト列を内部表現に変換する処理のことを指します．</p>
-
-<p>Perl では文字列のエンコード及びデコード処理を行う際には <a href="https://metacpan.org/module/Encode">Encode</a> モジュールを利用します．<br/>
-本エントリではエンコード処理を行うメソッドである <code>encode()</code> と デコード処理を行うメソッドである <code>decode()</code> について説明します．</p>
-
-<h3>Encode::decode('Encoding method', 'なんらかの文字列')</h3>
-
-<p><code>decode()</code> メソッドは 'Encoding method' で表現されているバイト列を <strong>「内部表現」に変換</strong> します．<br/>
-例えば以下のような感じです．</p>
-
-<pre><code>use Encode;
-my $decoded = Encode::decode('EUC-JP', $str); # &lt;= $str には EUC-JP でエンコードされた文字列が入っている
-                                              # &lt;= だから decode() の第1引数は 'EUC-JP'
-</code></pre>
-
-<p>こうすると，'EUC-JP' でエンコードされている <code>$str</code> の内容 (バイト列) が内部表現に変換され，その内部表現が <code>$decoded</code> に格納されます．</p>
-
-<h3>Encode::encode('Encoding method', 'なんらかの文字列')</h3>
-
-<p><code>encode()</code> メソッドは「内部表現」を <strong>'Encoding method' でエンコード</strong> し，バイト列に変換します．<br/>
-例えば以下のような感じです．</p>
-
-<pre><code>use Encode;
-my $decoded = Encode::decode('EUC-JP', $str);    # &lt;= $str には EUC-JP でエンコードされた文字列が入っている
-my $encoded = Encode::encode('cp932', $decoded); # &lt;= $decoded は内部表現
-</code></pre>
-
-<p>こうすると，内部表現である <code>$decoded</code> が 'cp932' でエンコードされたバイト列に変換されて <code>$encoded</code> に格納されます．</p>
-
-<h2>use utf8</h2>
-
-<p>Perl には <code>use utf8</code> というプラグマがあります．<br/>
-これはソースコードが 'utf8' によりエンコードされていることを伝えるプラグマです．<br/>
-とは言ってもこの説明だと何が起こるのかがわかりにくいので，あけすけに説明しますと，<br/>
-<code>use utf8</code> してから文字列リテラルを使って文字列を作ると，その時点でその文字列は内部表現になります．<br/>
-(他にも正規表現でユニコード使えるようになったり，関数名や変数名にユニコード使えるようになったりしますが
- 本筋から外れるのでここでの説明は割愛します)</p>
-
-<p>注意としては，コードが書かれているファイル自体のエンコーディング方式が utf-8 である必要があります．</p>
-
-<p>なので，ファイルエンコーディングが utf-8 である場合，</p>
-
-<pre><code>use Encode;
-
-my $decoded = Encode::decode("utf-8", "あなたとJava");
-my $encoded = Encode::encode("utf-8", $decoded);
-print $encoded; # &lt;= あなたとJava
-</code></pre>
-
-<p>というコードと</p>
-
-<pre><code>use utf8;
-use Encode;
-
-my $decoded = "あなたとJava";
-my $encoded = Encode::encode("utf-8", $decoded);
-print $encoded; # &lt;= あなたとJava
-</code></pre>
-
-<p>というコードは等価です．</p>
-
-<h2>結局どーすりゃ良いのさ</h2>
-
-<blockquote><p>入り口で decode して，内部ではすべて flagged utf8 で扱い，出口で encode する．これがすべてです！とにかくこの基本方針をまもっていれば幸せになれます．</p>
-
-<p>from <a href="http://blog.64p.org/entry/20080408/1207619640">Perl で utf8 化けしたときにどうしたらいいか - blog.64p.org</a></p></blockquote>
-
-<p>まさにこれに尽きます．</p>
-
-<p>そもそも，なぜ入り口で decode して，内部ではすべて内部表現で取り扱わなければならないのかというと，
-Perl の外の世界には様々なエンコーディング方式があって，混沌としており怖い世界な訳ですよ．</p>
-
-<p>そういう多種多様様々なエンコーディング方式をそれぞれケアするのは大変なので，
-Perl ではそれらを統一的に扱えるように一度「内部表現」というものに落としこんでから，
-そこでゴニョゴニョ操作して，エンコードしてバイト列化してやってから外の世界に
-持って行ってやるという感じですね．</p>
-
-<p>あと，ここ最近は utf-8 以外でファイル保存する人とかいないし，面倒が減るから，
-<code>use utf8</code> プラグマは常に有効にしておけば良いのではないかという意見もありますね！</p>
-
-<h2>よくあるエラーや文字化け</h2>
-
-<p>(以降の例ではファイルエンコーディングは utf-8 であることが前提です)</p>
-
-<h3>内部表現をそのまま出力しようとしている</h3>
-
-<pre><code>use Encode;
-my $decoded = Encode::decode("utf-8", "あなたとJava");
-print $decoded; # &lt;= Warning!
-</code></pre>
-
-<p>あるいは</p>
-
-<pre><code>use utf8;
-my $decoded = "あなたとJava";
-print $decoded; # &lt;= Warning!
-</code></pre>
-
-<p>みたいにしてやると，<code>Wide character in print</code> という警告メッセージが出ます．<br/>
-これは内部表現をそのまま外に出力しようとしている為に発生します．<br/>
-なのでこれは以下のように encode して，内部表現ではなくしてやる必要があります．
-(「内部表現ではなくすること」を，「UTF8フラグを落とす」と表現する事もあります．
- UTF8 フラグについては後述します)</p>
-
-<pre><code>use Encode;
-my $decoded = Encode::decode("utf-8", "あなたとJava");
-my $encoded = Encode::encode("utf-8", $decoded);
-print $encoded; # &lt;= "あなたとJava"
-</code></pre>
-
-<h3>おかしなエンコーディング方式で decode を試みている</h3>
-
-<pre><code>use Encode;
-my $decoded = Encode::decode("EUC-JP", "あなたとJava");
-my $encoded = Encode::encode("utf-8", $decoded);
-print $encoded; # &lt;= 化ける！
-</code></pre>
-
-<p>こうすると文字化けします．それもそのはず，ファイルが <strong>utf-8でエンコードされている</strong> ので
-"あなたとJava" は utf-8 になっています．それをこのコード例のように "EUC-JP" という違う
-エンコーディングで decode しようとすると化けてしまいます．<br/>
-解決策としては当然ですが，適切なエンコーディング方式で decode してやると良いです．</p>
-
-<p>また，<strong> utf-8以外でエンコーディングされているファイル</strong> に対して <code>use utf8</code> し，
-なおかつ文字列にマルチバイト文字が含まれていると例外が発生します;</p>
-
-<pre><code>use utf8;
-my $str = "あなたとJava"; # &lt;= ここで警告が出る
-</code></pre>
-
-<p><code>use utf8</code> の注意の部分にも書きましたが，<code>use utf8</code> する場合は，ソースコードのファイルエンコーディングも
-utf-8 でなければなりません．</p>
-
-<h3>内部表現と，内部表現ではない文字列を連結させている</h3>
-
-<pre><code>use Encode;
-my $raw     = "あなた";
-my $decoded = Encode::decode("utf-8", "とJava");
-
-my $concatenated = $raw . $decoded;
-print Encode::encode("utf-8", $concatenated); # &lt;= 文字化けする
-</code></pre>
-
-<p>まあ化けますよね！　という感じです．説明は tokuhirom さんのブログが詳しいのでそちらを読んだほうが明らかに良いです．<br/>
-<a href="http://blog.64p.org/entry/20080408/1207619640">Perl で utf8 化けしたときにどうしたらいいか - blog.64p.org</a></p>
-
-<h2>補足的情報</h2>
-
-<h3>UTF8フラグ</h3>
-
-<p>“UTF8フラグ”とは，「内部表現になっているかどうか」を判断するフラグです．
-UTF8フラグが立っていればそれは内部表現であり，立っていなければその文字列はバイト列 (latin-1) です．</p>
-
-<p>ここからはあんまり知らなくても良い情報です．CPAN モジュールを記述する人は気にするべきでしょう．</p>
-
-<p>さてちょっと分かりにくいのですが，UTF8フラグが立っている文字列 (つまり内部表現) と
-我々が日常使っているutf-8バイナリは <strong>別物です</strong>．気をつけましょう．<br/>
-UTF8フラグ，名前が良くなくて，本来なら「内部表現フラグ」とかそういう名前にするべきだと思うんですけど，
-まあそうなっちゃってるから仕方がないので，そういうものだと諦めて下さい．</p>
-
-<h3>Devel::Peek</h3>
-
-<p>UTF8フラグが立っているか立っていないかは一見するとわかりませんが，Devel::Peek というモジュールを利用すると
-それを確認することができます．使い方としては以下のような感じです．</p>
-
-<pre><code>use Encode;
-use Devel::Peek;
-my $str = Encode::decode("utf-8", "あなたとJava");
-Devel::Peek::Dump($str);
-</code></pre>
-
-<p>これを実行すると以下のような結果を得られます;</p>
-
-<pre><code>SV = PV(0x9fe5628) at 0x9ff7788
-REFCNT = 1
-FLAGS = (PADMY,POK,pPOK,UTF8)
-PV = 0xa045ac8 "\357\277\275\357\277\275\357\277\275\312\244\357\277\275\357\277\275\357\277\275Java"\0 [UTF8 "\x{fffd}\x{fffd}\x{fffd}\x{2a4}\x{fffd}\x{fffd}\x{fffd}Java"]
-CUR = 24
-LEN = 28
-</code></pre>
-
-<p>色々と情報が記されていますが，ここで注目すべきは <code>FLAGS</code> の部分です．上の例では FLAGS に UTF8 が記されており，
-これは UTF8 フラグが立っている，つまり $str は内部表現になっていることを表しています．</p>
-
-<p>一方で，</p>
-
-<pre><code>use Encode;
-use Devel::Peek;
-my $decoded = Encode::decode("utf-8", "あなたとJava");
-my $encoded = Encode::encode("utf-8", $decoded);
-Devel::Peek::Dump($encoded);
-</code></pre>
-
-<p>というコードを実行すると以下のような結果が得られるでしょう．</p>
-
-<pre><code>SV = PV(0x9d1e540) at 0x9d307d8
-REFCNT = 1
-FLAGS = (PADMY,POK,pPOK)
-PV = 0x9da3a98 "\357\277\275\357\277\275\357\277\275\312\244\357\277\275\357\277\275\357\277\275Java"\0
-CUR = 24
-LEN = 28
-</code></pre>
-
-<p>この結果には FLAGS に UTF8 フラグが示されていない為，これは $encoded は内部表現ではないことがわかりますね．</p>
-
-<p>※あとお気づきとは思いますが，2つの例では PV の値が違いますね．片方は内部表現 (つまり UTF8 フラグが ON) で，<br/>
-もう片方は utf-8 でエンコードされた文字列 (つまり我々が普段使う utf-8 バイナリ) です．ね，別物でしょ？</p>
-
-<h2>これが Perl のエンコーディング！！！</h2>
-
-<p>なんだか複雑ですね！！！！！<br/>
-ただまあ，慣れればどうということはないでしょう......多分．<br/>
-この記事が Perl のエンコーディングの理解の一助になれば幸いです．</p>
-
-<p>あとお気づきでしょうが，tokuhirom さんのブログをこのエントリでは3回も引用しています．<br/>
-詰まった時に何を読めば良いかは，聡明な皆様だったらもうお分かりですね！</p>
-
-<h2>それはそうと</h2>
-
-<p>私事で申し訳ありませんが，先日わたくし退学に失敗いたしましたので，<br/>
-退学に失敗したことを記念しまして，「退学失敗Night」というイベントが開催されます．<br/>
-おそらく渋谷の HUB でただただ飲む会になると思いますので，お暇でしたらご参加下さい．</p>
-
-<p><a href="http://atnd.org/events/44147">http://atnd.org/events/44147</a></p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-10-01:entry-2013-10-01-encoding.html</id>
-<published>2013-10-01T52:52:00+0900</published>
-<updated>2013-10-05T11:13:44+09:00</updated>
 </entry>
 </feed>
