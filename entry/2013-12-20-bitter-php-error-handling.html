@@ -7,7 +7,7 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
   <title>
-Perlにおいて配列を逆順にするいくつかの方法 | Hachioji.pm 日めくりテックトーク
+苦いエラーの扱いをちょっとだけええかんじに | Hachioji.pm 日めくりテックトーク
   </title>
 </head>
 <body>
@@ -17,8 +17,7 @@ Perlにおいて配列を逆順にするいくつかの方法 | Hachioji.pm 日�
   <section>
 <nav>
   <ul class="paginate">
-    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html">PerlにおけるBOM付utf8の扱い</a>
-    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html">苦いエラーの扱いをちょっとだけええかんじに</a>
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html">Perlにおいて配列を逆順にするいくつかの方法</a>
   </ul>
 </nav>
 
@@ -35,73 +34,30 @@ Perlにおいて配列を逆順にするいくつかの方法 | Hachioji.pm 日�
   <aside class="tags">
     <h1 class="tags">Tags</h1>
     <ul class="tags">
-      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/PHP.html">PHP</a></li>
     </ul>
   </aside>
   <div class="entry">
-    <h1>Perlにおいて配列を逆順にするいくつかの方法</h1>
+    <h1>苦いエラーの扱いをちょっとだけええかんじに</h1>
 
-<p>よくあるアルゴリズム問題ですね。たぶんいろんなところで既出のような気がしますが、昔某氏に教えてもらったことを思い出しながら書きます。</p>
+<p>Hachioji.pm Advent Calendar 2013の何日目かよくわからない記事です。</p>
 
-<h2>問題</h2>
+<p>「残念だったな！PHPの話だよ！」</p>
 
-<pre><code>my @array = (1..2014);
-</code></pre>
+<p>以下をどうぞ！</p>
 
-<p>という配列があったとして、この並びを逆にするにはどんな方法があるでしょうか？？</p>
+<p><a href="http://uzulla.hateblo.jp/entry/2013/12/20/041619">扱いづらいPHPのエラー処理を適当にいなす - uzullaがブログ</a></p>
 
-<h2>reverseに決まっとるがじゃ！！</h2>
-
-<p>基本的に、マニアでなければPerlの基本的な関数であるreverseを使うと思います。</p>
-
-<pre><code>    my @reversed = reverse @array;
-</code></pre>
-
-<h2>プログラム始めました的な人とか</h2>
-
-<h3>popとの合わせ技</h3>
-
-<pre><code>my @reversed;
-for  (1..scalar @array) {
-    push @reversed,pop @array;
-}
-</code></pre>
-
-<h3>unshiftとの合わせ技</h3>
-
-<pre><code>my @reversed;
-for  my $var (@array) {
-    unshift (@reversed,$var);
-}
-</code></pre>
-
-<p>と、まぁいろいろあるわけですね。</p>
-
-<h2>なんか速そうな技</h2>
-
-<p>で、だいたい最後に出てくるのがこれですね。</p>
-
-<pre><code>my @reversed = @array;
-for  my $i (1..int(scalar @array/2)) {
-    $reversed[-$i]  = $array[$i-1];
-    $reversed[$i-1] = $array[-$i];
-}
-</code></pre>
-
-<p>なんか、もっときれいに掛けた気がするけど忘れちゃった。。。</p>
-
-<h2>で、ベンチは？</h2>
-
-<p>どれが早いかは、是非、ベンチをとってみてくださいという感じで、古き良きネタのどぶさらいははおしまいー。</p>
+<p>(moznion SUTAIRU記事ですみません、書いた後にチョイチョイ直すのがだｒ（ry</p>
 
   </div>
   <dl class="meta">
       <dt class="author">created by</dt>
-      <dd class="author">Hiroyuki Akabane</dd>
+      <dd class="author">uzulla</dd>
       <dt class="time">created at</dt>
-      <dd class="time"><time>2013-12-14 23:59</time></dd>
+      <dd class="time"><time>2013-12-20 04:33</time></dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-12-16 17:13</dd>
+      <dd class="time">2013-12-20 04:33</dd>
   </dl>
 </article>
 <section>

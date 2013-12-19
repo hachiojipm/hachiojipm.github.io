@@ -3,9 +3,31 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-16T17:13:57+09:00</updated>
+<updated>2013-12-20T04:33:10+09:00</updated>
+<entry>
+<title type="text">苦いエラーの扱いをちょっとだけええかんじに</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html" />
+<author>
+<name>uzulla</name>
+</author>
+<content><![CDATA[<h1>苦いエラーの扱いをちょっとだけええかんじに</h1>
+
+<p>Hachioji.pm Advent Calendar 2013の何日目かよくわからない記事です。</p>
+
+<p>「残念だったな！PHPの話だよ！」</p>
+
+<p>以下をどうぞ！</p>
+
+<p><a href="http://uzulla.hateblo.jp/entry/2013/12/20/041619">扱いづらいPHPのエラー処理を適当にいなす - uzullaがブログ</a></p>
+
+<p>(moznion SUTAIRU記事ですみません、書いた後にチョイチョイ直すのがだｒ（ry</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-20:entry-2013-12-20-bitter-php-error-handling.html</id>
+<published>2013-12-20T33:33:10+0900</published>
+<updated>2013-12-20T04:33:10+09:00</updated>
+</entry>
 <entry>
 <title type="text">Perlにおいて配列を逆順にするいくつかの方法</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html" />
@@ -1558,6 +1580,11 @@ print Dumper $result;
 </thead>
 <tbody>
 <tr>
+<td>2013/12/20(金) </td>
+<td> uzulla </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html">苦いエラーの扱いをちょっとだけええかんじに</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"></a></td>
+</tr>
+<tr>
 <td>2013/12/14(土) </td>
 <td> Hiroyuki Akabane </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html">Perlにおいて配列を逆順にするいくつかの方法</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"></a></td>
@@ -2065,164 +2092,6 @@ app {
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-09-29:entry-2013-09-29-nephia.html</id>
 <published>2013-09-29T10:10:07+0900</published>
-<updated>2013-10-14T23:35:28+09:00</updated>
-</entry>
-<entry>
-<title type="text">Compiler::CodeGenerator::LLVMで遊ぼう!</title>
-<link href="http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>Compiler::CodeGenerator::LLVMで遊ぼう!</h1>
-
-<p>今日は, <a href="https://twitter.com/goccy54">@goccy54</a>さんが開発された<a href="https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM">Compiler::CodeGenerator::LLVM</a>を導入して, ひと通り動かすまでのアレコレをご紹介したいと思います.</p>
-
-<h2>LLVMのインストール</h2>
-
-<p>Compiler::CodeGenerator::LLVMはLLVM 3.3に依存しているので, まず最初にLLVM 3.3を導入します.<br/>
-ついでにLLVMを基盤とするコンパイラのClangと, ランタイムライブラリのCompiler RTも入れてしまいましょう.</p>
-
-<p>まず, <a href="http://www.llvm.org/releases/download.html#3.3">こちらのページ</a>から, <code>Clang source code</code>, <code>LLVM source code</code>, <code>Compiler RT source code</code>をクリックして, 必要なソースコードをダウンロードします.</p>
-
-<pre><code>$ wget http://llvm.org/releases/3.3/cfe-3.3.src.tar.gz
-$ wget http://llvm.org/releases/3.3/compiler-rt-3.3.src.tar.gz
-$ wget http://llvm.org/releases/3.3/llvm-3.3.src.tar.gz
-</code></pre>
-
-<p>それぞれ, <code>cfe-3.3.src.tar.gz</code>, <code>llvm-3.3.src.tar.gz</code>, <code>compiler-rt-3.3.src.tar.gz</code>というファイルがダウンロードできるので, さっさと解凍してしまいます.</p>
-
-<pre><code>$ tar -xf cfe-3.3.src.tar.gz
-$ tar -xf llvm-3.3.src.tar.gz
-$ tar -xf compiler-rt-3.3.src.tar.gz
-</code></pre>
-
-<p>解凍してできた<code>llvm-3.3.src</code>の中の適切な位置に, <code>cfe-3.3.src</code>と<code>compiler-rt-3.3.src</code>を配置していきます.</p>
-
-<pre><code>$ mv cfe-3.3.src llvm-3.3.src/tools/clang
-$ mv compiler-rt-3.3.src llvm-3.3.src/projects/compiler-rt
-</code></pre>
-
-<p>続いて, <code>llvm-3.3.src</code>ディレクトリに移動して, <code>configure</code>で設定を行います.</p>
-
-<pre><code>$ cd llvm-3.3.src
-$ ./configure
-</code></pre>
-
-<p>問題なく<code>configure</code>が終われば, <code>make</code>, <code>make check</code>, <code>make install</code>でビルドして, インストールまで済ませます.<br/>
-ちなみに<code>configure</code>を実行する際, <code>--prefix</code>オプションで任意の場所にLLVMやClangをインストールすることができますが, 手元の環境では何故かうまく動かなかったのでデフォルトでインストールした方が良さそうです.<br/>
-｢sudoで入れるの嫌だなあ...｣という方はVagrantとかVirtualBoxとか, そういうのを作ってCompiler::CodeGenerator::LLVM用のVMを建てましょう!</p>
-
-<pre><code>$ make
-</code></pre>
-
-<p>ちなみに, <code>make</code>コマンドは<code>make -jN</code>とすることで, Nコアを使って処理を進めることができます.<br/>
-ビルドには時間がかかるので, <code>make -j2</code>とか<code>make -j4</code>とかで高速化しましょう.</p>
-
-<pre><code>$ make check
-$ sudo make install
-</code></pre>
-
-<p><code>make check</code>は任意ですが, とりあえずやっておきましょう. 手元の環境では100件ほどFailしますが, おそらく大丈夫... だと思います.<br/>
-あとは<code>sudo make install</code>を実行すれば, LLVMとClangがインストールされます.</p>
-
-<pre><code>$ which llvm-config
-/home/username/local/llvm/bin/llvm-config
-$ llvm-config --version
-3.3
-</code></pre>
-
-<p>といった感じで, LLVMとClangが正常にインストールできていることが確認できれば, 準備完了です.</p>
-
-<h2>Compiler::CodeGenerator::LLVMのインストール</h2>
-
-<p>それではCompiler::CodeGenerator::LLVMをインストールしましょう.</p>
-
-<p>まず依存モジュールの準備です.<br/>
-Compiler::CodeGenerator::LLVMは, こちらもまたgoccy氏が開発した<a href="https://github.com/goccy/p5-Compiler-Lexer">Compiler::Lexer</a>と<a href="https://github.com/goccy/p5-Compiler-Parser">Compiler::Parser</a>に依存しているので, これを入れる必要があります.</p>
-
-<pre><code>$ cpanm Compiler::Lexer Compiler::Parser
-</code></pre>
-
-<p>どちらもCPANizeされているので, 素直に<code>cpanm</code>でインストールしてもいいですし, GitHubからcloneしてインストールしてもよいでしょう.<br/>
-ちなみにどちらのモジュールも, Minillaで開発されているので<code>minil install</code>でインストールできます.</p>
-
-<p>依存モジュールの準備が終われば, いよいよCompiler::CodeGenerator::LLVMのインストールです.<br/>
-こちらのモジュールは, まだCPANizeされていないので,</p>
-
-<pre><code>$ git clone https://github.com/goccy/p5-Compiler-CodeGenerator-LLVM.git
-</code></pre>
-
-<p>でcloneしてきてから,</p>
-
-<pre><code>$ cd p5-Compiler-CodeGenerator-LLVM
-$ perl Makefile.PL
-$ make
-$ make test
-$ make install
-</code></pre>
-
-<p>の手順でインストールしていきます.</p>
-
-<h2>早速, 試す!</h2>
-
-<p>それでは早速, Compiler::CodeGenerator::LLVMで遊んでみましょう.<br/>
-まずはSynopsisのコードを動かしてみます.</p>
-
-<pre><code>use Compiler::Lexer;
-use Compiler::Parser;
-use Compiler::CodeGenerator::LLVM;
-
-my $filename = $ARGV[0];
-open(my $fh, "&lt;", $filename) or die("$filename is not found.");
-my $script = do { local $/; &lt;$fh&gt; };
-my $lexer = Compiler::Lexer-&gt;new($filename);
-my $tokens = $lexer-&gt;tokenize($script);
-my $parser = Compiler::Parser-&gt;new();
-my $ast = $parser-&gt;parse($tokens);
-my $generator = Compiler::CodeGenerator::LLVM-&gt;new();    
-my $llvm_ir = $generator-&gt;generate($ast); # generate LLVM-IR
-$generator-&gt;debug_run($ast); # execute LLVM-IR with JIT
-</code></pre>
-
-<p>Synopsisのコードは, 標準入力に与えられたファイル名に書かれているコードからLLVM IRを生成して, それをJITで実行するというスゴイやつです.<br/>
-テストコードを<code>synopsis.pl</code>みたいな名前で保存して,</p>
-
-<pre><code>use strict;
-use warnings;
-
-my @arg = (0, 1, 2, 3, 4);
-foreach my $i (@arg) {
-    say $i;
-}
-</code></pre>
-
-<p>こんな感じのファイルを<code>sample.pl</code>で保存して, <code>$ perl synopsis.pl sample.pl</code>てな感じで実行すると...</p>
-
-<pre><code>$ perl synopsis.pl sample.pl
-0
-1
-2
-3
-4
-</code></pre>
-
-<p>Wow! 実行できましたね.<br/>
-個人的には, 内部で生成されたLLVM IRをダンプできれば, いろいろと遊べそうな感じがしますが, 現状そのようなメソッドはないっぽいので, 今後に期待したいと思います.<br/>
-(時間があれば実装とかチャレンジしてみたい所ですが... XSだしなあ...)</p>
-
-<h2>まとめ</h2>
-
-<p>YAPC::Asiaにおいて, 注目の的の1つでもあったPerlMotionを支えるgoccy wareの, Compiler::CodeGenerator::LLVMの導入方法をまとめてみました.<br/>
-このモジュールが完成すれば, PerlでiPhoneアプリが開発できるようになるだけでなく, PerlのコードをLLVM IR経由で各種バイナリに変換したり, C言語に変換したり, CUDAに変換したり... と, いろいろな可能性が期待できるようになります.</p>
-
-<p>今後も, バク報告だけでなく, 出来ればコードをコミットしていく... という方法で, Compiler::CodeGenerator::LLVMやCompiler::Lexer, Compiler::Parserといったgoccy wareをサポートして行けたらいいなあ, と思っています.<br/>
-これからのCompiler::CodeGenerator::LLVM, 要チェックですね!</p>
-
-<p>なお, 今回この記事を書くにあたり, 作者の<a href="https://twitter.com/goccy54">@goccy54</a>さんに大変, ものっすごっく, アドバイスとご協力を頂きました.<br/>
-この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-10-14:entry-2013-10-14-codegenerator-llvm.html</id>
-<published>2013-10-14T35:35:28+0900</published>
 <updated>2013-10-14T23:35:28+09:00</updated>
 </entry>
 </feed>
