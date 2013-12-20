@@ -3,9 +3,96 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-20T04:33:10+09:00</updated>
+<updated>2013-12-21T03:24:08+09:00</updated>
+<entry>
+<title type="text">Perl meets GPU</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>Perl meets GPU</h1>
+
+<p>...という記事を, Perl Advent Calendar 21日目として書きましたので紹介させて頂きます!<br/>
+(2日連続の<a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">moznionスタイル</a>ですね...)</p>
+
+<p><a href="http://qiita.com/papix/items/fee3e60e21f2ab1f1c76">http://qiita.com/papix/items/fee3e60e21f2ab1f1c76</a></p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-21:entry-2013-12-21-percuda.html</id>
+<published>2013-12-21T59:59:00+0900</published>
+<updated>2013-12-21T23:59:00+09:00</updated>
+</entry>
+<entry>
+<title type="text">Compiler::Lexerを使ったモジュール達</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>Compiler::Lexerを使ったモジュール達</h1>
+
+<p>Hachioji.pm Advent Calendarの17日目です. 担当はもう何度記事を書いたかわからなくなってきたpapixです.
+今日は, 最近注目を集めている@goccyさん製のPerl用トーカナイザ, <a href="http://search.cpan.org/~goccy/Compiler-Lexer/">Compiler::Lexer</a>を活用したモジュール達を紹介したいと思います.</p>
+
+<h2>Perl::MinimumVersion::Fast by @tokuhirom</h2>
+
+<p><a href="http://blog.64p.org/entry/2013/05/02/185530">Compiler::Lexer をつかって Perl::MinimumVersion::Fast をかいてみた</a></p>
+
+<p>tokuhiromさんが作った, ｢あるPerlのコードが, どのPerlのバージョンを必要とするか｣を確認できるモジュール.
+本家のPerl::MinimumVersionはPPIで実装されており, これをtokuhiromさんがCompiler::Lexer化して完成したものです.
+このモジュールを使えば, Perl 5.8を対象としたライブラリで<code>//</code>や<code>~~</code>を使っていないかどうかを確認したりできます.</p>
+
+<h2>Test::Synopsis::Expectation by @moznion</h2>
+
+<p><a href="http://mackee.hatenablog.com/entry/2013/12/16/234919">SYNOPSISのコメントを使ってテストするTest::Synopsis::Expectation</a>
+<a href="http://moznion.hatenadiary.com/entry/2013/12/17/113458">Test::Synopsis::Expectationというモジュールをリリースしました</a></p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>“SYNOPSIS自体に期待する値を埋め込んでおいて，それをもとにSYNOPSISのコードをテストする事で，SYNOPSISがSyntax的にもLogic的にもValidであることをチェック” すばらしい! jsにもREADME.m… <a href="http://t.co/xaVBM2C534">http://t.co/xaVBM2C534</a></p>&mdash; Takuto Wada (@t_wada) <a href="https://twitter.com/t_wada/statuses/412849220853317632">2013, 12月 17</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>Synopsisのコメントを使ってテストをするモジュールです.
+｢モジュールの挙動がよくわからなかったら, とりあえずSynopsisを動かしてみる｣という人にとって, 肝心のSynopsisが間違っている(Syntaxが間違ってるとか, 過去の仕様に準拠したSynopsisだったりとか...)と結構困ります.
+モジュール開発者がこのモジュールでテストをしておけば, Synopsisが本当に正しいかどうかを確認することができるので, このようなトラブルを回避できるようになります.</p>
+
+<p>このモジュールをつくる為に, moznionさんはCompiler::Lexerにいくつかのパッチを送っていました.
+ただ, ｢時折Compiler::Lexerが原因? でテストがコケる...｣という症状があるらしく, 現在PPI版の実装に取り組んでいるとのことです.
+将来的には, 後述のTest::LocalFunctionsのように, バックエンドをPPIとCompiler::Lexerから選べるようになるのではないでしょうか.</p>
+
+<h2>Test::LocalFunctions::Fast by @moznion / @papix</h2>
+
+<p><a href="http://moznion.hatenadiary.com/entry/20130412/1365795045">Test::LocalFunctions というモジュールを書いてました</a>
+<a href="http://blog.papix.net/entry/2013/05/02/223803">Test::LocalFunctions::Fastというモジュールを作った.</a>
+<a href="http://blog.papix.net/entry/2013/05/27/224100">Test::LocalFunctions::FastをTest::LocalFunctionsにマージしてもらいました.</a></p>
+
+<p>Test::LocalFunctionsは, モジュールの中で使われていないローカル関数がないかテストする為のモジュールです.
+元々はmoznionさんがPPIを使って実装していて, それをpapix(私)がCompiler::Lexerを使って高速化し, Test::LocalFunctions::Fastの名前でGitHubに公開しました.
+最終的には, Test::LocalFuctionsにマージしてもらってmoznionさんが管理･リリースしています.</p>
+
+<h2>Test::UsedModules::Fast by @papix</h2>
+
+<p><a href="http://blog.papix.net/entry/2013/07/09/211600">Test::UsedModules::Fastに心が折れたので, Test::UsedModulesの紹介をします</a></p>
+
+<p><a href="https://github.com/moznion/Test-UsedModules">Test::UsedModules</a>は, こちらもまたまたmoznionさんが開発された, 必要のないモジュールを<code>use</code>/<code>require</code>していないか確認してくれるモジュールです.
+このモジュールもPPIで実装されていたので, papix(私)がCompiler::Lexerを使って高速化してみました.
+PPIとCompiler::Lexerの差で随分苦労したのですが, 最終的には何とか完成までこぎつけることができました.
+こちらも, 本家(Test::UsedModules)にマージしてもらうつもりだったのですが... いろいろ忙しくて, その辺りの作業を放置して今に至っています.</p>
+
+<p>とりあえず暫定版が<a href="https://github.com/papix/Test-UsedModules/tree/fast">こちら</a>にありますので, 試してみたい方はどうぞ.</p>
+
+<h2>まとめ</h2>
+
+<p>Compiler::Lexerを活用したモジュールを紹介してみました.
+ここ最近, Compiler::Lexerはかなり安定してきた(以前は時折SEGVったりすることがありました...)と印象を持っているので, モジュールを開発する中でPerlのトーカナイザが必要であれば, 使ってみる価値があると思います.</p>
+
+<p>Compiler::Lexerを含むgoccyさんのプロダクトに要注目ですね!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-21:entry-2013-12-17-compiler-lexer.html</id>
+<published>2013-12-17T59:59:00+0900</published>
+<updated>2013-12-21T03:24:08+09:00</updated>
+</entry>
 <entry>
 <title type="text">苦いエラーの扱いをちょっとだけええかんじに</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html" />
@@ -1580,9 +1667,19 @@ print Dumper $result;
 </thead>
 <tbody>
 <tr>
+<td>2013/12/21(土) </td>
+<td> papix </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html">Perl meets GPU</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-21-percuda.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-21-percuda.html"></a></td>
+</tr>
+<tr>
 <td>2013/12/20(金) </td>
 <td> uzulla </td>
 <td> <a href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html">苦いエラーの扱いをちょっとだけええかんじに</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"></a></td>
+</tr>
+<tr>
+<td>2013/12/17(火) </td>
+<td> papix </td>
+<td> <a href="http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html">Compiler::Lexerを使ったモジュール達</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html"></a></td>
 </tr>
 <tr>
 <td>2013/12/14(土) </td>
@@ -1789,309 +1886,5 @@ print Dumper $result;
 <id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
 <published>2013-09-09T47:47:09+0900</published>
 <updated>2013-11-04T17:30:07+09:00</updated>
-</entry>
-<entry>
-<title type="text">Minilla（Module::Build）でproveオプションを渡したい</title>
-<link href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html" />
-<author>
-<name>Hiroyuki Akabane</name>
-</author>
-<content><![CDATA[<h1>Minilla（Module::Build）でproveオプションを渡したい</h1>
-
-<p>最近はやりのモジュールセットアップ＆管理ツールの<a href="http://search.cpan.org/~tokuhirom/Minilla/">Minilla</a>で使うminil testでprove --jobs 10的な並列処理をかけたいなーと思って、いろいろ調べて教えてもらったのでその話です。</p>
-
-<h2>感謝！</h2>
-
-<p>この記事書いたらtokuhiromさんがコメントくれて、しかもMinilla v0.8.2をリリースし、tap_harness_argsというModule::Buildのオプションに対応して頂けました！詳細は後述。</p>
-
-<p>ありがとうございます！！！！</p>
-
-<h2>proveのオプションって？</h2>
-
-<p>proveはPerlの動作確認テストを一括実行するコマンドです。proveのオプションとか知らない方は、こちらのxaicronさんの記事を参照→<a href="http://perl-users.jp/articles/advent-calendar/2011/test/21">prove についてのおさらい</a></p>
-
-<p>テストの並列処理とかカラーリングとか時間出したりできます。モジュールのテストでも並列処理させたいことはしばしばあると思いますので、結構ニーズあるような設定だと思いますね。</p>
-
-<h2>Makefile.PLの場合</h2>
-
-<p><a href="http://perl-users.jp/articles/advent-calendar/2011/test/18">テストのためにデーモンを自動的に起動するやりかた2011年版</a>にあるように、.provercとかもりもりかいて、以下のようにMakefile.PLに書けばいいのです。</p>
-
-<pre><code>sub MY::test_via_harness { "\tprove --rc=t/proverc t\n" }
-</code></pre>
-
-<p>ただ、Minillaは最近はやりのBuild.PL形式で<a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>使っているんですが、ドキュメントがモリモリでよくわからん！という感じなりました。ググってもあまり出てこないし。。。</p>
-
-<h2>Build.PLの場合</h2>
-
-<p><a href="http://search.cpan.org/~leont/Module-Build-0.4007/lib/Module/Build.pm">Module::Build</a>にもよくみたらかいてあるんですが、全然よくわかりません（苦笑）</p>
-
-<p>Mminilla( v0.8.2)が生成するBuild.PLをみるとよくわかります。生でBuild.PLを書く場合は以下の設定します。</p>
-
-<pre><code>my $builder = Module::Build-&gt;new(
-    tap_harness_args =&gt; {"jobs" =&gt; 19,"timer" =&gt; "true","color" =&gt; "true"},
-);
-</code></pre>
-
-<h2>[追記]Minillaのproveの並列オプションの渡し方 ～tap_harness_args編～</h2>
-
-<p>Minilla v0.8.2では、以下のようにminil.tomlに設定するということです。</p>
-
-<pre><code>[tap_harness_args]
-jobs=19
-color=true
-timer=true
-</code></pre>
-
-<h2>[元記事]Minillaのproveの並列オプションの渡し方 ～オレオレbuild_class編～</h2>
-
-<p>builder::MyBuilderでカスタマイズできるという参考程度に。</p>
-
-<p>さてはて、困ったなーと思っていたんですが、こんなときこそはちぴー仲間の集うYanchaだ！！ということで聞いてみたら、<a href="http://d.hatena.ne.jp/gfx/20110313/1300027796">gfxさんの記事</a>をさらっと<a href="http://yancha.hachiojipm.org/quot?id=172960,172953,172951,172949">tsuttchiさんにおしえてもらった</a>。マジ感謝です！！！で以下のようにproveのオプションは環境変数で設定できるということです。</p>
-
-<pre><code>HARNESS_OPTIONS=j19 minil test
-</code></pre>
-
-<p>で、毎回環境変数渡すのだ類のでMinillaにいれたいんですが、Build.PLを自動生成するMinillaなので、どうするかというと、<a href="http://search.cpan.org/~tokuhirom/Minilla/lib/Minilla.pm#CONFIGURATION">Minillaのminil.tomlの設定のドキュメント</a>とtokuhiromさんの<a href="http://blog.64p.org/entry/20111202/1322803079">Module::Buildでテストの前とかあとにフックする方法</a>を参考に以下のようになります。</p>
-
-<h3>minil.tomlで以下のようにオレオレbuild_classを設定</h3>
-
-<pre><code>[build]
-build_class = "builder::MyBuilder"
-</code></pre>
-
-<h3>オレオレbuildクラスで以下のようにテストをフック</h3>
-
-<p>./buidler/ディレクトリ作って、vi /builder/MyBuilder.pmに書き込みます</p>
-
-<pre><code>package builder::MyBuilder;
-use strict;
-use warnings;
-use parent qw(Module::Build);
-
-sub ACTION_test {
-    my $self = shift;
-
-    local $ENV{HARNESS_OPTIONS} = ($ENV{HARNESS_OPTIONS} ||'') . 'j19';
-    $self-&gt;SUPER::ACTION_test(@_);
-}
-
-1;
-</code></pre>
-
-<h3>いろいろ渡す方法</h3>
-
-<p><a href="http://search.cpan.org/~ovid/Test-Harness-3.29/lib/Test/Harness.pm#ENVIRONMENT_VARIABLES_THAT_AFFECT_TEST::HARNESS">HARNESS_OPTIONSのドキュメント</a>をみると、たくさんオプションを渡すときは、「:」区切りで渡すようです。</p>
-
-<pre><code>HARNESS_OPTIONS=j9:c make test
-</code></pre>
-
-<h3>余談、do_system('prove --jobs 19 -r t')には注意</h3>
-
-<p>最初ACTION_testの中で、$self->SUPER::ACTION_test(@_)呼ばないで、$self->do_system('prove --jobs 19 -r t')でやればよくね？って思ってやったんですが、Minillaがいい感じに裏でやっていると思われるxt系のテストがよばれなくなっちゃうので、ちとうれしくないと思いやめました。xt系のテストあまりわかっていないので、とりあえず、tokurhiromオススメを不都合が出るまで使っておきましょうという感じです。</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-11-01:entry-2013-11-03-minilla-tips1.html</id>
-<published>2013-11-01T03:03:02+0900</published>
-<updated>2013-11-04T03:33:25+09:00</updated>
-</entry>
-<entry>
-<title type="text">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html" />
-<author>
-<name>ytnobody</name>
-</author>
-<content><![CDATA[<h1>肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</h1>
-
-<p>はい、ハチオージピーエム日めくりテックトークのお時間がやってまいりました！9月29日の土曜日、時刻は16時54分を回ったところです。皆さんこんばんは！今日は私、わいとんぼーい(ytnobody)がお茶の間にテックな話題をお届けしてまいります！</p>
-
-<p>さて、今日は肉の日です。えー皆さん、お肉たべてますか？お肉たべましょうね！もちろんお肉だけじゃダメなので、野菜もバランスよく食べるといいですよー。今日の夕御飯はどんな肉料理が食卓に並ぶのでしょうか、楽しみですねー。</p>
-
-<p>そして！年に一度の「苦肉の策」の日でもあります。まあこれは私あたりが勝手にそう言ってるだけではありますけれども、そろそろわれらがハチオージピーエムの面々もエントリを書くのがだるくなってきたせいか、3日ほどこちらの日めくりテックトークも「苦肉の策」として、わたくしにパーソナリティのバトンが回ってきた次第です。・・・嘘です（笑</p>
-
-<p>えー、それではそろそろ本日のメインコーナーにまいりたいと思います。</p>
-
-<p>実はですね、今朝8:30ころにわたくし「ネフィア(Nephia)」というモジュールをCPANにリリース致しました！あーどうもどうも！ありがとうございますー！</p>
-
-<p>それでですね、今日はその簡単な使い方の説明と、あとざっくりとした特徴といいますか、そう言うところをですね、説明していきたいと思うんですねー、どうですかちょっと楽しみになってきたんじゃないですか？</p>
-
-<p>えーまずですね使いかたの方を説明していきますねー、っと、今日はこの説明のためにノートパソコンを用意していただいたんですけども、こちらのパソコンにはplenvと言うものが入っていてですね、そこにcpanmというものが用意されていると、いうことです。あ、もうNephiaもインストール済みなんですか？・・・あー、入ってるんですね、すいません、もう入ってるそうです！</p>
-
-<p>じゃあ早速ですけど、すごく単純なwebアプリを作っていきましょうねー、大丈夫です20秒くらいで出来上がりますので！あっさりしていて今晩のおかずにもぴったりですよ！じゃあ次のようなコマンドを実行してみますねー、はいっ！</p>
-
-<pre><code>$ nephia-setup MyApp
-</code></pre>
-
-<p><img src="http://hachiojipm.github.io/static/image/nephia-01.png" alt="実行！" /></p>
-
-<p>そうすると、ほら、何か色々でてきましたねー！なんとですね、これで完成です・・・！！じゃあ早速試食してみましょう！</p>
-
-<pre><code>$ cd MyApp
-$ plackup
-</code></pre>
-
-<p>はい！これで http://hachiojipm.github.io:5000/ にアクセスしてみるとですね、なんともシンプルな味わいのページが表示されましたね！中身も非常にシンプルでして、こんな感じになっておりまーす！</p>
-
-<pre><code>MyApp/
-├── Changes
-├── app.psgi
-├── cpanfile
-├── lib
-│   └── MyApp.pm
-└── t
-    └── 001_use.t
-</code></pre>
-
-<p>肝になりそうなファイルをみていきますと、まずapp.psgiですがこんな感じ。</p>
-
-<pre><code>use strict;
-use warnings;
-use File::Spec;
-use File::Basename 'dirname';
-use lib (
-    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
-);
-use MyApp;
-
-MyApp-&gt;run;
-</code></pre>
-
-<p>だいぶシンプルですねー、そして、本体であるlib/MyApp.pmはこんな感じになっています！</p>
-
-<pre><code>package MyApp;
-use strict;
-use warnings;
-use Nephia;
-
-our $VERSION = 0.80;
-
-app {
-    [200, [], 'Hello, World!'];
-};
-
-1;
-</code></pre>
-
-<p>はい！こちらもまたえらくシンプルですねー！見て分かると思いますけど、Nephia自体ではなんとディスパッチャーとかルーターと呼ばれるものをですね、持っていないんですねー。そしてそして、テンプレートエンジンも含んでいないんです！とにっかく小さいwebアプリケーションに特化していますので、Nephia＝Plackに毛のはえた程度 と思っていただいて大体間違いないんじゃないかと思います！</p>
-
-<p>まあでも、さすがにこれではちょっとシンプル過ぎて・・・という奥様方もいらっしゃると思います。そうでしょうそうでしょう！実はですね、今やったのはMinimalセットアップという方法でプロジェクトをでっち上げたんですね。で、ミニマルというだけあって、本当になにもないんですよ。なので、もう少しダシの効いた仕上がりになるセットアップ方法という物もご紹介いたします。</p>
-
-<p>はい、それでは今度はcpanmでNephia::Setup::Plugin::Normal というものをですね、準備しておいていただきまして、以下のようにセットアップを実行してみてください。</p>
-
-<pre><code>$ nephia-setup SuperMyApp --plugins Normal
-</code></pre>
-
-<p><img src="http://hachiojipm.github.io/static/image/nephia-02.png" alt="実行！" /></p>
-
-<p>これでできあがりです。先ほどと同じようにplackupして、ブラウザでアクセスしてみますと、なんとbootstrapでレイアウトが組まれたページがでてきましたね！</p>
-
-<p>中身をみてみますと、こんな感じです。</p>
-
-<pre><code>SuperMyApp/
-├── Changes
-├── app.psgi
-├── cpanfile
-├── lib
-│   └── SuperMyApp.pm
-├── static
-│   ├── bootstrap
-│   │   ├── css
-│   │   │   ├── bootstrap-responsive.css
-│   │   │   ├── bootstrap-responsive.min.css
-│   │   │   ├── bootstrap.css
-│   │   │   └── bootstrap.min.css
-│   │   ├── img
-│   │   │   ├── glyphicons-halflings-white.png
-│   │   │   └── glyphicons-halflings.png
-│   │   └── js
-│   │       ├── bootstrap.js
-│   │       └── bootstrap.min.js
-│   └── js
-│       └── jquery.min.js
-├── t
-│   └── 001_use.t
-└── view
-    └── index.html
-</code></pre>
-
-<p>で、先ほどと同様にこちらもapp.psgiをみてみますと、</p>
-
-<pre><code>use strict;
-use warnings;
-use Plack::Builder;
-use Plack::Session::Store::Cache;
-use Cache::SharedMemoryCache;
-use File::Spec;
-use File::Basename 'dirname';
-use lib (
-    File::Spec-&gt;catdir(dirname(__FILE__), 'lib'), 
-);
-use SuperMyApp;
-
-my $app           = SuperMyApp-&gt;run;
-my $root          = File::Spec-&gt;rel2abs(File::Spec-&gt;catdir(dirname(__FILE__)));
-my $session_cache = Cache::SharedMemoryCache-&gt;new({
-    namespace          =&gt; 'SuperMyApp',
-    default_expires_in =&gt; 600,
-});
-
-builder {
-    enable_if { $ENV{PLACK_ENV} =~ /^dev/ } 'StackTrace', force =&gt; 1;
-    enable 'Static', (
-        root =&gt; $root,
-        path =&gt; qr{^/static/},
-    );
-    enable 'Session', (
-        store =&gt; Plack::Session::Store::Cache-&gt;new(
-            cache =&gt; $session_cache,
-        ),
-    );
-    enable 'CSRFBlock';
-    $app;
-};
-</code></pre>
-
-<p>そして lib/SuperMyApp.pmは、この様になっております。</p>
-
-<pre><code>package SuperMyApp;
-use strict;
-use warnings;
-use File::Spec;
-
-our $VERSION = 0.01;
-
-use Nephia plugins =&gt; [
-    'JSON',
-    'View::MicroTemplate' =&gt; {
-        include_path =&gt; [File::Spec-&gt;catdir('view')],
-    },
-    'ResponseHandler',
-    'Dispatch',
-];
-
-app {
-    get '/' =&gt; sub {
-        {template =&gt; 'index.html', appname =&gt; 'SuperMyApp'};
-    };
-
-    get '/simple' =&gt; sub { 
-        [200, [], 'Hello, World!']; 
-    };
-
-    get '/json' =&gt; sub { 
-        {message =&gt; 'Hello, JSON World'};
-    };
-};
-
-1;
-</code></pre>
-
-<p>よく見ると、ディスパッチャーがありますけれど、このセットアップ方法はNormalセットアップといいまして、このノーマルな方法でセットアップをこなすと、ディスパッチャーとテンプレート、それからなんとJSON出力機能がついてくるんですねー、非常に便利になりました！</p>
-
-<p>さて、ここまでざくざくーっと使い方と中身を見ていただきましたが、このNephia、最大の特徴は「DSL」です！プラグインをどんどん読み込んでいくと、その分DSLが追加される、というのが基本です。っと、どうやら時間となってしまった模様です！</p>
-
-<p>次回の放送予定は明日ですが、無事に放送に至ることができるのか！？ご期待ください！！！</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-29:entry-2013-09-29-nephia.html</id>
-<published>2013-09-29T10:10:07+0900</published>
-<updated>2013-10-14T23:35:28+09:00</updated>
 </entry>
 </feed>

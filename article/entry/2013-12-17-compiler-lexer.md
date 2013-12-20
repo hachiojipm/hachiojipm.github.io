@@ -1,4 +1,4 @@
-tags: Perl Advent-Calendar-2013 Compiler::Lexer
+tags: Perl Advent-Calendar-2013 Compiler-Lexer
 pubdate: 2013-12-17 23:59
 ---
 # Compiler::Lexerを使ったモジュール達
