@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-21T03:24:08+09:00</updated>
+<updated>2013-12-21T03:27:05+09:00</updated>
 <entry>
 <title type="text">Perl meets GPU</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html" />
@@ -31,67 +31,73 @@
 </author>
 <content><![CDATA[<h1>Compiler::Lexerを使ったモジュール達</h1>
 
-<p>Hachioji.pm Advent Calendarの17日目です. 担当はもう何度記事を書いたかわからなくなってきたpapixです.
+<p>Hachioji.pm Advent Calendarの17日目です. 担当はもう何度記事を書いたかわからなくなってきたpapixです.<br/>
 今日は, 最近注目を集めている@goccyさん製のPerl用トーカナイザ, <a href="http://search.cpan.org/~goccy/Compiler-Lexer/">Compiler::Lexer</a>を活用したモジュール達を紹介したいと思います.</p>
 
 <h2>Perl::MinimumVersion::Fast by @tokuhirom</h2>
 
 <p><a href="http://blog.64p.org/entry/2013/05/02/185530">Compiler::Lexer をつかって Perl::MinimumVersion::Fast をかいてみた</a></p>
 
-<p>tokuhiromさんが作った, ｢あるPerlのコードが, どのPerlのバージョンを必要とするか｣を確認できるモジュール.
-本家のPerl::MinimumVersionはPPIで実装されており, これをtokuhiromさんがCompiler::Lexer化して完成したものです.
+<p>tokuhiromさんが作った, ｢あるPerlのコードが, どのPerlのバージョンを必要とするか｣を確認できるモジュール.<br/>
+本家のPerl::MinimumVersionはPPIで実装されており, これをtokuhiromさんがCompiler::Lexer化して完成したものです.<br/>
 このモジュールを使えば, Perl 5.8を対象としたライブラリで<code>//</code>や<code>~~</code>を使っていないかどうかを確認したりできます.</p>
 
 <h2>Test::Synopsis::Expectation by @moznion</h2>
 
-<p><a href="http://mackee.hatenablog.com/entry/2013/12/16/234919">SYNOPSISのコメントを使ってテストするTest::Synopsis::Expectation</a>
+<p><a href="http://mackee.hatenablog.com/entry/2013/12/16/234919">SYNOPSISのコメントを使ってテストするTest::Synopsis::Expectation</a><br/>
 <a href="http://moznion.hatenadiary.com/entry/2013/12/17/113458">Test::Synopsis::Expectationというモジュールをリリースしました</a></p>
+
+<p><a href="https://twitter.com/t_wada">@t_wada</a>さんから大絶賛を受けていた, moznionさんのモジュールです.</p>
 
 <blockquote class="twitter-tweet" lang="ja"><p>“SYNOPSIS自体に期待する値を埋め込んでおいて，それをもとにSYNOPSISのコードをテストする事で，SYNOPSISがSyntax的にもLogic的にもValidであることをチェック” すばらしい! jsにもREADME.m… <a href="http://t.co/xaVBM2C534">http://t.co/xaVBM2C534</a></p>&mdash; Takuto Wada (@t_wada) <a href="https://twitter.com/t_wada/statuses/412849220853317632">2013, 12月 17</a></blockquote>
 
 
+<p></p>
+
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>Synopsisのコメントを使ってテストをするモジュールです.
-｢モジュールの挙動がよくわからなかったら, とりあえずSynopsisを動かしてみる｣という人にとって, 肝心のSynopsisが間違っている(Syntaxが間違ってるとか, 過去の仕様に準拠したSynopsisだったりとか...)と結構困ります.
+<p></p>
+
+<p>Synopsisのコメントを使ってテストをするモジュールです.<br/>
+｢モジュールの挙動がよくわからなかったら, とりあえずSynopsisを動かしてみる｣という人にとって, 肝心のSynopsisが間違っている(Syntaxが間違ってるとか, 過去の仕様に準拠したSynopsisだったりとか...)と結構困ります.<br/>
 モジュール開発者がこのモジュールでテストをしておけば, Synopsisが本当に正しいかどうかを確認することができるので, このようなトラブルを回避できるようになります.</p>
 
-<p>このモジュールをつくる為に, moznionさんはCompiler::Lexerにいくつかのパッチを送っていました.
-ただ, ｢時折Compiler::Lexerが原因? でテストがコケる...｣という症状があるらしく, 現在PPI版の実装に取り組んでいるとのことです.
+<p>このモジュールをつくる為に, moznionさんはCompiler::Lexerにいくつかのパッチを送っていました.<br/>
+ただ, ｢時折Compiler::Lexerが原因? でテストがコケる...｣という症状があるらしく, 現在PPI版の実装に取り組んでいるとのことです.<br/>
 将来的には, 後述のTest::LocalFunctionsのように, バックエンドをPPIとCompiler::Lexerから選べるようになるのではないでしょうか.</p>
 
 <h2>Test::LocalFunctions::Fast by @moznion / @papix</h2>
 
-<p><a href="http://moznion.hatenadiary.com/entry/20130412/1365795045">Test::LocalFunctions というモジュールを書いてました</a>
-<a href="http://blog.papix.net/entry/2013/05/02/223803">Test::LocalFunctions::Fastというモジュールを作った.</a>
+<p><a href="http://moznion.hatenadiary.com/entry/20130412/1365795045">Test::LocalFunctions というモジュールを書いてました</a><br/>
+<a href="http://blog.papix.net/entry/2013/05/02/223803">Test::LocalFunctions::Fastというモジュールを作った.</a><br/>
 <a href="http://blog.papix.net/entry/2013/05/27/224100">Test::LocalFunctions::FastをTest::LocalFunctionsにマージしてもらいました.</a></p>
 
-<p>Test::LocalFunctionsは, モジュールの中で使われていないローカル関数がないかテストする為のモジュールです.
-元々はmoznionさんがPPIを使って実装していて, それをpapix(私)がCompiler::Lexerを使って高速化し, Test::LocalFunctions::Fastの名前でGitHubに公開しました.
+<p>Test::LocalFunctionsは, モジュールの中で使われていないローカル関数がないかテストする為のモジュールです.<br/>
+元々はmoznionさんがPPIを使って実装していて, それをpapix(私)がCompiler::Lexerを使って高速化し, Test::LocalFunctions::Fastの名前でGitHubに公開しました.<br/>
 最終的には, Test::LocalFuctionsにマージしてもらってmoznionさんが管理･リリースしています.</p>
 
 <h2>Test::UsedModules::Fast by @papix</h2>
 
 <p><a href="http://blog.papix.net/entry/2013/07/09/211600">Test::UsedModules::Fastに心が折れたので, Test::UsedModulesの紹介をします</a></p>
 
-<p><a href="https://github.com/moznion/Test-UsedModules">Test::UsedModules</a>は, こちらもまたまたmoznionさんが開発された, 必要のないモジュールを<code>use</code>/<code>require</code>していないか確認してくれるモジュールです.
-このモジュールもPPIで実装されていたので, papix(私)がCompiler::Lexerを使って高速化してみました.
-PPIとCompiler::Lexerの差で随分苦労したのですが, 最終的には何とか完成までこぎつけることができました.
+<p><a href="https://github.com/moznion/Test-UsedModules">Test::UsedModules</a>は, こちらもまたまたmoznionさんが開発された, 必要のないモジュールを<code>use</code>/<code>require</code>していないか確認してくれるモジュールです.<br/>
+このモジュールもPPIで実装されていたので, papix(私)がCompiler::Lexerを使って高速化してみました.<br/>
+PPIとCompiler::Lexerの差で随分苦労したのですが, 最終的には何とか完成までこぎつけることができました.<br/>
 こちらも, 本家(Test::UsedModules)にマージしてもらうつもりだったのですが... いろいろ忙しくて, その辺りの作業を放置して今に至っています.</p>
 
 <p>とりあえず暫定版が<a href="https://github.com/papix/Test-UsedModules/tree/fast">こちら</a>にありますので, 試してみたい方はどうぞ.</p>
 
 <h2>まとめ</h2>
 
-<p>Compiler::Lexerを活用したモジュールを紹介してみました.
+<p>Compiler::Lexerを活用したモジュールを紹介してみました.<br/>
 ここ最近, Compiler::Lexerはかなり安定してきた(以前は時折SEGVったりすることがありました...)と印象を持っているので, モジュールを開発する中でPerlのトーカナイザが必要であれば, 使ってみる価値があると思います.</p>
 
 <p>Compiler::Lexerを含むgoccyさんのプロダクトに要注目ですね!</p>
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-21:entry-2013-12-17-compiler-lexer.html</id>
 <published>2013-12-17T59:59:00+0900</published>
-<updated>2013-12-21T03:24:08+09:00</updated>
+<updated>2013-12-21T03:27:05+09:00</updated>
 </entry>
 <entry>
 <title type="text">苦いエラーの扱いをちょっとだけええかんじに</title>
