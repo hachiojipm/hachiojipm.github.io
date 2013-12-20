@@ -5,7 +5,7 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-21T03:27:05+09:00</updated>
+<updated>2013-12-21T04:06:12+09:00</updated>
 <entry>
 <title type="text">Perl meets GPU</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html" />
@@ -14,7 +14,7 @@
 </author>
 <content><![CDATA[<h1>Perl meets GPU</h1>
 
-<p>...という記事を, Perl Advent Calendar 21日目として書きましたので紹介させて頂きます!<br/>
+<p>...という記事を, Perl Advent Calendar 20日目として書きましたので紹介させて頂きます!<br/>
 (2日連続の<a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">moznionスタイル</a>ですね...)</p>
 
 <p><a href="http://qiita.com/papix/items/fee3e60e21f2ab1f1c76">http://qiita.com/papix/items/fee3e60e21f2ab1f1c76</a></p>
@@ -22,6 +22,254 @@
 <id>tag:hachiojipm.github.io,2013-12-21:entry-2013-12-21-percuda.html</id>
 <published>2013-12-21T59:59:00+0900</published>
 <updated>2013-12-21T23:59:00+09:00</updated>
+</entry>
+<entry>
+<title type="text">papixのグルメ 〜関西地方編〜</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-15-papix-gourmet-2.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>papixのグルメ 〜関西地方編〜</h1>
+
+<p>papixです. とにかく, どんな形であってもHachioji.pm Advent Calendarを完走させるという悲壮な決意(?)を持ってこのアドベントカレンダーと対峙しております.</p>
+
+<p>というわけで, 今日は｢papixのグルメ 〜関西地方編〜｣をお送りしたいと思います.</p>
+
+<h2>兵庫 / ｢旨いらーめんゆうや｣の味噌ラーメン</h2>
+
+<p>-> <a href="http://tabelog.com/hyogo/A2807/A280703/28021381/">食べログ</a></p>
+
+<p>大学の最寄り駅の近くにある味噌ラーメンの店.
+中途半端な時間に大学を出て, 家に帰ってもメシないしなー... という時は, 大抵この店に行っています.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-hyogo-yuuya.jpg" alt="ゆうやの味噌ラーメン" /></p>
+
+<p>目玉の味噌ラーメンは若干ピリ辛, そしてこってり気味で, そこがお気に入りです.
+写真では, ネギをトッピングして山盛りにしてもらいました.</p>
+
+<p>この店の特徴は, 2cm〜3cm四方くらいの海苔が食べ放題という点.
+麺と具を片付けた後, 残ったスープに海苔を浸して食べると非常に美味しいのです!! (見た目汚い感じですが...)</p>
+
+<h2>奈良 / ｢元喜神｣のつけ麺</h2>
+
+<p>-> <a href="http://tabelog.com/nara/A2901/A290101/29005789/">食べログ</a></p>
+
+<p>小学校･中学校の同級生が紹介してくれた, 奈良県にあるつけ麺屋.
+鶏白湯のスープがウリのお店です.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-nara-genkishin.jpg" alt="元喜神のつけ麺" /></p>
+
+<p>この店は, なんと各テーブルにIHクッキングヒーターっぽいものが設置されていて, これとつけ麺のスープを使って雑炊が作れるのです!</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-nara-genkishin-zosui.jpg" alt="元喜神の雑炊" /></p>
+
+<p>残ったスープとご飯, 卵, チーズで作ったチーズリゾット. これもまた美味...!
+近くに鉄道の駅がなく, 車がなければ行けない店なのですが, また食べに行きたいなー... と密かに思っています.</p>
+
+<h2>奈良 / ｢あまのじゃく｣の塩とんこつラーメン</h2>
+
+<p>-> <a href="http://tabelog.com/nara/A2901/A290102/29000547/">食べログ</a></p>
+
+<p>上記の｢元喜神｣を紹介してくれた友人が連れて行ってくれたラーメン屋.
+友人の一押し店舗らしく, 店主に顔を覚えられる程度には通ったとか.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-nara-amanojaku.jpg" alt="あまのじゃくの塩とんこつ" /></p>
+
+<p>頂いたのは塩とんこつチャーシュー麺.
+コクのあるスープはくどくなく, しっかりと麺に絡みます.
+そして香ばしく炙られたチャーシューが旨い!</p>
+
+<p>当時のブログには, ｢プロ野球で例えるなら3割30本30盗塁の一流選手｣という評価を残していました.
+自分にとって, 王道かつ理想のとんこつラーメンはこの店のとんこつラーメンじゃないかなあ... という気がしています.</p>
+
+<h2>大阪 / ｢無鉄砲｣のこってりとんこつラーメン</h2>
+
+<p>-> <a href="http://tabelog.com/osaka/A2702/A270202/27005006/">食べログ</a></p>
+
+<p>無鉄砲. それはpapixにとっては青春の味なのです.
+かつて, どうしようもないヲタだった高校生時代, 土日の昼間に友達とフリータイムのカラオケ(もちろん曲はアニソンばっかり)に行った後によく行っていました.
+確か, ｢歌って枯れた喉をここのラーメンの油がコーティングしてくれるんだよ!｣みたいな事を言っていた友人がいたような気がします...</p>
+
+<p>さて, 食べログのページを見て頂ければわかるのですが, この店のラーメンは超! こってりです. どうしようもなく背脂たっぷりです.
+ちょっと太めの麺に, 超こってりスープが絡む絡む! 口の中は油でべったべた, 口の周りも油でべったべた, でも不味くはなくて, むしろ非常に旨いんですよね.</p>
+
+<p>非常に中毒性のあるとんこつラーメンなので, とんこつ好きの方は是非一度味わってみて欲しいと思います.
+というか, ここのラーメンを食わずして｢こってりとんこつラーメン｣は語れないのでは? とすら思っています.</p>
+
+<p>関東在住の方は, <a href="http://www.muteppou.com/tenpo.html">中野にも店がある</a>みたいなので, 是非そちらへどうぞ!</p>
+
+<h2>まとめ</h2>
+
+<p><strong>...全部ラーメンじゃないか!!!</strong>
+まあ, 関西地方はホームグラウンドのようなものなので, ラーメンみたいな｢ファストフード｣っぽいものしか食べないからだと思います...</p>
+
+<p>Hachioji.pm Advent Calendarはまだまだ続きます.
+｢papixのグルメ｣も, 北海道編や関東編, 東北編などが残っていますので, どうぞお楽しみに!</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-21:entry-2013-12-15-papix-gourmet-2.html</id>
+<published>2013-12-15T59:59:00+0900</published>
+<updated>2013-12-21T04:06:12+09:00</updated>
+</entry>
+<entry>
+<title type="text">papixのグルメ 〜九州･中国地方編〜</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>papixのグルメ 〜九州･中国地方編〜</h1>
+
+<p>papixです. 12日現在, Hachioji.pm Advent Calendarに対して(この記事含め)6つの記事を投稿しています.<br/>
+<strong>半分以上俺じゃねーか!</strong></p>
+
+<p>...というわけで, 気がついたら12日の記事が上がっていなかったので, <strong>過去に書いたブログのテキストを継ぎ接ぎして</strong>12日目です.<br/>
+タイトルは｢papixのグルメ｣. タイトルは｢孤独のグルメ｣を意識しています. 多分.</p>
+
+<p>今日は｢九州･中国地方編｣ということで, 旅の中でpapixが出会った美味しい料理を, いろいろ紹介していきます!</p>
+
+<h2>広島 / ｢三公｣の尾道ラーメン</h2>
+
+<p>-> <a href="http://tabelog.com/hiroshima/A3401/A340102/34000436/">食べログ</a></p>
+
+<p>広島駅の駅ビルにあるラーメン屋.<br/>
+改札を出てすぐの駅ビル内にあるという立地, そして｢程よく混んでいるがほとんど待つ事はない｣という空き具合.<br/>
+同じフロアには広島焼きの店が多数あるのですが, 昼飯時などは殺人的に混んでるんですよね...<br/>
+その中で, ほとんど並ばずにサッと入れるこの店の存在は有難いです.<br/>
+乗り継ぎの事情で, 広島で食事を取るという時は, 大抵この店に行っています.</p>
+
+<p>さて, Wikipedia先生曰く, 尾道ラーメンは次のような特長があるらしいです.</p>
+
+<ul>
+<li>瀬戸内海の小魚によるだし（いりこだし）を加えた濁らせない鶏がらスープ</li>
+<li>タレはシンプルな醤油味ベース</li>
+<li>歯ごたえのある独特の食感の平打ち麺（非常に伸びやすい）</li>
+<li>薬味は青ネギ、具材としてチャーシュー、メンマを使用</li>
+<li>比較的大き目の豚の背脂ミンチをスープに浮かべる</li>
+</ul>
+
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-onomichi-ramen.jpg" alt="尾道ラーメン" /></p>
+
+<p>写真はチャーシュー麺. 写真では背脂ミンチは見当たりませんが, チャーシューの下にこれでもか! というくらい入ってます.<br/>
+麺が伸びないうちにズルっと頂いた後, 背脂の食感を味わいながらスープを飲むのがたまらなくたまらない... そんな一品です.</p>
+
+<h2>鳥取 / ｢砂丘会館｣の刺身定食</h2>
+
+<p>-> <a href="http://tabelog.com/tottori/A3101/A310101/31000346/">食べログ</a></p>
+
+<p>鳥取砂丘のすぐ近く, 砂丘会館という建物の中にある食事所.
+ここで頂いたのが, 1500円の刺身定食.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-tottori-sashimi.jpg" alt="刺身定食" /></p>
+
+<p>新鮮な海の幸がたっぷり!</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-tottori-sashimi-1.jpg" alt="刺身" /><br/>
+刺身をズーム. なんとカニまで...!
+新鮮な海の幸をたっぷり楽しめる刺身定食, 鳥取砂丘を堪能した後に是非味わって頂きたい逸品です.</p>
+
+<h2>宮崎 / ｢おぐら｣のチキン南蛮</h2>
+
+<p>-> <a href="http://tabelog.com/miyazaki/A4501/A450101/45000012/">食べログ</a></p>
+
+<p>就活の時にたまたま知り合った宮崎大学の知人が紹介してくれた, チキン南蛮発祥の店.<br/>
+宮崎駅前からちょっと歩いた路地裏っぽい場所にあるので, 初見で行くには結構悩みそうな立地ですが, 行く価値は十二分にあります.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-miyazaki-namban.jpg" alt="チキン南蛮" /></p>
+
+<p>タルタルチキンたっぷりのチキン南蛮は食べごたえ抜群!<br/>
+このボリューム, この味, そしてこれご飯がついて980円というのは非常に有難いお値段.<br/>
+肉好きな人間としては, また宮崎に行って食べたいなーと思っています.</p>
+
+<h2>大分 / ｢地獄蒸し工房 鉄輪｣の地獄蒸し</h2>
+
+<p>-> <a href="http://tabelog.com/oita/A4402/A440202/44004949/">食べログ</a></p>
+
+<p>大分は別府と言えば温泉. いわゆる｢地獄めぐり｣を含めて, 無数の温泉が湧いている温泉好きにはたまらない街です.<br/>
+そんな別府の温泉を使った料理を堪能できるのが, 鉄輪にある｢地獄蒸し工房 鉄輪｣です.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-01.jpg" alt="調理風景" /></p>
+
+<p>調理といってもシンプルで, 温泉の蒸気で食材を蒸すだけ!<br/>
+蒸すだけなのに, 超おいしい. それが鉄輪の地獄蒸しなのです.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-02.jpg" alt="野菜" /><br/>
+<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-03.jpg" alt="魚介" /><br/>
+<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-04.jpg" alt="根菜" /><br/>
+<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-05.jpg" alt="チキン" /></p>
+
+<p>どれもこれも美味しいのですが, 特にオススメは野菜.<br/>
+キャベツやかぼちゃが持つ, 野菜の甘みというものが最高に引きたてられていました.<br/>
+ジャガイモやさつまいもも, ホクホクで最高!</p>
+
+<p>この時は, 研究旅行の一環で5人くらいで行ったのですが, 1人1000〜1500円くらいで地獄蒸しを堪能できた気がします.<br/>
+グループで別府に行くなら, これはもう行くしかないですね!</p>
+
+<h2>長崎 / ｢ログキット｣の佐世保バーガー</h2>
+
+<p>佐世保といえばハンバーガー. その中で特にインパクトがあったのが, 佐世保駅にあったハンバーガーショップ, ログキットの佐世保バーガーです.</p>
+
+<p>この店のハンバーガーは何といってもデカイ.<br/>
+店のメニューには｢スモールサイズ｣と｢レギュラーサイズ｣と書いてあるのですが, 明らかにスモールはレギュラーの, レギュラーはビッグの間違いです.<br/>
+｢レギュラーサイズ1つ!｣と注文すると, レジの店員さんが調理の店員さんに｢おっきいやつ1個!!!｣みたいな感じで言ってましたし.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-nagasaki-hamburger.jpg" alt="ハンバーガー" /></p>
+
+<p>...普通のハンバーガーの1.5倍くらいの面積があります.<br/>
+どう考えても口に入らないので, これを上から押さえつけて潰し, 食べやすくしてから食べるのが本場アメリカ流... と説明していました.<br/>
+デカイだけでなくとても美味しくて, 特にお肉が非常にジューシー. 駅に近いこともあって, 佐世保に行った時はまた食べたいなあ... と思っています.</p>
+
+<h2>鹿児島 / ｢児玉｣の薩摩定食</h2>
+
+<p>-> <a href="http://tabelog.com/kagoshima/A4601/A460101/46001390/">食べログ</a></p>
+
+<p>鹿児島の中心地, 九州新幹線の終着駅でもある鹿児島中央駅から歩いてすぐにある定食屋, ｢児玉｣.<br/>
+たまたま泊まったホテルの目の前にあって, 適当に入ってみた店なのですが, これが大成功でした.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-kagoshima-satsuma.jpg" alt="薩摩定食" /></p>
+
+<p>鹿児島名物が集結した｢薩摩定食｣! <br/>
+左から地鶏の刺身, きびなごの刺身, さつま揚げ, 豚足で, お値段なんと1800円!<br/>
+地鶏の刺身は噛めば噛むほど味が出てきて, 豚足は柔らかい肉とコリコリした軟骨の食感がたまらない!</p>
+
+<p>あとこの時は, 旅行がスタートしたばかりで旅費に余裕があったので, 調子にのって黒豚のとんかつなるものも頼んでみたり.</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-kagoshima-katsu.jpg" alt="黒豚のとんかつ" /></p>
+
+<p>これもまた美味! すごく柔らかくて, 噛み続けると肉が消えるんです!<br/>
+普通, とんかつとか食べて噛み続けていると, 肉の繊維? っぽいものが残るじゃないですか. あれが残らないんです!</p>
+
+<p>鹿児島名物をひと通り堪能できる児玉, 鹿児島の食事で悩んだ時は, 是非行ってみて下さい.</p>
+
+<h2>福岡 / ｢ふとっぱら｣のラーソーメン</h2>
+
+<p>-> <a href="http://tabelog.com/fukuoka/A4001/A400102/40003954/">食べログ</a></p>
+
+<p>九州は基本的にどこに行ってもメシがうまいですが, その中でも福岡は別格.<br/>
+モツ鍋, 明太子, 魚介, とんこつラーメン... ほんと食事には困らない都市です.</p>
+
+<p>そんな中でもお気に入りなのが, ふとっぱらという居酒屋のラーソーメン!<br/>
+ふとっぱらという店は, Fukuoka.pmがあった時には, 大抵2次会として来るお店です(ちなみにその後は天神駅前の屋台に行く, という所までがテンプレ).</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/gourmet-fukuoka-rasomen.jpg" alt="ラーソーメン" /></p>
+
+<p>氷で冷やした博多ラーメンの細麺を, ほんのり甘い醤油ベースのたれで頂く.<br/>
+1次会でたらふく食べた後でもスルスル食べれる, 素朴なのにクセのある一品です.</p>
+
+<p>僕も大好きですし, このあいだのFukuoka.pmで一緒に行った@yusukebeさんも大絶賛していましたし, Fukuoka.pmの方曰く｢以前Fukuoka.pmに来ていたYさんはラーソーメンをわんこそばのように食べていた.｣とか...</p>
+
+<p>というわけで, 是非皆さんもFukuoka.pmに行って, Fukuoka.pmの方と一緒にラーソーメンを食べましょう!</p>
+
+<h2>まとめ</h2>
+
+<p>｢papixのグルメ｣ということで, 九州と中国地方の美味しいグルメを紹介してみました.<br/>
+九州でゆーすけべーさんと食べた明太子御膳とかも紹介したかったんですが, 節操無く紹介すると時間がなくなるので今回は断念...<br/>
+なお, 次回は｢papixのグルメ 〜北海道編〜｣になるのではないでしょうか.</p>
+
+<p>そして明日13日はまたまた@hirobanexさん担当の予定! 果たしてどんな記事がアップされるのか, 楽しみです.</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-13:entry-2013-12-12-papix-gourmet.html</id>
+<published>2013-12-12T59:59:00+0900</published>
+<updated>2013-12-21T04:06:12+09:00</updated>
 </entry>
 <entry>
 <title type="text">Compiler::Lexerを使ったモジュール達</title>
@@ -223,152 +471,6 @@ open my $fh, "&lt; :encoding(utf8):via(File::BOM)", "hogehoge.csv"
 <id>tag:hachiojipm.github.io,2013-12-14:entry-2013-12-13-file-bom.html</id>
 <published>2013-12-13T59:59:00+0900</published>
 <updated>2013-12-14T00:05:59+09:00</updated>
-</entry>
-<entry>
-<title type="text">papixのグルメ 〜九州･中国地方編〜</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>papixのグルメ 〜九州･中国地方編〜</h1>
-
-<p>papixです. 12日現在, Hachioji.pm Advent Calendarに対して(この記事含め)6つの記事を投稿しています.<br/>
-<strong>半分以上俺じゃねーか!</strong></p>
-
-<p>...というわけで, 気がついたら12日の記事が上がっていなかったので, <strong>過去に書いたブログのテキストを継ぎ接ぎして</strong>12日目です.<br/>
-タイトルは｢papixのグルメ｣. タイトルは｢孤独のグルメ｣を意識しています. 多分.</p>
-
-<p>今日は｢九州･中国地方編｣ということで, 旅の中でpapixが出会った美味しい料理を, いろいろ紹介していきます!</p>
-
-<h2>広島 / ｢三公｣の尾道ラーメン</h2>
-
-<p>-> <a href="http://tabelog.com/hiroshima/A3401/A340102/34000436/">食べログ</a></p>
-
-<p>広島駅の駅ビルにあるラーメン屋.<br/>
-改札を出てすぐの駅ビル内にあるという立地, そして｢程よく混んでいるがほとんど待つ事はない｣という空き具合.<br/>
-同じフロアには広島焼きの店が多数あるのですが, 昼飯時などは殺人的に混んでるんですよね...<br/>
-その中で, ほとんど並ばずにサッと入れるこの店の存在は有難いです.<br/>
-乗り継ぎの事情で, 広島で食事を取るという時は, 大抵この店に行っています.</p>
-
-<p>さて, Wikipedia先生曰く, 尾道ラーメンは次のような特長があるらしいです.</p>
-
-<ul>
-<li>瀬戸内海の小魚によるだし（いりこだし）を加えた濁らせない鶏がらスープ</li>
-<li>タレはシンプルな醤油味ベース</li>
-<li>歯ごたえのある独特の食感の平打ち麺（非常に伸びやすい）</li>
-<li>薬味は青ネギ、具材としてチャーシュー、メンマを使用</li>
-<li>比較的大き目の豚の背脂ミンチをスープに浮かべる</li>
-</ul>
-
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-onomichi-ramen.jpg" alt="尾道ラーメン" /></p>
-
-<p>写真はチャーシュー麺. 写真では背脂ミンチは見当たりませんが, チャーシューの下にこれでもか! というくらい入ってます.<br/>
-麺が伸びないうちにズルっと頂いた後, 背脂の食感を味わいながらスープを飲むのがたまらなくたまらない... そんな一品です.</p>
-
-<h2>宮崎 / ｢おぐら｣のチキン南蛮</h2>
-
-<p>-> <a href="http://tabelog.com/miyazaki/A4501/A450101/45000012/">食べログ</a></p>
-
-<p>就活の時にたまたま知り合った宮崎大学の知人が紹介してくれた, チキン南蛮発祥の店.<br/>
-宮崎駅前からちょっと歩いた路地裏っぽい場所にあるので, 初見で行くには結構悩みそうな立地ですが, 行く価値は十二分にあります.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-miyazaki-namban.jpg" alt="チキン南蛮" /></p>
-
-<p>タルタルチキンたっぷりのチキン南蛮は食べごたえ抜群!<br/>
-このボリューム, この味, そしてこれご飯がついて980円というのは非常に有難いお値段.<br/>
-肉好きな人間としては, また宮崎に行って食べたいなーと思っています.</p>
-
-<h2>大分 / ｢地獄蒸し工房 鉄輪｣の地獄蒸し</h2>
-
-<p>-> <a href="http://tabelog.com/oita/A4402/A440202/44004949/">食べログ</a></p>
-
-<p>大分は別府と言えば温泉. いわゆる｢地獄めぐり｣を含めて, 無数の温泉が湧いている温泉好きにはたまらない街です.<br/>
-そんな別府の温泉を使った料理を堪能できるのが, 鉄輪にある｢地獄蒸し工房 鉄輪｣です.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-01.jpg" alt="調理風景" /></p>
-
-<p>調理といってもシンプルで, 温泉の蒸気で食材を蒸すだけ!<br/>
-蒸すだけなのに, 超おいしい. それが鉄輪の地獄蒸しなのです.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-02.jpg" alt="野菜" /><br/>
-<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-03.jpg" alt="魚介" /><br/>
-<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-04.jpg" alt="根菜" /><br/>
-<img src="http://hachiojipm.github.io/static/image/gourmet-ohita-jigokumushi-05.jpg" alt="チキン" /></p>
-
-<p>どれもこれも美味しいのですが, 特にオススメは野菜.<br/>
-キャベツやかぼちゃが持つ, 野菜の甘みというものが最高に引きたてられていました.<br/>
-ジャガイモやさつまいもも, ホクホクで最高!</p>
-
-<p>この時は, 研究旅行の一環で5人くらいで行ったのですが, 1人1000〜1500円くらいで地獄蒸しを堪能できた気がします.<br/>
-グループで別府に行くなら, これはもう行くしかないですね!</p>
-
-<h2>長崎 / ｢ログキット｣の佐世保バーガー</h2>
-
-<p>佐世保といえばハンバーガー. その中で特にインパクトがあったのが, 佐世保駅にあったハンバーガーショップ, ログキットの佐世保バーガーです.</p>
-
-<p>この店のハンバーガーは何といってもデカイ.<br/>
-店のメニューには｢スモールサイズ｣と｢レギュラーサイズ｣と書いてあるのですが, 明らかにスモールはレギュラーの, レギュラーはビッグの間違いです.<br/>
-｢レギュラーサイズ1つ!｣と注文すると, レジの店員さんが調理の店員さんに｢おっきいやつ1個!!!｣みたいな感じで言ってましたし.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-nagasaki-hamburger.jpg" alt="ハンバーガー" /></p>
-
-<p>...普通のハンバーガーの1.5倍くらいの面積があります.<br/>
-どう考えても口に入らないので, これを上から押さえつけて潰し, 食べやすくしてから食べるのが本場アメリカ流... と説明していました.<br/>
-デカイだけでなくとても美味しくて, 特にお肉が非常にジューシー. 駅に近いこともあって, 佐世保に行った時はまた食べたいなあ... と思っています.</p>
-
-<h2>鹿児島 / ｢児玉｣の薩摩定食</h2>
-
-<p>-> <a href="http://tabelog.com/kagoshima/A4601/A460101/46001390/">食べログ</a></p>
-
-<p>鹿児島の中心地, 九州新幹線の終着駅でもある鹿児島中央駅から歩いてすぐにある定食屋, ｢児玉｣.<br/>
-たまたま泊まったホテルの目の前にあって, 適当に入ってみた店なのですが, これが大成功でした.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-kagoshima-satsuma.jpg" alt="薩摩定食" /></p>
-
-<p>鹿児島名物が集結した｢薩摩定食｣! <br/>
-左から地鶏の刺身, きびなごの刺身, さつま揚げ, 豚足で, お値段なんと1800円!<br/>
-地鶏の刺身は噛めば噛むほど味が出てきて, 豚足は柔らかい肉とコリコリした軟骨の食感がたまらない!</p>
-
-<p>あとこの時は, 旅行がスタートしたばかりで旅費に余裕があったので, 調子にのって黒豚のとんかつなるものも頼んでみたり.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-kagoshima-katsu.jpg" alt="黒豚のとんかつ" /></p>
-
-<p>これもまた美味! すごく柔らかくて, 噛み続けると肉が消えるんです!<br/>
-普通, とんかつとか食べて噛み続けていると, 肉の繊維? っぽいものが残るじゃないですか. あれが残らないんです!</p>
-
-<p>鹿児島名物をひと通り堪能できる児玉, 鹿児島の食事で悩んだ時は, 是非行ってみて下さい.</p>
-
-<h2>福岡 / ｢ふとっぱら｣のラーソーメン</h2>
-
-<p>-> <a href="http://tabelog.com/fukuoka/A4001/A400102/40003954/">食べログ</a></p>
-
-<p>九州は基本的にどこに行ってもメシがうまいですが, その中でも福岡は別格.<br/>
-モツ鍋, 明太子, 魚介, とんこつラーメン... ほんと食事には困らない都市です.</p>
-
-<p>そんな中でもお気に入りなのが, ふとっぱらという居酒屋のラーソーメン!<br/>
-ふとっぱらという店は, Fukuoka.pmがあった時には, 大抵2次会として来るお店です(ちなみにその後は天神駅前の屋台に行く, という所までがテンプレ).</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/gourmet-fukuoka-rasomen.jpg" alt="ラーソーメン" /></p>
-
-<p>氷で冷やした博多ラーメンの細麺を, ほんのり甘い醤油ベースのたれで頂く.<br/>
-1次会でたらふく食べた後でもスルスル食べれる, 素朴なのにクセのある一品です.</p>
-
-<p>僕も大好きですし, このあいだのFukuoka.pmで一緒に行った@yusukebeさんも大絶賛していましたし, Fukuoka.pmの方曰く｢以前Fukuoka.pmに来ていたYさんはラーソーメンをわんこそばのように食べていた.｣とか...</p>
-
-<p>というわけで, 是非皆さんもFukuoka.pmに行って, Fukuoka.pmの方と一緒にラーソーメンを食べましょう!</p>
-
-<h2>まとめ</h2>
-
-<p>...中国地方が1つしかありませんが, ｢papixのグルメ｣ということで, 九州と中国地方の美味しいグルメを紹介してみました.<br/>
-九州でゆーすけべーさんと食べた明太子御膳とかも紹介したかったんですが, 節操無く紹介すると時間がなくなるので今回は断念...<br/>
-なお, 次回は｢papixのグルメ 〜北海道編〜｣になるのではないでしょうか.</p>
-
-<p>そして明日13日はまたまた@hirobanexさん担当の予定! 果たしてどんな記事がアップされるのか, 楽しみです.</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-13:entry-2013-12-12-papix-gourmet.html</id>
-<published>2013-12-12T59:59:00+0900</published>
-<updated>2013-12-13T22:00:39+09:00</updated>
 </entry>
 <entry>
 <title type="text">carton bundle &amp;&amp; carton install --cachedの使いどころ</title>
@@ -1652,245 +1754,5 @@ print Dumper $result;
 <id>tag:hachiojipm.github.io,2013-11-04:entry-2013-11-04-cuda-device-api.html</id>
 <published>2013-11-04T02:02:29+0900</published>
 <updated>2013-11-04T18:02:29+09:00</updated>
-</entry>
-<entry>
-<title type="text">「Hachioji.pm 日めくりテックトーク」について</title>
-<link href="http://hachiojipm.github.io/entry/2013-09-09-01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>「Hachioji.pm 日めくりテックトーク」について</h1>
-
-<h2>これまでの記事</h2>
-
-<table>
-<thead>
-<tr>
-<th>日時           </th>
-<th> 筆者       </th>
-<th> タイトル</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2013/12/21(土) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html">Perl meets GPU</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-21-percuda.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-21-percuda.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/20(金) </td>
-<td> uzulla </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html">苦いエラーの扱いをちょっとだけええかんじに</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/17(火) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html">Compiler::Lexerを使ったモジュール達</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-17-compiler-lexer.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/14(土) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html">Perlにおいて配列を逆順にするいくつかの方法</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-14-array-reverse.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/13(金) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-13-file-bom.html">PerlにおけるBOM付utf8の扱い</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-13-file-bom.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/12(木) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html">papixのグルメ 〜九州･中国地方編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-12-papix-gourmet.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/11(水) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html">carton bundle &amp;&amp; carton install --cachedの使いどころ</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-11-carton-bundle.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/10(火) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html">MinillaでTravis CIなどのバッヂをREADME.mdに貼り付ける方法</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-10-minilla-badge.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/09(月) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html">x秒後に消滅するpsgiプロセスをPerlで実装したい</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-09-alerm-tips.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/08(日) </td>
-<td> moznion </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">usui-paren.vimってやつを書いた</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/07(土) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html">Time::PieceのParseで%zを使うのは無理ゲー</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-07-time-piece-trap.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/06(金) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-06-nakachan.html">App::Nakachanを作ってみた</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-06-nakachan.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-06-nakachan.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/05(木) </td>
-<td> ytnobody </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html">Hackを支える作業用BGM事情</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/04(水) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-04-travel04.html">地域PM遠征を支える技術 〜北海道/フェリー編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-04-travel04.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-04-travel04.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/03(火) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-03-travel03.html">地域PM遠征を支える技術 〜北海道/鉄道編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-03-travel03.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-03-travel03.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/02(月) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-02-travel02.html">地域PM遠征を支える技術 〜関東関西移動編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-02-travel02.html"></a></td>
-</tr>
-<tr>
-<td>2013/12/01(日) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-12-01-travel01.html"></a></td>
-</tr>
-<tr>
-<td>2013/11/04(月) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html">CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html"></a></td>
-</tr>
-<tr>
-<td>2013/11/01(金) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html">Minilla（Module::Build）でproveオプションを渡したい</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-11-03-minilla-tips1.html"></a></td>
-</tr>
-<tr>
-<td>2013/10/27(日) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html">Fukuoka.pmに乱入してきた!</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html"></a></td>
-</tr>
-<tr>
-<td>2013/10/14(月) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html">Compiler::CodeGenerator::LLVMで遊ぼう!</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-10-14-codegenerator-llvm.html"></a></td>
-</tr>
-<tr>
-<td>2013/10/04(金) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html">Perlの警告と例外を両方握りつぶすtypesterハック</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-10-04-warn-die-hack.html"></a></td>
-</tr>
-<tr>
-<td>2013/10/01(火) </td>
-<td> moznion </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-10-01-encoding.html">Perl の文字列エンコーディングの話</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-10-01-encoding.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-10-01-encoding.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/29(日) </td>
-<td> ytnobody </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-29-nephia.html">肉の日にぴったり！肉料理の付け合わせにさっぱり味のWAFはいかが？</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-29-nephia.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-29-nephia.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/25(水) </td>
-<td> mackee </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html">Perl6をかいま見るためにSeisを使ってみる</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-25-get_started_seis.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/24(火) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-24-selenium.html">SeleniumとPerlの話</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-24-selenium.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-24-selenium.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/23(月) </td>
-<td> Hiroyuki Akabane </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html">phpcon2013所見</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-23-phpcon2013.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/18(水) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html">perlでTravisCI、Coverallsを使ってみる</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/17(火) </td>
-<td> ichigotake </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html">最近のPerlに足りないモノ</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-17-perl_shortage.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/16(月) </td>
-<td> OGATA Tetsuji </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html">Perlの一文字変数の攻略</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-16-perlonechar.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/15(日) </td>
-<td> mackee </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html">Perl meets Hardware #01 Perlとハードウェアが出会うには</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-15-perl_meets_hardware_01.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/14(土) </td>
-<td> Songmu </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html">Perl5.10以降に追加された機能で良く使うお役立ち機能まとめ</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-14-perlfeature.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/13(金) </td>
-<td> ytnobody / satoshi azuma </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-13-01.html">八王子 CPANモジュールコレクション 2013 秋</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-13-01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-13-01.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/12(木) </td>
-<td> uzulla </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-12-01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-12-01.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/11(水) </td>
-<td> boolfool </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-11-01.html">購読しておくと捗る (かもしれない) Vim 関連の情報ソース一覧</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-11-01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-11-01.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/10(火) </td>
-<td> moznion </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-03.html">購読しておくと捗る (かもしれない) Perl 関連の情報ソース一覧</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-09-03.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-09-03.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-02.html">「Perl入学式 第3回」の復習問題, vote.plを解いてみよう!</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-09-02.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-09-02.html"></a></td>
-</tr>
-<tr>
-<td>2013/09/09(月) </td>
-<td> papix </td>
-<td> <a href="http://hachiojipm.github.io/entry/2013-09-09-01.html">「Hachioji.pm 日めくりテックトーク」について</a> <a href="http://b.hatena.ne.jp/entry/http://hachiojipm.github.io/entry/2013-09-09-01.html"><img src="http://b.hatena.ne.jp/entry/image/small/http://hachiojipm.github.io/entry/2013-09-09-01.html"></a></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>概要</h2>
-
-<p>Hachioji.pmが主催する, 日替わりで何らかのテックトークが投稿されていくカレンダーのようなものです.<br/>
-書きたい人からじゃんじゃん書いていって下さい. Hachioji.pm以外の方も大歓迎です!</p>
-
-<p>記事を書いてみたい人は, コミット権くれって言えば適当に誰かが対応してくれると思います。あとはお好きにどうぞ！</p>
-
-<h2>おやくそく</h2>
-
-<ul>
-<li><code>git push -f</code>は厳禁. 同志ソムーリンに粛清されます.</li>
-<li>ブログのネタは何でもよいのではないでしょうか. ただ炎上だけは勘弁な.</li>
-<li>「Hachioji.pmメンバーによるテックブログ」というよりは「Hachioji.pmが主催するテックブログ」という雰囲気なので, Hachioji.pm以外の方もどしどし書いていきましょう.
-
-<ul>
-<li>書いてみたい! と思った方はHachioji.pmっぽい人に声をかけてみて下さい.</li>
-</ul>
-</li>
-<li>「Hachioji.pm 日めくりテックトーク, 楽しそう!」という発言を不用意にしてしまうと, papixに強制的にアサインされる事例が多発しています.</li>
-<li>楽しくやりましょう.</li>
-</ul>
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-09-09:entry-2013-09-09-01.html</id>
-<published>2013-09-09T47:47:09+0900</published>
-<updated>2013-11-04T17:30:07+09:00</updated>
 </entry>
 </feed>
