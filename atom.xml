@@ -3,9 +3,29 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-21T04:09:42+09:00</updated>
+<updated>2013-12-22T03:15:32+09:00</updated>
+<entry>
+<title type="text">話題のHHVM（HiphopVM）を手軽に試す</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-22-hhvm.html" />
+<author>
+<name>uzulla</name>
+</author>
+<content><![CDATA[<h1>話題のHHVM（HiphopVM）を手軽に試す</h1>
+
+<p>「PHP…誰得…」</p>
+
+<p>Hachioji.pm #36のLTを焼き直し、さらに相変わらず自分のブログにリンクするというやっつけぶりです。</p>
+
+<p>以下からどうぞ！</p>
+
+<p><a href="http://uzulla.hateblo.jp/entry/2013/12/22/025014">HHVM(HipHopVM)のFastCGIを軽く試す - uzullaがブログ</a></p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-22:entry-2013-12-22-hhvm.html</id>
+<published>2013-12-22T15:15:32+0900</published>
+<updated>2013-12-22T03:15:32+09:00</updated>
+</entry>
 <entry>
 <title type="text">Perl meets GPU</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html" />
@@ -1596,164 +1616,6 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-10-27:entry-2013-10-27-fukuokapm.html</id>
 <published>2013-10-27T22:22:55+0900</published>
-<updated>2013-11-04T18:02:29+09:00</updated>
-</entry>
-<entry>
-<title type="text">CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</title>
-<link href="http://hachiojipm.github.io/entry/2013-11-04-cuda-device-api.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>CUDA::DeviceAPIでPerlからお手軽GPGPUライフ!</h1>
-
-<p>おはようございます. 三連休で生活リズムが崩れに崩れ, 朝6時に寝て昼15時に起きるという生活をしているpapixです.<br/>
-今日は, 艦これのイベントのE-5で詰んでしまったので, 修論の一環で作成した拙作モジュール, <a href="https://github.com/papix/CUDA-DeviceAPI">CUDA::DeviceAPI</a>についていろいろ書いて行きたいと思います.</p>
-
-<h2>GPGPUとは?</h2>
-
-<p><a href="http://ja.wikipedia.org/wiki/GPGPU">GPGPU</a>は, GPU(グラフィックボード)の演算資源を画像処理以外に応用する技術のことです.<br/>
-複数の計算を, GPUが持つ多数のコア(64個とか128個とか...)で並列に計算することで, シミュレーションや暗号解読などを高速に処理することができます.</p>
-
-<p>ここ最近, いわゆるLL言語でのGPGPUという分野が多少活発になりつつあります. 有名どころだと, PythonのPyCUDAとかはその一例です.<br/>
-学術研究レベルでも, 東大が開発した<a href="http://www.graco.c.u-tokyo.ac.jp/ppp/index.php?Projects%2FRubyGPU">Ikra</a>や, 同志社大学が開発した<a href="http://mikilab.doshisha.ac.jp/research/graduate_thesis/2011/nakamura/rnakamura.pdf">ParaRuby</a>など, いくつかのフレームワークが研究･実装されています.</p>
-
-<p>Perlではどうなのか? というと, CPANにはあがっていませんが, <a href="https://github.com/run4flat/perl-CUDA-Minimal">CUDA::Minimal</a>というモジュールが存在します.<br/>
-これは, CUDAのランタイムAPIを利用して, Inline::CのようにCUDAのコード(CUDA C言語)を書いて, GPUで実行することができる... というものです.</p>
-
-<p>今回紹介する｢CUDA::DeviceAPI｣は, CUDAが持つもう1つのAPI, デバイスAPIを使って, PerlからGPGPUを利用するモジュールです.</p>
-
-<h2>CUDA::DeviceAPIのインストール</h2>
-
-<p>CUDA::DeviceAPIはCUDA 5.0を要求します. 最新版のCUDA 5.5だと動かない... んじゃないでしょうか. 試してませんが.<br/>
-CUDAのインストールは基本的にめんどくさいのですが, Ubuntu 13.04以降だと,</p>
-
-<pre><code>$ sudo apt-get install nvidia-common nvidia-cuda-dev nvidia-cuda-toolkit
-</code></pre>
-
-<p>でインストールできるようになっています. いやはや, 便利な時代になったものです...<br/>
-なお, 言うまでもありませんがNVIDIA製のGPUが搭載されていることが前提条件ですので今すぐ日本橋か秋葉原にでも行って買ってきましょう. GPUを使えばPerCUDAの開発者になれる上, Minecraftとかもサクサク動くようになるので一石二鳥です.</p>
-
-<p>CUDAのインストールが終われば,</p>
-
-<pre><code>$ git clone https://github.com/papix/CUDA-DeviceAPI.git
-$ cd CUDA-DeviceAPI
-$ minil install
-</code></pre>
-
-<p>とかすれば, インストールが出来るはずです.</p>
-
-<h2>CUDA::DeviceAPIを使ってみる</h2>
-
-<p>さて, 早速CUDA::DeviceAPIを使って, PerlからCUDAを使ってみましょう.
-まず, CUDAで実行するコードを用意します.</p>
-
-<pre><code>extern "C" __global__ void kernel(float *a, float *b, float *c, int n)
-{
-    int col = blockIdx.x * blockDim.x + threadIdx.x;
-    int row = blockIdx.y * blockDim.y + threadIdx.y;
-
-    c[col + row * n] = 0;
-    if(col &lt; n &amp;&amp; row &lt; n) {
-        float tmp = 0.0f;
-        for (int i = 0; i &lt; n; i++) {
-            tmp = tmp + a[row * n + i] * a[col + n * i];
-        }
-        c[col + row * n] = tmp;
-    }
-}
-</code></pre>
-
-<p>この<code>kernel</code>関数は, n行n列のfloat型配列を3つ受け取り, 1つ目のfloat型配列と2つ目のfloat型配列の乗算を計算して, 3つ目のfloat型配列に格納する, というコードです. 多分.<br/>
-今回は, このコードを<code>sample.cu</code>という名前で保存します.</p>
-
-<p>このコードを, CUDA::DeviceAPIから実行できるように, CUDAのアセンブリ表現であるPTXに変換します.<br/>
-CUDAのインストールが終わっていれば, <code>nvcc</code>というCUDA用コンパイラが使えるようになっているはずなので,</p>
-
-<pre><code>$ nvcc -ptx sample.cu
-</code></pre>
-
-<p>すると, <code>sample.ptx</code>というファイルが生成されるはずです.</p>
-
-<p>最後に, 生成したPTXを呼び出すPerlのコードを書きます.</p>
-
-<pre><code>use strict;
-use warnings;
-
-use CUDA::DeviceAPI;
-use CUDA::DeviceAPI::Array;
-use Data::Dumper;
-
-my $LENGTH = 4;
-my $block_size = 32;
-
-my $matrix = [
-    [ 1, 2, 3, 4 ],
-    [ 1, 2, 3, 4 ],
-    [ 1, 2, 3, 4 ],
-    [ 1, 2, 3, 4 ],
-];
-
-my $path = 'sample.ptx';
-my $host_data = CUDA::DeviceAPI::Array-&gt;new($matrix);
-
-my $ctx = CUDA::DeviceAPI-&gt;new();
-
-my $dev_ptr_1 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
-my $dev_ptr_2 = $ctx-&gt;malloc_from($host_data =&gt; 'f');
-my $dev_ptr_3 = $ctx-&gt;malloc($host_data-&gt;size() =&gt; 'f');
-
-my $size = $ctx-&gt;ceil($LENGTH / $block_size);
-
-$ctx-&gt;run($path, 'kernel_sum', [
-    $dev_ptr_1 =&gt; 'p',
-    $dev_ptr_2 =&gt; 'p',
-    $dev_ptr_3 =&gt; 'p',
-    $LENGTH    =&gt; 'i',
-], [
-    $size, $size, 1, $block_size, $block_size, 1
-]
-);
-
-my $result = $ctx-&gt;return($dev_ptr_3);
-
-print Dumper $result;
-</code></pre>
-
-<p>今回は, 4行4列の配列の乗算を計算してみました.</p>
-
-<p>計算する行列は<code>my $matrix</code>に入っていて, これを<code>CUDA::DeviceAPI::Array-&gt;new($matrix)</code>とすることで, CUDA::DeviceAPIでよしなに扱える形式にしています.</p>
-
-<p><code>malloc_from</code>は<code>CUDA::DeviceAPI::Array</code>型のオブジェクトを第1引数に受け取って, 第2引数の型(今回は<code>f</code>なのでfloat型)でGPUのメモリに領域を確保し, 値を配置するメソッドです.<br/>
-<code>malloc</code>は, 第1引数に<code>{ x =&gt; 3, y =&gt; 2, z =&gt; 1 }</code>のようなハッシュリファレンスを受け取ると, 第2引数の型に応じて, 第1引数で指定したサイズの配列を格納する為に必要な領域を, GPUのメモリに確保してくれます.</p>
-
-<p>あとは, ここまで生成した値を利用してPTXを呼び出し, 実行するだけです.<br/>
-実行は<code>run</code>メソッドから行います.<br/>
-このメソッドの第1引数は実行するPTXへのパス, 第2引数は実行する関数の名前を指定します.</p>
-
-<p>第3引数は関数に渡す引数を配列リファレンスで指定しています.
-配列リファレンスの2n番目には, GPUで実行する関数のn番目の引数となるポインタ(<code>malloc_from</code>や<code>malloc</code>が返すもの)ないし数値を指定します. <br/>
-配列リファレンスの2n + 1番目には, 2n番目で指定した引数の構造を指定します. 配列のポインタであれば<code>p</code>, 整数であれば<code>i</code>, float型の数値であれば<code>f</code>といった形です.</p>
-
-<p>第4引数はCUDAのグリッドサイズやブロックサイズを指定する部分になります.</p>
-
-<p>最後に, GPUで計算した結果は, <code>return</code>で取得する事ができます.<br/>
-引数に<code>malloc_from</code>や<code>malloc</code>で生成したポインタを指定すれば, そのポインタが指す値をGPUから取得し, 適切な配列リファレンス構造に変換した上で返します.</p>
-
-<h2>まとめ, そしてCUDA::DeviceAPIからPerCUDAへ...</h2>
-
-<p>...というわけで, Perlから, CUDAのデバイスAPIを利用してGPGPUを実現するCUDA::DeviceAPIというモジュールを作りました.</p>
-
-<p>CUDA::DeviceAPIやCUDA::Minimalによって, PerlからCUDAを利用する環境というのは整いつつありますが, まだまだ使い勝手が万全, という訳ではありません.<br/>
-そこで現在, このモジュールを利用して, PerCUDAというPerl向けGPGPUフレームワークを作ろうとしています.</p>
-
-<p>PerCUDAでは, CUDA::DeviceAPIの分かりにくい部分を極力隠蔽するのはもちろん, Perlのコードから自動的にPTXを生成し, ｢Perlのコーディングのみ｣でGPGPUを実現できるようにする予定です.</p>
-
-<p>これによって｢GPUがない場合はPerlのみで実行｣, ｢GPUがある場合はPerl + GPUで実行｣という2つの手法を簡単に使い分けることができるようになるので, ｢GPUがないPC(例えばMBAやノートPC)でコードを書いて小規模の計算で検証｣, ｢細かな調整と大規模な計算はGPUがあるPCで高速に実行｣といった開発手法ができるようになる, ...はずです.</p>
-
-<p>近日中にPerCUDAの方もコードを公開したいと思っておりますので, CUDA::DeviceAPIともども, patchやissue, バグ報告等々をお待ちしております!</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-11-04:entry-2013-11-04-cuda-device-api.html</id>
-<published>2013-11-04T02:02:29+0900</published>
 <updated>2013-11-04T18:02:29+09:00</updated>
 </entry>
 </feed>
