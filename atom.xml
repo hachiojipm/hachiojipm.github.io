@@ -5,7 +5,40 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-22T18:10:32+09:00</updated>
+<updated>2013-12-22T19:31:34+09:00</updated>
+<entry>
+<title type="text">PlackのMiddlewareを条件付きでロードする</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-19-plack-middleware.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>PlackのMiddlewareを条件付きでロードする</h1>
+
+<p>papixです. ここまでこの｢Hachioji.pm 日めくり<strong>テックトーク</strong>｣を, まったくテックに関係ない話題で埋め尽くしてきました(cf. 旅行情報, 飯情報...)が, 今日は久々にテックな話題をお送りします.</p>
+
+<p>PlackのMiddlewareを, ｢ある条件を満たした場合のみ適用したい｣という場合があると思います.<br/>
+例えば, Basic認証をかける<a href="https://metacpan.org/pod/Plack::Middleware::Auth::Basic">Plack::Middleware::Auth::Basic</a>を, 一部のパスの場合のみ有効にして, Basic認証をかけたい! ...という場合とかです.</p>
+
+<p>Plack::Middleware::Auth::Basicを<code>enable</code>で有効にした場合, 全てのパスに対してBasic認証をかけてしまいます.<br/>
+このような場合, <code>enable</code>はなく<code>enable_if</code>を使うことで実現することができます.</p>
+
+<p>例えば, パスの先頭が<code>/login</code>である場合のみ, Basic認証をかけたいという場合は,</p>
+
+<pre><code>enable_if { $_[0]-&gt;{PATH_INFO} =~ m!^/login! }
+    'Plack::Middleware::Auth::Basic',
+    authenticator =&gt; sub {
+        my ($username, $password, $env) = @_;
+        return 'hoge' eq $username &amp;&amp; 'fuga' eq $password;
+    };
+</code></pre>
+
+<p>のように書けばOKです.<br/>
+詳しくはこちらの記事をどうぞ: <a href="http://perl-users.jp/articles/advent-calendar/2011/casual/8">Plack::Middlewareの使い所</a></p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-22:entry-2013-12-19-plack-middleware.html</id>
+<published>2013-12-21T59:59:00+0900</published>
+<updated>2013-12-22T19:31:34+09:00</updated>
+</entry>
 <entry>
 <title type="text">papixのグルメ 〜五反田編〜</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-16-papix-gourmet-3.html" />
@@ -1457,114 +1490,5 @@ Select: Expedition - Area ID: 4
 <id>tag:hachiojipm.github.io,2013-12-05:entry-2013-12-05-shoutcast.html</id>
 <published>2013-12-05T10:10:44+0900</published>
 <updated>2013-12-05T20:10:44+09:00</updated>
-</entry>
-<entry>
-<title type="text">地域PM遠征を支える技術 〜首都圏宿泊施設編〜</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-01-travel01.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>地域PM遠征を支える技術 〜首都圏宿泊施設編〜</h1>
-
-<p>というわけでスタートしてしまった｢Hachioji.pm Advent Calendar 2013｣の第1日目, 先陣はこの私, papixが切らせて頂きます!<br/>
-...というか, これから先, 一緒にこのアドベントカレンダーを書いてくれる人がいなければ, 30日分(25日分)を全部自分が書かないといけない感じになってしまったので, 皆さん積極的に書いて行きましょう...!</p>
-
-<p>以下, その経緯です.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/hachioji-advent-2013.png" alt="適当〜" /></p>
-
-<p>今回の教訓は, <strong>勢いで適当な事を言うと後で後悔する</strong>, ということですね!</p>
-
-<h2>首都圏の格安宿泊施設</h2>
-
-<p>首都圏含め, 地域PMに行く際の宿泊先として, まず候補に上がるのは知人の家でしょう.<br/>
-家族, 親族, 友人などがその行き先に住んでいるならば, 交通費さえなんとかすれば宿泊費はほぼ0に抑えることができます.</p>
-
-<p>ただ, 諸々の都合(例えば部屋が狭いとか, お子さん等々の家族がいるとか...)で泊めてもらうのが難しい場合も多々ありますし, そもそも行く先々に親族や友人が必ずいるとは限りません.<br/>
-という訳で, 今回は首都圏, 特にPerl関連の会社が多数存在する山手線の西側エリア(新宿〜渋谷〜品川)近辺を中心とした, 格安宿泊施設情報をまとめてみました.</p>
-
-<h2>漫画喫茶</h2>
-
-<p>自分が知る限り, 山手線の西側にある駅の徒歩圏内でかなり安い漫画喫茶は, <a href="http://www.utahiro.com/store/storelist/storeinfo/tabid/64/pdid/0206/Default.aspx">｢カラNET24 新宿三丁目店｣</a>です.<br/>
-新宿駅から靖国通りを東に向かって, 明治通りと重なる新宿五丁目交差点の角にある漫画喫茶です.<br/>
-雨天時は, 新宿三丁目駅のE3, E4出口から明治通りを北に行けば, 地上の移動距離は最短になります.</p>
-
-<p>このお店の料金プランはこんな感じです.</p>
-
-<hr />
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;"> 時間   </th>
-<th style="text-align:left;"> 料金  </th>
-<th style="text-align:left;"> 備考                                 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;"> 3時間  </td>
-<td style="text-align:left;"> 580円 </td>
-<td style="text-align:left;"> 24時間受付, PC席のみ金土日祝前680円  </td>
-</tr>
-<tr>
-<td style="text-align:left;"> 8時間  </td>
-<td style="text-align:left;"> 780円 </td>
-<td style="text-align:left;"> 24時間受付, PC席のみ金土日祝前980円  </td>
-</tr>
-<tr>
-<td style="text-align:left;"> 12時間 </td>
-<td style="text-align:left;"> 980円 </td>
-<td style="text-align:left;"> 24時間受付, PC席のみ金土日祝前1280円 </td>
-</tr>
-</tbody>
-</table>
-
-
-<hr />
-
-<p>｢PC席のみ金土日祝全+200円｣となっていますが, この店舗でPC席を利用するメリットは0に近いです.<br/>
-｢PC席｣とそうでない席の違いはPCが置いてあるか否かだけなので, どうせこのブログを読んでいるような人は常時ノートPCと, デザリング可能な機器 or WiFi/WiMAXルータを持っているでしょうから問題ありません, よね!<br/>
-また, ｢PC席｣はもちろん, そうでない席も自由に利用可能なコンセントがあるので, ノートPCや携帯の充電の心配もありません.<br/>
-更に更に, ｢PC席｣は都条例の問題で会員登録をして毎回会員証を提示する必要があるのですが, ｢PC席｣でない場合は会員登録も会員証の提示も必要ない... っぽいです.</p>
-
-<p>複数プランを重ねたり(例えば, 8時間プラン+8時間パックで16時間, とか)できるので, 結構柔軟に滞在できますし, 各ブースに鍵が付いている(但し外側から閉じれない)ので, 盗難の心配も, 他店の鍵がないブースに比べれば低いです.</p>
-
-<p>山手線西側エリアにある同系列の漫画喫茶としては, 他に渋谷の<a href="http://www.utahiro.com/store/storelist/storeinfo/tabid/64/pdid/0204/Default.aspx">｢カラNET24 渋谷道玄坂店｣</a>と池袋の｢まんが広場 北池袋店｣がありますが, 前者は1500円, 後者は12時間1180円で, 新宿三丁目店に比べるとやや値段が高いです.<br/>
-が, ｢朝早くにヒカリエに行く｣などという場合, 新宿三丁目店に泊まると東京の朝ラッシュに巻き込まれる事になるので, 若干コストがかかりますが, 渋谷道玄坂店を使うという手も考慮する価値が出てくると思います.</p>
-
-<p>余談ですが, 新宿三丁目店の近くには, <a href="http://www.koukaiya.co.jp/">｢航海屋｣</a>というラーメン屋の新宿店があります.<br/>
-この店のチャーシューおこわがとてもとても美味なので, 是非行きましょう!<br/>
-チャーシューおこわは2回おかわりできるので, 1杯目は普通に, 2杯目は辛い薬味を乗せて, 3杯目はつけ麺のスープと薬味でお茶漬け風にして頂くと, 最高です.</p>
-
-<h2>ホテル</h2>
-
-<p>ホテルは, 何となく<a href="http://travel.rakuten.co.jp/">｢楽天トラベル｣</a>で検索することが多いです. 割と格安なホテルも載っています.</p>
-
-<p>｢山手線西側エリア｣からは外れますが, 入谷駅(上野駅からメトロ日比谷線で1駅)の近くにある, <a href="http://hotelink.co.jp/iriya/">｢入谷ステーションホテル｣</a>はかなり頻繁に利用していました.<br/>
-このホテルには, ｢学生応援学割プラン｣があり, シングルなら曜日を問わず<a href="https://asp.hotel-story.ne.jp/ver3d/ASPP0200.asp?hidSELECTPLAN=29963&amp;hidSELECTCOD1=65830&amp;hidSELECTCOD2=001">2980円</a>, カプセルなら<a href="https://asp.hotel-story.ne.jp/ver3d/ASPP0200.asp?hidSELECTPLAN=29962&amp;hidSELECTCOD1=65830&amp;hidSELECTCOD2=001">1600円</a>で一泊することができます.</p>
-
-<p>建物はそれほど綺麗ではありませんが, 鍵付きで, プライバシーのある空間(?)を確保したいのであれば, オススメです.</p>
-
-<h2>カプセルホテル</h2>
-
-<p>格安で泊まる手法としてはカプセルホテルもあります.<br/>
-ただ, 広島のカプセルホテルの風呂で, 見知らぬオッサンに｢なあ, 兄ちゃん. サウナ行こうや...｣と誘われて身の危険を感じて以来, あまり行かなくなりました.<br/>
-カプセルホテルはネットカフェに比べてお風呂が豪華なのですが, カプセルが小さくて圧迫感がある事, 何よりカプセル内にコンセントがない事が多いのも問題です.</p>
-
-<p>ただ, 最近徐々に増えつつある｢キャビンタイプ｣と呼ばれるタイプ(<a href="http://rexinn.co.jp/capsule.html">こんなの</a>です)では, カプセル風の就寝スペースに加えて, 就寝スペースと同程度の個人スペースが用意されています.<br/>
-個人スペースには, デスクとロッカーが置いてある場合が多いです. 更に言うまでもないですが, コンセントも用意されています.<br/>
-ただ, カプセルホテル同様, 廊下などの共有スペースと個人スペースの区切りは間仕切り程度で鍵もないので, 盗難には気をつける必要があります.</p>
-
-<h2>まとめ</h2>
-
-<p>｢地域PM遠征を支える技術｣として, まずは｢東京都内の格安宿泊施設情報｣をまとめてみました.<br/>
-先日告知された｢YAPC::Asia Tokyo 2014｣や, 就活や各種勉強会で都内に来られる際に参考にして頂ければと思います.</p>
-
-<p>明日, 12月2日(月)は再びpapixで, ｢地域PM遠征を支える技術 〜関東関西移動編〜｣をお送りします. お楽しみに!</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-02:entry-2013-12-01-travel01.html</id>
-<published>2013-12-01T59:59:00+0900</published>
-<updated>2013-12-03T12:28:15+09:00</updated>
 </entry>
 </feed>

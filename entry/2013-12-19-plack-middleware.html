@@ -7,7 +7,7 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
   <title>
-Perl meets GPU | Hachioji.pm 日めくりテックトーク
+PlackのMiddlewareを条件付きでロードする | Hachioji.pm 日めくりテックトーク
   </title>
 </head>
 <body>
@@ -17,8 +17,8 @@ Perl meets GPU | Hachioji.pm 日めくりテックトーク
   <section>
 <nav>
   <ul class="paginate">
-    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-19-plack-middleware.html">PlackのMiddlewareを条件付きでロードする</a>
-    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-22-hhvm.html">話題のHHVM（HiphopVM）を手軽に試す</a>
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-20-bitter-php-error-handling.html">苦いエラーの扱いをちょっとだけええかんじに</a>
+    <li class="next">next: <a href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html">Perl meets GPU</a>
   </ul>
 </nav>
 
@@ -37,17 +37,31 @@ Perl meets GPU | Hachioji.pm 日めくりテックトーク
     <ul class="tags">
       <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
       <li><a href="http://hachiojipm.github.io/tag/Advent-Calendar-2013.html">Advent-Calendar-2013</a></li>
-      <li><a href="http://hachiojipm.github.io/tag/GPU.html">GPU</a></li>
-      <li><a href="http://hachiojipm.github.io/tag/PerCUDA.html">PerCUDA</a></li>
     </ul>
   </aside>
   <div class="entry">
-    <h1>Perl meets GPU</h1>
+    <h1>PlackのMiddlewareを条件付きでロードする</h1>
 
-<p>...という記事を, Perl Advent Calendar 20日目として書きましたので紹介させて頂きます!<br/>
-(2日連続の<a href="http://hachiojipm.github.io/entry/2013-12-08-usui-paren-vim.html">moznionスタイル</a>ですね...)</p>
+<p>papixです. ここまでこの｢Hachioji.pm 日めくり<strong>テックトーク</strong>｣を, まったくテックに関係ない話題で埋め尽くしてきました(cf. 旅行情報, 飯情報...)が, 今日は久々にテックな話題をお送りします.</p>
 
-<p><a href="http://qiita.com/papix/items/fee3e60e21f2ab1f1c76">http://qiita.com/papix/items/fee3e60e21f2ab1f1c76</a></p>
+<p>PlackのMiddlewareを, ｢ある条件を満たした場合のみ適用したい｣という場合があると思います.<br/>
+例えば, Basic認証をかける<a href="https://metacpan.org/pod/Plack::Middleware::Auth::Basic">Plack::Middleware::Auth::Basic</a>を, 一部のパスの場合のみ有効にして, Basic認証をかけたい! ...という場合とかです.</p>
+
+<p>Plack::Middleware::Auth::Basicを<code>enable</code>で有効にした場合, 全てのパスに対してBasic認証をかけてしまいます.<br/>
+このような場合, <code>enable</code>はなく<code>enable_if</code>を使うことで実現することができます.</p>
+
+<p>例えば, パスの先頭が<code>/login</code>である場合のみ, Basic認証をかけたいという場合は,</p>
+
+<pre><code>enable_if { $_[0]-&gt;{PATH_INFO} =~ m!^/login! }
+    'Plack::Middleware::Auth::Basic',
+    authenticator =&gt; sub {
+        my ($username, $password, $env) = @_;
+        return 'hoge' eq $username &amp;&amp; 'fuga' eq $password;
+    };
+</code></pre>
+
+<p>のように書けばOKです.<br/>
+詳しくはこちらの記事をどうぞ: <a href="http://perl-users.jp/articles/advent-calendar/2011/casual/8">Plack::Middlewareの使い所</a></p>
 
   </div>
   <dl class="meta">
@@ -56,7 +70,7 @@ Perl meets GPU | Hachioji.pm 日めくりテックトーク
       <dt class="time">created at</dt>
       <dd class="time"><time>2013-12-21 23:59</time></dd>
       <dt class="time">last modified at</dt>
-      <dd class="time">2013-12-21 23:59</dd>
+      <dd class="time">2013-12-22 19:31</dd>
   </dl>
 </article>
 <section>
