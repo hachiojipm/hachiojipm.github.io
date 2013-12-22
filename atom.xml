@@ -5,7 +5,117 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-22T19:32:54+09:00</updated>
+<updated>2013-12-23T01:26:39+09:00</updated>
+<entry>
+<title type="text">PerCUDAの性能評価</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-23-percuda-2.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<h1>PerCUDAの性能評価</h1>
+
+<p>12月23日のHachioji.pm Advent Calendarです. 今日もpapixが担当させて頂きます.<br/>
+余談ですが今日はいつもお世話になっている<a href="https://twitter.com/yusukebe">@yusukebe</a>さんと, 自分の母親の誕生日だったりします. <strong>おめでとうございます!</strong></p>
+
+<p>...さて. Perl Advent Calendarの20日目の記事として書かせて頂いた<a href="http://qiita.com/papix/items/fee3e60e21f2ab1f1c76">Perl meets GPU</a>ですが, おかげ様で様々な反響を頂いております.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>やばい…：Perl meets GPU - Qiita [キータ] <a href="http://t.co/3q58j4NC3E">http://t.co/3q58j4NC3E</a></p>&mdash; しゅううさんฅ(๑′Δ’๑)にゃんぱすー (@syuu1228) <a href="https://twitter.com/syuu1228/statuses/414125662350237698">2013, 12月 20</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>その中で, ｢CUDAで実装するのとどれくらい差があるのだろう?｣というコメントがありました.</p>
+
+<blockquote class="twitter-tweet" data-cards="hidden" lang="ja"><p>これは良い。普通にCUDAで実装するのとどれぐらい差でるんだろ。 / Perl meets GPU by <a href="https://twitter.com/__papix__">@__papix__</a> on <a href="https://twitter.com/Qiita">@Qiita</a> <a href="http://t.co/aKUR1GGc1W">http://t.co/aKUR1GGc1W</a></p>&mdash; ただむー (@mw529) <a href="https://twitter.com/mw529/statuses/414641190147866624">2013, 12月 22</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>というわけで, 今日はPerCUDAの性能評価として, 素のCUDAを利用したGPGPUの実行結果と, PerCUDAを利用したGPGPUの実行結果について紹介したいと思います.<br/>
+実験対象となるコードは, 素のCUDAとPerCUDAで実装した, 1024*1024要素の配列の乗算を計算するコードです.<br/>
+｢PerCUDA(Perl)｣はカーネル関数をPerl処理系で実行した場合, ｢PerCUDA(GPU)｣はカーネル関数をGPUで実行した場合, そして｢CUDA｣は素のCUDAを利用した場合の時間になります.</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">        </th>
+<th style="text-align:left;"> PerCUDA(Perl) </th>
+<th style="text-align:left;"> PerCUDA(GPU) </th>
+<th style="text-align:left;"> CUDA       </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> 前処理 </td>
+<td style="text-align:left;"> 0.0000401s    </td>
+<td style="text-align:left;"> 0.0435131s   </td>
+<td style="text-align:left;"> -          </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 転送   </td>
+<td style="text-align:left;"> -             </td>
+<td style="text-align:left;"> 0.0218434s   </td>
+<td style="text-align:left;"> 0.0029387s </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 実行   </td>
+<td style="text-align:left;"> 232.7142642s  </td>
+<td style="text-align:left;"> 0.0333679s   </td>
+<td style="text-align:left;"> 0.0358331s </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 後処理 </td>
+<td style="text-align:left;"> -             </td>
+<td style="text-align:left;"> 0.1033700s   </td>
+<td style="text-align:left;"> -          </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 合計   </td>
+<td style="text-align:left;"> 232.7143043s  </td>
+<td style="text-align:left;"> 0.2020944s   </td>
+<td style="text-align:left;"> 0.0387718s </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>このうち,</p>
+
+<ul>
+<li>前処理: カーネル関数に対する引数の確認, Perlのデータ構造のバイナリ化などにかかった時間</li>
+<li>転送: ホスト側からデバイス側, デバイス側からホスト側へのデータの転送にかかった時間</li>
+<li>実行: カーネル関数の実行にかかった時間</li>
+<li>後処理: 実行結果であるバイナリをPerlのデータ構造に変換するためにかかった時間</li>
+</ul>
+
+
+<p>を示します.</p>
+
+<p>PerCUDAで実装したGPGPUは, 素のCUDAで実装した場合と比べると5.2倍の時間が必要になっていることがわかります.<br/>
+しかしながら, それでもPerl処理系を利用した場合と比べると1151.5倍の高速化を達成できていますので, 十分実用的と言えるのではないでしょうか.</p>
+
+<p>PerCUDAを利用したGPGPUにおいて, カーネル関数やデータの転送に関する時間は素のCUDAの場合とほとんど変わっていないので, ｢前処理｣や｢後処理｣の時間が大きな負担になっています.<br/>
+この辺りは, ｢前処理｣や｢後処理｣を担当するコードのチューニングやXS化などで, ある程度は高速化できるのではないかと見込んでいます.</p>
+
+<h2>まとめ</h2>
+
+<p>PerCUDAと素のCUDAの性能評価について解説しました.<br/>
+3月までを予定しているPerCUDAのリファクタリングで, ｢前処理｣と｢後処理｣の部分を出来る限り高速化していきたいと思っています.</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-23:entry-2013-12-23-percuda-2.html</id>
+<published>2013-12-23T26:26:39+0900</published>
+<updated>2013-12-23T01:26:39+09:00</updated>
+</entry>
 <entry>
 <title type="text">PlackのMiddlewareを条件付きでロードする</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-19-plack-middleware.html" />
@@ -1388,107 +1498,5 @@ Select: Expedition - Area ID: 4
 <id>tag:hachiojipm.github.io,2013-12-06:entry-2013-12-04-travel04.html</id>
 <published>2013-12-04T59:59:00+0900</published>
 <updated>2013-12-06T00:40:01+09:00</updated>
-</entry>
-<entry>
-<title type="text">Hackを支える作業用BGM事情</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-05-shoutcast.html" />
-<author>
-<name>ytnobody</name>
-</author>
-<content><![CDATA[<h1>Hackを支える作業用BGM事情</h1>
-
-<h2>作業用BGMが支えてきた僕のOSSプロジェクト</h2>
-
-<p>こんばんはこんばんは！おしさしぶりですね！<a href="http://ytnobody.net/">ytnobody</a>です！</p>
-
-<p>さて、みなさん素敵なHackしてますか？！</p>
-
-<p>ぼくは今年は<a href="https://github.com/testament-testing-env/Testament">Testament</a>(test向け仮想環境構築ツール、最近は放置プレイ)とか<a href="https://github.com/nephia/Nephia">Nephia</a>(マイクロコア・WAF)あたりに結構リソースを注ぎました。</p>
-
-<p>で、じつはぼく、作業用BGMが無いとなかなか思考が働いてくれません。</p>
-
-<p>そんなもんで、これらのプロジェクトのコードを書くときには大体何かしらの音楽を聴きながら作業してきたわけですが、毎回同じ楽曲だと人間飽きてくるもの。かと言って、毎週iTunesで新しいアルバムを3つ4つ購入できるほど潤沢な資金があるわけでもないですし、むしろそれだと自分の気に入った楽曲ばかりになって、やっぱりそのうち飽きるのが見え見えです。</p>
-
-<h2>お金もそんなにない、でも毎回同じ曲は飽きる・・・</h2>
-
-<p>じゃあどうするか。答えは簡単。「作業用BGMとして適度にWebラジオを取り入れようじゃないか」。</p>
-
-<h2>Webラジオを聴くための環境</h2>
-
-<p>僕の場合は大体iPhoneで<a href="http://tunein.com/">TuneIn Radio</a>というアプリを使って聴いています。</p>
-
-<p>ほかにはiTunesでもいいですし、Windowsの方ならMedia Playerという選択肢もあると思います。</p>
-
-<p>TuneInのいいところとかそういうのは、各種レビューサイトでも見てもらえればと思いますが、ざっくり言うと、検索して出てくる放送局の数が結構多くていい感じっていうところでしょうか。</p>
-
-<h2>趣味丸出し！ytnobodyが聴いてる放送局</h2>
-
-<p>ここから先は僕の趣味をひけらかすところになっちゃいますけど、興味のある方はどうぞ読み進めてください。</p>
-
-<h3>Rising Metal (ヘヴィメタル)</h3>
-
-<p>常習性:★★★★  万人受け:★★ メタル魂:★★★★★</p>
-
-<p><a href="http://www.rising-metal.com/">http://www.rising-metal.com/</a></p>
-
-<p>メタルミュージックなら大体ここですね。ANTHRAX, Children Of Bodom, CARCASSというスラッシュメタル、デスメタルから、 SONATA ARCTICA, ANGRA, RHAPSODYといったスピメロ、シンフォニックメタルまで幅広くカヴァー。</p>
-
-<p>メタルが好きなら、常用すること請け合いでしょう。</p>
-
-<h3>Groove Salad (アンビエント/チル)</h3>
-
-<p>常習性:★★★ 万人受け:★★★ シャレオツ感:★★★★</p>
-
-<p><a href="http://somafm.com/groovesalad/">http://somafm.com/groovesalad/</a></p>
-
-<p>SomaFMというネットラジオ曲の中のチャンネルの一つ。多分超有名どころ。</p>
-
-<p>リズミカルかつ落ち着いた雰囲気のシャレオツな楽曲ばかり垂れ流しています。リラックスムードにはいいかも。</p>
-
-<h3>[DI] Chiptunes (チップチューン)</h3>
-
-<p>常習性:★★★★ 万人受け:★ 8bitっぷり:★★★★★</p>
-
-<p><a href="http://www.di.fm/chiptunes">http://www.di.fm/chiptunes</a>(音に注意)</p>
-
-<p>チップチューンというのを手っ取り早く説明するなら、ファミコンっぽい音源を中心に構成された楽曲のことですね。</p>
-
-<p>もともと僕はYMCKという日本のチップチューンユニット(元々は違うはず)のファンなのですが、もっとチップチューンを聴きたい！というときには、ここをおすすめします。</p>
-
-<p>ちなみに、ここの[DI]とは Digitally Imported というサイトの頭文字です。SomaFM同様、ここも色々なチャンネルを運営している様なので、気になる方はぜひ探検してみてはいかがでしょうか。</p>
-
-<h3>Calm Radio - JS Bach (クラシック)</h3>
-
-<p>常習性:★★★★★ 万人受け:★★★★ 覚醒機能:★</p>
-
-<p><a href="http://tunein.com/radio/Calm-Radio---JS-Bach-s177684/">http://tunein.com/radio/Calm-Radio---JS-Bach-s177684/</a>(音に注意)</p>
-
-<p>名前を見ての通り、かの偉大な作曲家である「バッハ」の曲ばかり垂れ流しています。</p>
-
-<p>クラシックミュージックの中では、僕は特にショパンとバッハが大好きです（ただし詳しくない）。</p>
-
-<p>ただし、眠い時に聴くと誘眠作用があるのか、とても眠くなる可能性も高いです。偉大過ぎる。</p>
-
-<h3>Final Fantasy Radio (ゲームミュージック)</h3>
-
-<p>常習性:★★★ 万人受け:★★★ エオルゼアへの憧れ:★</p>
-
-<p><a href="http://finalfantasyradio.co/">http://finalfantasyradio.co/</a></p>
-
-<p>なんとなくドメインが不穏な雰囲気ありますが、みんな大好き(?)FF関連の音楽ばかり垂れ流しているラジオ局です。</p>
-
-<p>極まれに聴いたりしますが、ゲームミュージックが集中力に与える効果は絶大らしく、多分Hackとの相性は一番良いのではないでしょうか。</p>
-
-<p>ただ、これを聴いてもエオルゼアにいきたいなぁ～とはならないです。</p>
-
-<h2>最後に</h2>
-
-<p>だばだばぁ～っと紹介していきましたが、今回は本当に技術とはまったく関係の無い話題でしたね！</p>
-
-<p>さーて、次回のはちぴーアドベントカレンダーは、またしても大御所P氏こと<strong>papix</strong>さんが書いてくれるらしいですよ！お楽しみに！</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-05:entry-2013-12-05-shoutcast.html</id>
-<published>2013-12-05T10:10:44+0900</published>
-<updated>2013-12-05T20:10:44+09:00</updated>
 </entry>
 </feed>

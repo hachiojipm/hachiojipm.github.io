@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://hachiojipm.github.io/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://hachiojipm.github.io/static/css/main.css" rel="stylesheet">
+  <title>
+PerCUDAの性能評価 | Hachioji.pm 日めくりテックトーク
+  </title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://hachiojipm.github.io/">Hachioji.pm 日めくりテックトーク</a></h1>
+  </header>
+  <section>
+<nav>
+  <ul class="paginate">
+    <li class="prev">prev: <a href="http://hachiojipm.github.io/entry/2013-12-22-neko.html">Acme::Nyaaで実装した猫プロキシ</a>
+  </ul>
+</nav>
+
+<article>
+  <aside class="social">
+    <div class="hatebu">
+      <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+    </div>
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">ツイート</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </aside>
+  <aside class="tags">
+    <h1 class="tags">Tags</h1>
+    <ul class="tags">
+      <li><a href="http://hachiojipm.github.io/tag/Perl.html">Perl</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/Advent-Calendar-2013.html">Advent-Calendar-2013</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/GPU.html">GPU</a></li>
+      <li><a href="http://hachiojipm.github.io/tag/PerCUDA.html">PerCUDA</a></li>
+    </ul>
+  </aside>
+  <div class="entry">
+    <h1>PerCUDAの性能評価</h1>
+
+<p>12月23日のHachioji.pm Advent Calendarです. 今日もpapixが担当させて頂きます.<br/>
+余談ですが今日はいつもお世話になっている<a href="https://twitter.com/yusukebe">@yusukebe</a>さんと, 自分の母親の誕生日だったりします. <strong>おめでとうございます!</strong></p>
+
+<p>...さて. Perl Advent Calendarの20日目の記事として書かせて頂いた<a href="http://qiita.com/papix/items/fee3e60e21f2ab1f1c76">Perl meets GPU</a>ですが, おかげ様で様々な反響を頂いております.</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>やばい…：Perl meets GPU - Qiita [キータ] <a href="http://t.co/3q58j4NC3E">http://t.co/3q58j4NC3E</a></p>&mdash; しゅううさんฅ(๑′Δ’๑)にゃんぱすー (@syuu1228) <a href="https://twitter.com/syuu1228/statuses/414125662350237698">2013, 12月 20</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>その中で, ｢CUDAで実装するのとどれくらい差があるのだろう?｣というコメントがありました.</p>
+
+<blockquote class="twitter-tweet" data-cards="hidden" lang="ja"><p>これは良い。普通にCUDAで実装するのとどれぐらい差でるんだろ。 / Perl meets GPU by <a href="https://twitter.com/__papix__">@__papix__</a> on <a href="https://twitter.com/Qiita">@Qiita</a> <a href="http://t.co/aKUR1GGc1W">http://t.co/aKUR1GGc1W</a></p>&mdash; ただむー (@mw529) <a href="https://twitter.com/mw529/statuses/414641190147866624">2013, 12月 22</a></blockquote>
+
+
+<p></p>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p></p>
+
+<p>というわけで, 今日はPerCUDAの性能評価として, 素のCUDAを利用したGPGPUの実行結果と, PerCUDAを利用したGPGPUの実行結果について紹介したいと思います.<br/>
+実験対象となるコードは, 素のCUDAとPerCUDAで実装した, 1024*1024要素の配列の乗算を計算するコードです.<br/>
+｢PerCUDA(Perl)｣はカーネル関数をPerl処理系で実行した場合, ｢PerCUDA(GPU)｣はカーネル関数をGPUで実行した場合, そして｢CUDA｣は素のCUDAを利用した場合の時間になります.</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">        </th>
+<th style="text-align:left;"> PerCUDA(Perl) </th>
+<th style="text-align:left;"> PerCUDA(GPU) </th>
+<th style="text-align:left;"> CUDA       </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> 前処理 </td>
+<td style="text-align:left;"> 0.0000401s    </td>
+<td style="text-align:left;"> 0.0435131s   </td>
+<td style="text-align:left;"> -          </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 転送   </td>
+<td style="text-align:left;"> -             </td>
+<td style="text-align:left;"> 0.0218434s   </td>
+<td style="text-align:left;"> 0.0029387s </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 実行   </td>
+<td style="text-align:left;"> 232.7142642s  </td>
+<td style="text-align:left;"> 0.0333679s   </td>
+<td style="text-align:left;"> 0.0358331s </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 後処理 </td>
+<td style="text-align:left;"> -             </td>
+<td style="text-align:left;"> 0.1033700s   </td>
+<td style="text-align:left;"> -          </td>
+</tr>
+<tr>
+<td style="text-align:left;"> 合計   </td>
+<td style="text-align:left;"> 232.7143043s  </td>
+<td style="text-align:left;"> 0.2020944s   </td>
+<td style="text-align:left;"> 0.0387718s </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>このうち,</p>
+
+<ul>
+<li>前処理: カーネル関数に対する引数の確認, Perlのデータ構造のバイナリ化などにかかった時間</li>
+<li>転送: ホスト側からデバイス側, デバイス側からホスト側へのデータの転送にかかった時間</li>
+<li>実行: カーネル関数の実行にかかった時間</li>
+<li>後処理: 実行結果であるバイナリをPerlのデータ構造に変換するためにかかった時間</li>
+</ul>
+
+
+<p>を示します.</p>
+
+<p>PerCUDAで実装したGPGPUは, 素のCUDAで実装した場合と比べると5.2倍の時間が必要になっていることがわかります.<br/>
+しかしながら, それでもPerl処理系を利用した場合と比べると1151.5倍の高速化を達成できていますので, 十分実用的と言えるのではないでしょうか.</p>
+
+<p>PerCUDAを利用したGPGPUにおいて, カーネル関数やデータの転送に関する時間は素のCUDAの場合とほとんど変わっていないので, ｢前処理｣や｢後処理｣の時間が大きな負担になっています.<br/>
+この辺りは, ｢前処理｣や｢後処理｣を担当するコードのチューニングやXS化などで, ある程度は高速化できるのではないかと見込んでいます.</p>
+
+<h2>まとめ</h2>
+
+<p>PerCUDAと素のCUDAの性能評価について解説しました.<br/>
+3月までを予定しているPerCUDAのリファクタリングで, ｢前処理｣と｢後処理｣の部分を出来る限り高速化していきたいと思っています.</p>
+
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author">papix</dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time>2013-12-23 01:26</time></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time">2013-12-23 01:26</dd>
+  </dl>
+</article>
+<section>
+    <div id="feedback-disqus">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hachipy-daily-tech-talk'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+    <div id="feedback-zenback">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//hachiojipm.github.io/&nsid=116807310071834962%3A%3A116807337989165078&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+</section>
+  </section>
+  <footer>
+    <p>admin: Uzulla</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
+</body>
+</html>
