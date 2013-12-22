@@ -3,6 +3,8 @@ pubdate: 2013-09-18 23:57
 
 ---
 
+※この記事は, [@Spring_MT](https://twitter.com/Spring_MT)さんから寄稿頂いた記事をpapixが代理投稿したものです.
+
 # perlでTravisCI、Coverallsを使ってみる
 最近東京に戻ってきた[Spring_MT](https://twitter.com/Spring_MT)です。
 
