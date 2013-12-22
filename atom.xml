@@ -3,9 +3,259 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.9">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-22T03:15:32+09:00</updated>
+<updated>2013-12-22T17:10:43+09:00</updated>
+<entry>
+<title type="text">perlでTravisCI、Coverallsを使ってみる</title>
+<link href="http://hachiojipm.github.io/entry/2013-09-18-perl-travisci.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<p>※この記事は, <a href="https://twitter.com/Spring_MT">@Spring_MT</a>さんから寄稿頂いた記事をpapixが代理投稿したものです.</p>
+
+<h1>perlでTravisCI、Coverallsを使ってみる</h1>
+
+<p>最近東京に戻ってきた<a href="https://twitter.com/Spring_MT">Spring_MT</a>です。</p>
+
+<p>perlで自分でモジュールを書く準備をと思って、TravisCI、Coverallsを使う方法を調べてみました。
+だいぶperlからは離れていたので、perlを入れるとことから調べてます。</p>
+
+<h2>plenvを入れる</h2>
+
+<p>今回はplenvを使ってperlを入れました。</p>
+
+<p><a href="https://github.com/tokuhirom/plenv">plenv</a></p>
+
+<p>plenvでperlを入れて、cpanmも入れていきます。</p>
+
+<pre><code>% git clone git://github.com/tokuhirom/plenv.git ~/.plenv
+% echo 'export PATH="$HOME/.plenv/bin:$PATH"' &gt;&gt; % ~/.zshrc
+% echo 'eval "$(plenv init -)"' &gt;&gt; ~/.zshrc
+% exec $SHELL -l
+% plenv install 5.18.0
+% plenv local 5.18.0
+% plenv rehash
+% plenv install-cpanm
+% plenv rehash
+</code></pre>
+
+<h2>Minillaを使ってひな形を作る</h2>
+
+<p>最初はModule::Installを使いながら試していたのですが、TravisCIでこけて先に進めず。。。</p>
+
+<p>で、<a href="http://lingr.com/room/perl_jp/archives/2013/08/29#message-16407055">この会話</a>で勧められた通り、Minillaを使って作ってみました。</p>
+
+<p><a href="https://github.com/tokuhirom/Minilla">Minilla</a>
+<a href="http://blog.64p.org/entry/2013/05/14/080423">Minilla を用いた Perl モジュールの作り方</a></p>
+
+<pre><code>% cpanm install Minilla
+% plenv rehash
+% minil new Sample
+% cd Sample
+% git add .
+% git commit
+</code></pre>
+
+<p>Minillaはこれだけで新しいモジュールのひな形ができちゃいます！
+ここまでできたら、githubでレポジトリを作って、TravisCIのサイトでリポジトリをsyncし、TravisCIの設定をonにしましょう。
+TravisCI設定はこちらがめっちゃ参考になります。</p>
+
+<p><a href="http://sue445.hatenablog.com/entry/2013/06/01/170607">GithubにあるリポジトリをTravis CI連携する手順 #junitbook</a></p>
+
+<p>Minillaで作ったモジュールのテストを手元で走らせる場合は、minil testを実行すると思うのですが、TravisCIではデフォルトで下記コマンドでテストが実行されます。</p>
+
+<pre><code>perl Build.PL &amp;&amp; ./Build test 
+</code></pre>
+
+<p><a href="http://about.travis-ci.org/docs/user/languages/perl/#Module%3A%3ABuild">Building a Perl Project</a></p>
+
+<p>Minilaで作ったデフォルトのBuild.PLを使うと、TravisCIではxt/配下のテストは走らないのです。</p>
+
+<p>ここまでできたら、pushします。
+Minillaで作ったモジュールには既に .travis.yml が用意されているので、何もしなくてもtravisが動きます。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_1.jpeg" alt="image" />
+<a href="https://travis-ci.org/SpringMT/Sample">TravisCI SpringMT/Sample</a></p>
+
+<p>うまくいきました！</p>
+
+<p>バッジも貼りましょう。
+TravisCIのビルド結果ページ右上のbuild passingの画像をクリックすると、そのまま貼り付けられる状態のテキストが表示されるので、それをコピーしてREADME.mdに貼り付けます。</p>
+
+<p>ついでに、Coverallsも追加しちゃいましょう。</p>
+
+<p><a href="https://coveralls.io">Coveralls</a></p>
+
+<p>まずは、TravisCIと同様に、Coverallsにリポジトリを登録してください。
+perlの場合は、Devel::Cover::Report::Coverallsを使えば、Coverallsに簡単にカバレッジの情報を登録できます。</p>
+
+<p><a href="http://memo.fushihara.net/post/48086316824/coveralls-perl-project">coverallsをperlなprojectで使えるようにしてみた</a></p>
+
+<p>Coverallsに情報を投げるために .travis.ymlに下記を追記してください。</p>
+
+<pre><code>before_install:                                                                                                                                 
+  cpanm -n Devel::Cover::Report::Coveralls
+script:
+  perl Build.PL &amp;&amp; ./Build build &amp;&amp; cover -test -report coveralls
+</code></pre>
+
+<p>pushすると、こんな感じになると思います。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_2.jpeg" alt="image" /></p>
+
+<p><a href="https://coveralls.io/r/SpringMT/Sample">Coveralls SpringMT / Sample</a></p>
+
+<h2>最後に</h2>
+
+<p>最終的に少しテストを追加しました。</p>
+
+<p><a href="https://github.com/SpringMT/Sample">GitHub SpringMT/Sample</a></p>
+
+<p>githubにページはこんな感じでバッジも出ています。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/perl_minilla_3.jpeg" alt="image" /></p>
+
+<p>これでモジュールを書き始める準備が出来上がったので、なんか書きます。</p>
+
+<h2>ちょっとハマったところ</h2>
+
+<p>新しく作ったファイルにテストを書いてminil testを実行したけど、テストがされなくてなんでだろうと思ってたら、git管理下じゃないからだった。。。。</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-09-19:entry-2013-09-18-perl-travisci.html</id>
+<published>2013-09-18T57:57:00+0900</published>
+<updated>2013-12-22T17:10:43+09:00</updated>
+</entry>
+<entry>
+<title type="text">Acme::Nyaaで実装した猫プロキシ</title>
+<link href="http://hachiojipm.github.io/entry/2013-12-22-neko.html" />
+<author>
+<name>papix</name>
+</author>
+<content><![CDATA[<p>※この記事は, <a href="https://twitter.com/azumakuniyuki">@azumakuniyuki</a>さんから寄稿頂いた記事をpapixが代理投稿したものです.</p>
+
+<h1>Acme::Nyaaで実装した猫プロキシ</h1>
+
+<p>去る九月のYAPC::Asia Tokyo 2013の前夜祭で開催された<a href="http://ltthon-yapc2013.hachiojipm.org/">LTソン::Tiny</a>で<a href="http://www.slideshare.net/azumakuniyuki/perl-26348048">「猫とPerl〜応用編1」</a>というタイトルで発表した<a href="https://twitter.com/azumakuniyuki">@azumakuniyuki</a>です。今日は12月22日、毎月22日は猫の日、今年最後の猫の日です。</p>
+
+<p><a href="https://metacpan.org/pod/Acme::Nyaa">Acme::Nyaa</a>ってのは食わせた文章が「にゃー」とか「ニャー」とか猫っぽい感じになるPerlモジュールで、動物病院から「そろそろ注射です」的なハガキを顧客の猫に出す時に文章を猫向けに変換する時に役立ちます。</p>
+
+<p>こういった実用的なモジュールも実際の使用例があった方がより親しみやすさ、使用した時の実感が得られるのではないでしょうか。そこでHTTP編とSMTP編でAcme::Nyaaの使用例を紹介しようかと思います。</p>
+
+<h2>下準備</h2>
+
+<p><a href="https://github.com/azumakuniyuki/p5-Acme-Nyaa">Acme::Nyaa</a>を<code>git clone</code>して猫プロキシ(<code>eg/nyaaproxy</code>)を起動しておきます。Acme::NyaaはPerl 5.10.1以上で依存しているモジュールは<code>Module::Load</code>と<code>Encode</code>の二つです。どちらもPerl 5.10.1の時点でコアモジュールに入っていますので、特にインストールしなくてもOKです。あとは猫プロキシを動かすのにPlackとFurlを使います。</p>
+
+<pre><code>% git clone https://github.com/azumakuniyuki/p5-Acme-Nyaa.git 
+Cloning into 'p5-Acme-Nyaa'...
+remote: Counting objects: 379, done.
+remote: Compressing objects: 100% (218/218), done.
+...
+% cd ./p5-Acme-Nyaa
+% plackup -Ilib -p 2222 eg/nyaaproxy.psgi
+HTTP::Server::PSGI: Accepting connections at http://0:2222/
+</code></pre>
+
+<h2>猫プロキシ〜HTTP編</h2>
+
+<p><code>plackup</code>で起動したら、<code>http://127.0.0.1:2222/http://猫っぽくしたいURL</code>というURLでブラウザを開くだけです。YAPC::Asiaが終わってからUTF-8以外の文字コードも対応した0.0.10を出したので日本語で書いているページならだいたい猫になると思います、たぶん。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/neko1.png" alt="猫プロキシを通した一例" /></p>
+
+<p>この<a href="http://hachiojipm.github.io">Hachioji.pm 日めくりテックトーク</a>の主催者である<a href="https://twitter.com/uzulla/">@uzulla</a>さんが9月12日に書かれた記事<a href="http://hachiojipm.github.io/entry/2013-09-12-01.html">「PHP Builtin serverで、dot(.)が入るURLで挙動が変わってつらい(かもしれない)」</a>を猫プロキシ経由で参照した様子です。</p>
+
+<p>本来なら猫プロキシを通した一例として出すページは前日の<a href="https://twitter.com/__papix__">@<strong>papix</strong></a>さんの記事<a href="http://hachiojipm.github.io/entry/2013-12-21-percuda.html">「Perl meets GPU」</a>が良いところですが、Acme::Nyaaは理系的な文章(句読点が,.なの)をうまく変換出来ないので、無難に主催者の記事を一例として使いました。</p>
+
+<p>別の表現をすると、作成するWebページでは句読点を「,」「.」で表記すればある程度の猫避けになります。</p>
+
+<h2>猫プロキシ〜SMTP編</h2>
+
+<h3>Net::SMTPSでGmailへ</h3>
+
+<p>Net::SMTPのSTARTTLS対応版であるNet::SMTPSを使って本文を猫っぽい感じに変換しつつ、SSLな通信でSMTP認証してからGmail経由でメールを送信するサンプルコードです。
+<a href="https://gist.github.com/azumakuniyuki/8066415">net-smtps-as-a-sample.pl</a></p>
+
+<pre><code>#! /usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+use Encode;
+use Acme::Nyaa;
+use Email::MIME;
+use Email::MIME::Creator;
+use Net::SMTPS;
+use Authen::SASL;
+
+my $from = '"キジトラ" &lt;kijitora@example.com&gt;';
+my $rcpt = '"三毛猫" &lt;mikeneko@example.jp&gt;';
+my $subj = '年末のご挨拶';
+my $mesg = &lt;&lt; 'EOM';
+いつもお世話になっております、株式会社キジトラのあずまです。
+
+本年も大変お世話になり誠に有り難う御座いました。来年も引き続きご愛顧賜りますよう
+従業員一同お願い申し上げます。
+
+EOM
+my $nyaa = Acme::Nyaa-&gt;new;
+my $mime = Email::MIME-&gt;create(
+                'header' =&gt; [
+                   'From'    =&gt; encode( 'MIME-Header-ISO_2022_JP', $from ),
+                   'To'      =&gt; encode( 'MIME-Header-ISO_2022_JP', $rcpt ),
+                   'Subject' =&gt; encode( 'MIME-Header-ISO_2022_JP', $subj ),
+                ],
+                'attributes' =&gt; {
+                    'content_type' =&gt; 'text/plain',
+                    'charset'      =&gt; 'UTF-8',
+                    'encoding'     =&gt; '8bit',
+                },
+                'body' =&gt; $nyaa-&gt;cat( \$mesg ),
+           );
+
+my $args = { 
+    'Port' =&gt; 587,
+    'doSSL'=&gt; 'starttls',
+    'SSL_verify_mode' =&gt; 'SSL_VERIFY_NONE',
+};
+my $user = 'Gmailのユーザ名';
+my $pass = 'Gmailのパスワード';
+my $smtp = Net::SMTPS-&gt;new( 'smtp.gmail.com', %$args );
+my $sasl = Authen::SASL-&gt;new(
+            'mechanisms' =&gt; 'Digest-MD5',
+            'callback' =&gt; { 'user' =&gt; $user, 'pass' =&gt; $pass, 'authname' =&gt; $user }
+           );
+$smtp-&gt;auth( $sasl );
+$smtp-&gt;mail( [ split( ' ', $from ) ]-&gt;[1] );
+$smtp-&gt;to(   [ split( ' ', $rcpt ) ]-&gt;[1] );
+$smtp-&gt;data;
+$smtp-&gt;datasend( $mime-&gt;as_string );
+$smtp-&gt;dataend;
+$smtp-&gt;quit;
+
+1;
+</code></pre>
+
+<p>正しいMIMEのメールデータを手作りするのは骨が折れるというか面倒くさいのでEmail::MIMEを使っていますが、送信部分はNet::SMTPSを使っています。他の選択肢としてはEmail::SenderとかEmail::Sender::Simpleが良さそうですが、そこそこ依存モジュールがたくさんあります。</p>
+
+<p>上記のコードで猫っぽくしている部分は<code>'body' =&gt; $nyaa-&gt;cat( \$mesg ),</code>の部分で、あとは猫とは関係のないコードです。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/neko2.png" alt="猫っぽいメール" /></p>
+
+<h3>HainekoのMilter</h3>
+
+<p>メール送信時に本文を書き換えるコードをもうちょいちゃんと組み込んだものが、僕が夏ごろから作っている<a href="https://github.com/azumakuniyuki/Haineko">Haineko</a>というJSONでメールが送れるHTTPサーバに入っています。</p>
+
+<p>そろそろページが長くなってきたので、また別の何処かの何かに書こうかと思いますが、<a href="https://github.com/azumakuniyuki/Haineko/blob/master/lib/Haineko/SMTPD/Milter/Nyaa.pm">Haineko::SMTPD::Milter::Nyaa</a>というモジュールで実装していて、設定ファイルでこのMilter(メール用プラグインみたいなの)を使うかどうかを変更出来ます。</p>
+
+<h2>参考</h2>
+
+<p>猫プロキシを通して何処かのサイトを眺める時、ウィンドウの空いている場所にお気に入りの猫画像を出しておくと、より臨場感が得られるであろう事は自明の理ですので是非お試しください。勿論、猫と暮らしている人は猫を膝の上に乗せて撫でながらサイトを眺めるのが至高です。</p>
+
+<p><img src="http://hachiojipm.github.io/static/image/neko3.jpg" alt="かわいい三毛猫" /></p>
+]]></content>
+<id>tag:hachiojipm.github.io,2013-12-22:entry-2013-12-22-neko.html</id>
+<published>2013-12-22T10:10:43+0900</published>
+<updated>2013-12-22T17:10:43+09:00</updated>
+</entry>
 <entry>
 <title type="text">話題のHHVM（HiphopVM）を手軽に試す</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-22-hhvm.html" />
@@ -1396,226 +1646,5 @@ JRバスの場合, 中央道を経由するバスは便名に｢中央｣が入�
 <id>tag:hachiojipm.github.io,2013-12-03:entry-2013-12-02-travel02.html</id>
 <published>2013-12-02T59:59:00+0900</published>
 <updated>2013-12-03T12:28:15+09:00</updated>
-</entry>
-<entry>
-<title type="text">地域PM遠征を支える技術 〜北海道/鉄道編〜</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-03-travel03.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>地域PM遠征を支える技術 〜北海道/鉄道編〜</h1>
-
-<p>ぱんぱかぱ〜ん! (挨拶) Hachioji.pm Advent Calendar, はっじまっるよー!<br/>
-というわけで今日の担当もpapixです. 3日連続です. そろそろネタ切れそうです.</p>
-
-<p>今日は昨日予告しました通り, 北海道への格安移動手段を紹介したいと思います.<br/>
-道外から北海道への移動手段は, とりあえず飛行機が王道です. ...が, 年末年始や夏のような繁忙期で値段がとても高くなりますし, 最近流行りのLLCは安いものの, 予定変更が難しかったり, 運休時の対応や機材に心配が... と若干の不安が残ります.</p>
-
-<p>そこで今回は, 道外から北海道への航空機以外の格安移動手段についてまとめてみることにしました.<br/>
-小出しにネタを出して行かないと途中でネタが切れそうなので, 今回は鉄道を利用したルートについて紹介する｢北海道/鉄道編｣と, フェリーを利用したルートについて紹介する｢北海道/フェリー編｣に分けたいと思います.</p>
-
-<p>｢年末年始, 帰省で北海道に戻ってるけど, 飛行機そろそろ飽きたな...｣という方, 是非参考にしてみて下さい.</p>
-
-<p>...さて, 関東から北海道へ行く場合は, 昨日紹介した<a href="http://ja.wikipedia.org/wiki/%E9%9D%92%E6%98%A518%E3%81%8D%E3%81%A3%E3%81%B7">｢青春18きっぷ｣</a>に加え, <a href="http://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93%26%E6%9D%B1%E6%97%A5%E6%9C%AC%E3%83%91%E3%82%B9">北海道&amp;東日本パス</a>を利用することができます.</p>
-
-<p>北海道&amp;東日本パスと青春18きっぷの違いは, ざっくり説明すると...</p>
-
-<hr />
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">                  </th>
-<th style="text-align:left;"> 青春18きっぷ </th>
-<th style="text-align:left;"> 北海道&amp;東日本パス                                                </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;"> 価格             </td>
-<td style="text-align:left;"> 11500円      </td>
-<td style="text-align:left;"> 10000円                                                          </td>
-</tr>
-<tr>
-<td style="text-align:left;"> 利用期間         </td>
-<td style="text-align:left;"> 任意の5日間  </td>
-<td style="text-align:left;"> 連続した7日間                                                    </td>
-</tr>
-<tr>
-<td style="text-align:left;"> 乗車可能エリア   </td>
-<td style="text-align:left;"> 全JR路線     </td>
-<td style="text-align:left;"> JR北海道/JR東日本/青い森鉄道/IGRいわて銀河鉄道/北越急行/富士急行 </td>
-</tr>
-</tbody>
-</table>
-
-
-<hr />
-
-<p>...となっています.<br/>
-これらの切符の違いについては, 近日中に｢地域PM遠征を支える技術 〜切符編〜｣で紹介したいと思います.</p>
-
-<p>さて, 東京から, 鉄道のみかつ低コストかつ宿泊施設の利用なし(車内泊はあり)で北海道に行く場合, 青森から北海道までのルートは青森駅を22:42に出発し, 札幌には翌朝06:07に到着する寝台急行｢はまなす｣になります.<br/>
-はまなすは寝台車の他, 自由席, 指定席, ドリームカー(グリーン席相当の指定席), のびのびカーペットカー(サンライズ瀬戸･出雲のノビノビ座席のようなもの)があります.<br/>
-青春18きっぷでは急行列車には乗車できないのですが, 北海道&amp;東日本パスは急行券を別途購入すれば, 乗車可能エリア内の急行列車に乗車することができるので, はまなすも乗車できるのです.</p>
-
-<p>はまなすは通常7両で運転していますが, 年末年始などの繁忙期はB寝台を1両増備することがあります.<br/>
-それでも指定席(ドリームカー)はほぼ満席になっていたので(昨年末にHokkaido.pmに参加した際に利用しました), はまなすを利用するのであれば, 事前に指定席を予約しておくことをおすすめします.</p>
-
-<p>さて, 青森から札幌までのルートは決まりました. 残るは札幌までのルートです.<br/>
-北海道&amp;東日本パスを利用するのであれば, 東京からのルートは2つあります. 1つは日本海側を通って行くルート, もう1つは太平洋側を通って行くルートです.<br/>
-青森までは青春18きっぷで, そこから先は北海道&amp;東日本パスを利用するのであれば, 太平洋側のルートは途中青春18きっぷで乗車できない青い森鉄道とIGRいわて銀河鉄道を経由する必要があるので, 選択肢は日本海側ルートのみになります.</p>
-
-<h2>日本海ルート</h2>
-
-<p>日本海ルートを利用するのであれば, 青春18きっぷや北海道&amp;東日本パスが利用可能な時期の一部日程で運転される臨時夜行快速｢ムーンライトえちご｣の利用が必要になります.<br/>
-ムーンライトえちごは新宿駅を23:10に出発し, 新潟駅には04:51に到着します</p>
-
-<p>後は羽越本線･奥羽本線を北上するだけです. 具体的には...</p>
-
-<p>新潟 06:08 -> 06:46 新発田 06:49 -> 09:30 酒田 09:38 -> 11:30 秋田 13:35 -> 15:24 大館 15:55 -> 16:37 弘前 16:42 -> 17:33 青森</p>
-
-<p>が, 最短ルートです.<br/>
-日中のスケジュールに余裕がありますので, 途中酒田や秋田, 青森で観光したりできますし, 秋田から青森までを, 五能線経由の｢リゾートしらかみ｣を利用するという手もあります. <br/>
-この場合, 秋田駅を14:10駅発のリゾートしらかみ5号に乗車し, 青森駅には19:20に到着します.<br/>
-リゾートしらかみは, いわゆる｢ジョイフルトレイン｣と呼ばれる種類の観光用の快速列車ですが, 全席指定の快速列車なので, 指定席券を用意すれば青春18きっぷや北海道&amp;東日本パスでも利用できます.</p>
-
-<p>年末年始などの繁忙期は, このような｢指定席券を用意すれば青春18きっぷや北海道&amp;東日本パスでも乗れる臨時快速｣が多く運転されているので, 快適な車両を狙って積極的に使ってみるといいでしょう.</p>
-
-<p>日本海側ルートでは, 他に新潟駅と酒田駅･象潟駅を結ぶ｢きらきらうえつ｣があります.<br/>
-車内で地酒が飲めたりとサービス抜群にも関わらず, 臨時快速列車なので指定席券のみで乗車可能で, しかもダイヤは特急並ということで, かなり使い得の列車になっています.</p>
-
-<h2>太平洋ルート</h2>
-
-<p>太平洋ルートは, 日本海側ルートと異なり, 朝出発して夜に青森に着く... というルートです.</p>
-
-<p>東京 07:45 -> 07:52 上野 07:57 -> 09:27 宇都宮 09:34 -> 10:25 黒磯 10:33 -> 11:37 郡山 11:56 -> 12:3 福島 13:00 -> 14:13 仙台 14:45 -> 16:23 一ノ関 16:28 -> 18:00 盛岡 18:15 -> 19:41 三戸 19:51 -> 21:48 青森</p>
-
-<p>青森駅からはまなすを利用するのであれば, これが東京駅発の終電になります.<br/>
-途中, 最長の待ち時間が14:13〜14:45の仙台(32分)のみなので, 結構過酷なルートです.<br/>
-予め, 出発前に飲み物や昼食, おやつなどを買っておく必要がありそうです.</p>
-
-<p>また, 日本海ルートも同様ですが, 青春18きっぷや北海道&amp;東日本パスでは, 遅延した場合の保障は基本的にない(悪天候で列車が運転できなくなった場合のバス代行は利用できるようですが...)ので, 終電1本前に乗って余裕を持っておく(太平洋ルートの場合, 終電の1本前は東京駅を06:49発で青森に20:48着になります)とか, 途中特急･新幹線に乗車できるように財布と旅費に余裕を持っておくなどの備えが必要になります.</p>
-
-<h2>青森駅での時間潰し</h2>
-
-<p>いずれのルートも, はまなすの出発時刻まで, 青森駅でそれなりの時間を待つ必要が出てきます.<br/>
-時間潰しのオススメは, 青森駅から徒歩5分〜10分程度の位置にある<a href="http://www12.ocn.ne.jp/~machinak/">｢青森まちなか温泉｣</a>. <br/>
-入浴料は大人420円, バスタオルを借りても+200円の620円で, 休憩室もあるので, 旅の疲れをしっかり癒すことができます.</p>
-
-<h1>まとめ</h1>
-
-<p>というわけで, 鉄道を使って東京から北海道まで, 格安で移動するルートについてまとめてみました.<br/>
-今回紹介したテクニック(?)は, あと2〜3年程度で使えなくなります. というのも, 北海道新幹線が開業すると, 青函トンネルを通る全ての寝台列車(はまなすの他, トワイライトエクスプレスや北斗星, カシオペアなど)が廃止になる予定だからです.</p>
-
-<p>新幹線開業時にどうなるかわかりませんが, 青春18きっぷや北海道&amp;東日本パスの特例で, 新青森〜新函館間の新幹線自由席が乗車可能となり, かつはまなすが函館駅〜札幌駅間のみの運転になる... という形になれば, このテクニックを多少改変すれば適用可能になるかもしれません.<br/>
-このテクニックが使えなくなった場合, 格安で北海道に行くルートは, LLCを利用するか, フェリーを利用するか... の二択になってくるのではないかと思います.</p>
-
-<p>さて, 明日は, 最近研究室からMac Book Airを支給されてウキウキの@bool_foolくんが担当する予定... というか担当してもらえるようにお願いするつもりですが, <strong>｢papixパイセン酷い! パワハラだ! 指導教員に訴えてやる!!!｣</strong>とゴネた場合は仕方がないのでpapixが担当する事になります.<br/>
-その場合は, ｢地域PM遠征を支える技術 〜北海道/フェリー編〜｣をお送りするつもりです.</p>
-
-<p>...お楽しみに!?</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-03:entry-2013-12-03-travel03.html</id>
-<published>2013-12-03T23:23:20+0900</published>
-<updated>2013-12-03T12:28:15+09:00</updated>
-</entry>
-<entry>
-<title type="text">Fukuoka.pmに乱入してきた!</title>
-<link href="http://hachiojipm.github.io/entry/2013-10-27-fukuokapm.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>Fukuoka.pmに乱入してきた!</h1>
-
-<p>皆さんこんにちは, 提督業と修論業で慌ただしい日々を送っている｢地域PMエバンジェリスト(自称)｣ことpapixです.<br/>
-最近は駆逐艦の良さがわかってきた気がしています. ...あ, そういう意味ではないですヨ?</p>
-
-<p>...さて今日は, 紆余曲折を経て10月26日(土)に開催された｢Fukuoka.pm #24｣に行ってきたので, その感想レポートをお送りしたいと思います.</p>
-
-<h2>スポンサー紹介</h2>
-
-<p>今回, Fukuoka.pmへ参加するにあたり, 往路の交通費を以下の方々にスポンサードして頂きました.<br/>
-この場をお借りして御礼申し上げます. 本当にありがとうございました!</p>
-
-<ul>
-<li><a href="https://twitter.com/yusukebe">@yusukebe</a>さん</li>
-<li><a href="https://twitter.com/uzulla">@uzulla</a>さん</li>
-<li><a href="https://twitter.com/xtetsuji">@xtetsuji</a>さん</li>
-</ul>
-
-
-<h2>Fukuoka.pm #24</h2>
-
-<p>Fukuoka.pmの雰囲気等々についてはゆーすけべーさんの感想ブログ記事, ｢<a href="http://yusuke.be/post/65193797413">福岡のPerl Workshop「Fukuoka.pm#24」に行ってきました！</a>｣がよくまとまっているので, こちらを読めばいいのではないでしょうか.</p>
-
-<p>ゆーすけべーさんもブログ記事で書いていますが, 参加人数が少ない分(ATNDの参加申し込み人数で14人), 発表者と参加者の距離が近いので, 参加者の反応を感じやすかったですし, 質疑応答やツッコミといったコミュニケーションが生まれやすい雰囲気が出来ていたので, とても良かったです.</p>
-
-<h2>トーク</h2>
-
-<p>今回のスピーカーは, JPAの講師派遣制度で来ていたゆーすけべーさん, 東京から参戦のcharsbarさん, Fukuoka.pmのヒラタさん(<a href="https://twitter.com/debility">@debility</a>), そして私の4人でした.</p>
-
-<p>ゆーすけべーさんのトークは, 最近チャレンジしているボケての構造化について.
-ざっくりまとめると, ｢フロントエンド(テンプレートエンジンとかを使って, 実際にブラウザに表示する部分を担う)｣と, ｢APIフレームワーク(フロントエンドのAPIリクエストに応じて, DBにアクセスしたりして, 適切な(フロントエンドで表示したい)データを返す)｣の2つに分離して, 分業化するというアイデアを実践している... という話でした.</p>
-
-<p>社内プロダクトならともかく, ボケてのような社の垣根を越えた少人数のチームで開発している場合, このように(開発者の/Webサービスの)役割を明確に区切る, というアプローチは有効そうな気がします.<br/>
-今後, この方針がどのように進展していくかが, とても気になる発表でした!</p>
-
-<p>charsbarさんは, CPANTSやCPANモジュールのKwalitee, MinilやMinillaを使ったモジュール開発等々についてのお話でした.<br/>
-何故か自分がKwaliteeランキングで10位に入っていましたが, あれは｢よしKwaliteeランキングで上位に入ってやろう!｣と思って頑張った訳ではなくて, モジュール開発の為に漬かっているMinillaがよしなにやってくれただけだと思います.
-そういう意味を含めて, Minillaはとても便利なツールなので, これからモジュールを作る! という方はMinillaを採用することをおすすめしますし, 既存モジュールも, 積極的にMinillaに切り替えていく価値があると思っています.</p>
-
-<p>ヒラタさんの発表は, 社内の余興で某クイズ番組をPHPやNodeを駆使して再現した, というお話.
-弊社も割とそういう空気がありますが, ああいう余興(?)に全力を尽くせるノリっていいなあ... と感じました.
-というか, あのシステムはすごい出来が良いので, 某局とコラボするとか, ロゴ等々のマズい部分をなんとかしてOSSのような形で公開したりとか, そういう展開があってもいいですよね. 今後どうなるか期待です.</p>
-
-<h2>自分のトーク</h2>
-
-<p>で, 自分ですが｢GPGPUとXSとわたし｣というタイトルで, PerlにおけるGPGPUの現状と, XSについての話をして来ました.<br/>
-資料はこちらです(後でアップします...)</p>
-
-<p>前半は割と学術っぽいネタで, 後半はXSという人を選ぶ中級者向けなネタだったので, ビギナーな方には｢あー, こういう世界があるんだなー｣というのを感じて頂けるように努力... したつもりなんですが如何でしたでしょうか.<br/>
-人を選ぶネタなので, お昼寝兼内職タイムになっちゃうのでは? と懸念していたのですが, 予想以上に興味津々な感じで聞いて頂けましたし, 質問もいくつか飛んできたので非常に嬉しかったです.</p>
-
-<p>あと, PerCUDAの成果として完成した｢PerCUDA::Backend::GPU｣ですが, これ普通にPerlからPTXをデバイスAPIを使って呼び出すツールとして使える気がするので, ｢CUDA::DeviceAPI｣みたいな名前で独立したモジュールとして公開してもいいんじゃないかなー, と思ったりしました.<br/>
-人柱よろしくです! (To GPGPUで研究をしている八王子在住のPerl Monger)</p>
-
-<h2>福岡最高!</h2>
-
-<p>常日頃から言っていますが, 福岡は自分にとって最高の都市の1つです.<br/>
-まず都市の規模が程よくコンパクトで, 移動がとても楽. 東京で言えば新宿と渋谷と銀座が徒歩圏内にある, みたいなイメージでしょうか.
-あと空港から中心部までの距離が異常に近いのも良いですね. 博多駅から福岡空港まで, 地下鉄で2駅ですし.</p>
-
-<p>あと食いしん坊バンザイな自分やゆーすけべーさんからすると, 屋台だったり居酒屋だったり, 飲食店のレベルが高いのも高印象でした. 要するに, 適当な店に行っても大抵メシがウマイ.
-そして焼酎がとても安いですね! 黒霧島とか, 多分大阪や東京の100〜200円引きくらいの値段で飲めます.</p>
-
-<p>そしてあれです. Fukuoka.pmとかに行くと, 地元の方が自信を持っておすすめするお店とかに行く事になるので, まあマズいはずがないですよね, ええ.</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/nabe.jpg" alt="モツ鍋" /></p>
-
-<p>こちらのモツ鍋は, Fukuoka.pmの懇親会(1次回)で行ったモツ鍋屋のモツ.<br/>
-ちなみにこの後, 2次会でラーソーメンを食べ, 3次会で屋台に行って鶏の炭火焼や餃子を食べたりしてました.<br/>
-最終的な解散時間は午前1時...! そして地元の方はずっとビールなり焼酎なりを飲み続けていました. お酒に強すぎィ!</p>
-
-<p><img src="http://hachiojipm.github.io/static/image/mentaiko.jpg" alt="明太子御飯" /></p>
-
-<p>こちらの明太子御飯は, Fukuoka.pmの翌日(つまり今日), ｢ここ超よさそうじゃね!?｣とゆーすけべーさんが見つけたお店で食べたもの.<br/>
-多分, これ東京で食べたら間違いなく1.5〜2倍くらいの値段がするんじゃないかなあ...</p>
-
-<h2>さいごに</h2>
-
-<p>Fukuoka.pm最高! 呼ばれなくてもまた来ますし, 呼ばれたら絶対に行きます!!!<br/>
-ちなみに次のFukuoka.pmには<a href="http://yancha.hachiojipm.org/quot?id=168623,168617">｢ツールチェインギャング見習い｣として有名なmoznion氏も参加</a>するみたいなので, とても楽しみですね!</p>
-
-<p>Fukuoka.pm #24に参加された皆様, そして交通費をスポンサードして頂いたゆーすけべーさん, uzullaさん, てつじさん, 本当に本当に, ありがとうございました!</p>
-
-<center>Fukuoka.pm最高〜〜〜〜〜〜〜〜〜〜〜ッ!!!!!</center>
-
-
-
-]]></content>
-<id>tag:hachiojipm.github.io,2013-10-27:entry-2013-10-27-fukuokapm.html</id>
-<published>2013-10-27T22:22:55+0900</published>
-<updated>2013-11-04T18:02:29+09:00</updated>
 </entry>
 </feed>
