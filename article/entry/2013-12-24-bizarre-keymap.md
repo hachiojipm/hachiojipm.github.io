@@ -1,7 +1,7 @@
 tags: Mac
 pubdate: 2013-12-24 23:59
 ---
-こんばんわ、Uzullaです。正直きつい、死にたい、そんな気分のクリスマスです。
+こんばんわ、uzullaです。正直きつい、死にたい、そんな気分のクリスマス・イヴです。
 
 
 # 先日…
@@ -112,6 +112,9 @@ Keyremap4Macbookを起動して、Misc & Uninstallタブから「Open Private.xm
  これで「スペースをCmdに差し替えたい（なぜなら普段JISをUS配列でつかっているから、Cmdをタイプするのが大変）」という頭がわりとおかしめなひとも大満足です。Keyremap4Macbook最高！！便利！！
 
 
+（一応かいておきますけど、XMLに記述したらChangeKeyのチェックボックス群にこの設定が追加されるだけなので、オンオフは自由自在です）
+
+
 # 参考情報
 
 書き方は以下のURLにありますが、
@@ -121,6 +124,9 @@ Keyremap4Macbookを起動して、Misc & Uninstallタブから「Open Private.xm
 結局既存の設定ファイルをみたほうが勉強になります
 
 [https://github.com/tekezo/KeyRemap4MacBook/blob/master/src/core/server/Resources/include/checkbox/standards/option.xml](https://github.com/tekezo/KeyRemap4MacBook/blob/master/src/core/server/Resources/include/checkbox/standards/option.xml)
+
+
+非常に、本当に非常に色々なサンプルがあるので、殆どの場合コピペ＆修正でどうにかなりますので、PHPerの私でも安心でした！！
 
 
 # みんなも変態キーマップでがんばろう！！
