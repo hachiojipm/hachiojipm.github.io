@@ -1,6 +1,8 @@
 tags: Mac
 pubdate: 2013-12-24 23:59
 ---
+# 「自分に変態な○○○ップをプレゼントしよう」
+
 こんばんわ、uzullaです。正直きつい、死にたい、そんな気分のクリスマス・イヴです。
 
 
@@ -88,23 +90,22 @@ Keyremap4Macbookを起動して、Misc & Uninstallタブから「Open Private.xm
 
 そして、以下が今回ワイが追加した設定や！！！
 
-```
-<?xml version="1.0"?>
-<root>
-    <item>
-      <name>Space to Cmmand_L</name>
-      <appendix>(+ When you type Space only, send Space)</appendix>
-      <identifier>remap.space2commandL_space</identifier>
-      <autogen>__KeyOverlaidModifier__ KeyCode::SPACE, KeyCode::COMMAND_L, KeyCode::SPACE</autogen>
-    </item>
-    <item>
-      <name>Space to Command_L</name>
-      <appendix>(+ When you type Space only, send Space) + [KeyRepeat]</appendix>
-      <identifier>remap.space2commandL_space_keyrepeat</identifier>
-      <autogen>__KeyOverlaidModifierWithRepeat__ KeyCode::SPACE, KeyCode::COMMAND_L, KeyCode::SPACE</autogen>
-    </item>
-</root>
-```
+
+    <?xml version="1.0"?>
+    <root>
+        <item>
+          <name>Space to Cmmand_L</name>
+          <appendix>(+ When you type Space only, send Space)</appendix>
+          <identifier>remap.space2commandL_space</identifier>
+          <autogen>__KeyOverlaidModifier__ KeyCode::SPACE, KeyCode::COMMAND_L, KeyCode::SPACE</autogen>
+        </item>
+        <item>
+          <name>Space to Command_L</name>
+          <appendix>(+ When you type Space only, send Space) + [KeyRepeat]</appendix>
+          <identifier>remap.space2commandL_space_keyrepeat</identifier>
+          <autogen>__KeyOverlaidModifierWithRepeat__ KeyCode::SPACE, KeyCode::COMMAND_L, KeyCode::SPACE</autogen>
+        </item>
+    </root>
 
 これはスペースキーを単体でおしたらスペースが出るが、何かのキーと一緒におしたらCmdになる！
 すごい！Cmdが最高にでっかくなっちゃった！！便利！！
