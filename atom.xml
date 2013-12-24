@@ -5,14 +5,16 @@
 <author>Uzulla</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-25T03:43:40+09:00</updated>
+<updated>2013-12-25T03:59:56+09:00</updated>
 <entry>
-<title type="text">先日…</title>
+<title type="text">「自分に変態な○○○ップをプレゼントしよう」</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-24-bizarre-keymap.html" />
 <author>
 <name>uzulla</name>
 </author>
-<content><![CDATA[<p>こんばんわ、uzullaです。正直きつい、死にたい、そんな気分のクリスマス・イヴです。</p>
+<content><![CDATA[<h1>「自分に変態な○○○ップをプレゼントしよう」</h1>
+
+<p>こんばんわ、uzullaです。正直きつい、死にたい、そんな気分のクリスマス・イヴです。</p>
 
 <h1>先日…</h1>
 
@@ -88,8 +90,7 @@ JIS->USの切り替えも一発でできるので((ドライバを入れ換え�
 
 <p>そして、以下が今回ワイが追加した設定や！！！</p>
 
-<p><code>
-&lt;?xml version="1.0"?&gt;
+<pre><code>&lt;?xml version="1.0"?&gt;
 &lt;root&gt;
     &lt;item&gt;
       &lt;name&gt;Space to Cmmand_L&lt;/name&gt;
@@ -104,7 +105,7 @@ JIS->USの切り替えも一発でできるので((ドライバを入れ換え�
       &lt;autogen&gt;__KeyOverlaidModifierWithRepeat__ KeyCode::SPACE, KeyCode::COMMAND_L, KeyCode::SPACE&lt;/autogen&gt;
     &lt;/item&gt;
 &lt;/root&gt;
-</code></p>
+</code></pre>
 
 <p>これはスペースキーを単体でおしたらスペースが出るが、何かのキーと一緒におしたらCmdになる！
 すごい！Cmdが最高にでっかくなっちゃった！！便利！！</p>
@@ -144,7 +145,7 @@ JIS->USの切り替えも一発でできるので((ドライバを入れ換え�
 ]]></content>
 <id>tag:hachiojipm.github.io,2013-12-25:entry-2013-12-24-bizarre-keymap.html</id>
 <published>2013-12-24T59:59:00+0900</published>
-<updated>2013-12-25T03:43:40+09:00</updated>
+<updated>2013-12-25T03:59:56+09:00</updated>
 </entry>
 <entry>
 <title type="text">PerCUDAの性能評価</title>
