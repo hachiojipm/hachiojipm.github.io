@@ -3,9 +3,53 @@
 <title>Hachioji.pm 日めくりテックトーク</title>
 <link rel="alternate" href="http://hachiojipm.github.io/" />
 <author>Uzulla</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.11">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:hachiojipm.github.io,2013-09-07:</id>
-<updated>2013-12-25T03:59:56+09:00</updated>
+<updated>2014-01-11T21:16:04+09:00</updated>
+<entry>
+<title type="text">perlのsystemとかexecに配列で渡すと「&gt;」リダイレクトが使えない</title>
+<link href="http://hachiojipm.github.io/entry/2014-01-11-system-exec-list.html" />
+<author>
+<name>Hiroyuki Akabane</name>
+</author>
+<content><![CDATA[<h1>perlのsystemとかexecに配列で渡すと「>」リダイレクトが使えない</h1>
+
+<p>そもそもなんでperlのsystem,execっで「>」リダイレクトやれ「|」パイプやれをつかうのよ？ってのはありますが、なんかよくわからなかったのでいろいろ質問して教えてもらったので、メモです。</p>
+
+<h2>配列で渡すと内部で実行されるexecvpがシェル文字を解釈しないから</h2>
+
+<p><a href="http://perldoc.jp/func/exec">perlのドキュメントのexec関数の説明</a>によれば、LISTで渡すと、execvpってライブリコールのが呼ばれて、これのexecvpって関数はシェルを経由しないから、シェル特殊文字の「>」「|」などは理解せず実行するためということです。</p>
+
+<p>また、LISTではなくスカラーで渡すとシェルに渡すということらしいです。</p>
+
+<p>ぼくは、OSコマンドインジェクション対策で、perlでsystemやexecを実行するときは、全部LISTで渡すべし！って覚えていたんですが、LISTで渡す意味がやっと正しくわかった気がします。</p>
+
+<p>ちなみに、そもそも、perlのexecでリダイレクト使うと思ったのは、Seleniumで立ち上げたPhantomJSが吐くログがうざかったので、消し去っておきたかったからですね！</p>
+
+<pre><code>    exec 'phantomjs --webdriver=127.0.0.1:9999 &gt; /dev/null';
+</code></pre>
+
+<p>ちなみに、一応最近のPhantomJSってwebdriverのログを保存する--webdriver-logfileってオプションがあるんですが、これ指定しても、なんか標準出力には出るんですよね、残念ながら。</p>
+
+<h2>execvp(3)の3とかそもそもexecvpって何よ？ライブラリコール？よくわからん・・・</h2>
+
+<p>なんかyanchaってチャットサービスで、いろいろ聞いたら、そもそもこの話を含めていろいろ教えてもらった。</p>
+
+<ul>
+<li><a href="http://yancha.hachiojipm.org/quot?id=237434,237435,237437,237438,237439,237440,237441,237442,237443,237444,237445,237446,237447,237448,237449,237451,237452,237455,237456,237457,237459,237460,237461,237462,237463,237464,237465,237477,237479,237482,237485,237486,237487,237488,237489,237497,237498,237500,237501">yanchaでいろいろ教えてもらったログ</a></li>
+<li><a href="http://www.amazon.co.jp/%E4%BE%8B%E8%A7%A3UNIX%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E6%95%99%E5%AE%A4-%E5%86%A8%E6%B0%B8%E5%92%8C%E4%BA%BA/dp/48947126609">bool_fool氏オススメの例解UNIXプログラミング教室</a></li>
+<li><a href="http://takuya-1st.hatenablog.jp/entry/20100504/1272932107">manコマンドの使い方(1) とマニュアル:manの探し方</a></li>
+</ul>
+
+
+<p>manで見れるのって全部シェルコマンドだと思っていましたが、いろいろあるんですねー。そもそもmanの見方もにわか仕込みでした。。。ライブラリコール（ライブラリ標準関数）っていうのは要はC言語の関数ってことですかねー。まぁ深く勉強したいところです。</p>
+
+<p>papix,bool_fool++</p>
+]]></content>
+<id>tag:hachiojipm.github.io,2014-01-11:entry-2014-01-11-system-exec-list.html</id>
+<published>2014-01-11T16:16:04+0900</published>
+<updated>2014-01-11T21:16:04+09:00</updated>
+</entry>
 <entry>
 <title type="text">「自分に変態な○○○ップをプレゼントしよう」</title>
 <link href="http://hachiojipm.github.io/entry/2013-12-24-bizarre-keymap.html" />
@@ -1459,96 +1503,5 @@ warn $t-&gt;datetime; # 2013-11-28T18:32:29
 <id>tag:hachiojipm.github.io,2013-12-07:entry-2013-12-07-time-piece-trap.html</id>
 <published>2013-12-07T27:27:37+0900</published>
 <updated>2013-12-07T19:27:37+09:00</updated>
-</entry>
-<entry>
-<title type="text">App::Nakachanを作ってみた</title>
-<link href="http://hachiojipm.github.io/entry/2013-12-06-nakachan.html" />
-<author>
-<name>papix</name>
-</author>
-<content><![CDATA[<h1>App::Nakachanを作ってみた</h1>
-
-<p><strong>気合! 入れて! 書きます!!!</strong></p>
-
-<p>...という訳で皆様, 師走ですね. アドベントカレンダーの時期ですね.<br/>
-本日は, Hachioji.pm Advent Calendar 兼 <a href="http://atnd.org/events/45245">艦これAdvent Calendar</a>の6日目という事でお送りしていきます.</p>
-
-<p>さて皆さん. 突然ですが, ｢遠征｣の情報ってどうやって確認していますか?<br/>
-移動時間や作業時間の間に, 愛しい艦娘が提督の為に資源をかき集めてくれる遠征は, 艦これの醍醐味(?)であり, もはやなくてはならない要素の1つです.</p>
-
-<p>要求Lv, 所要時間, 報酬, 遠征を成功させる為に必要な編成... 遠征を効率よく, かつ失敗させずに行う為には, 遠征に関する諸々の情報を覚えておく必要があるのですが, 流石にこれらを全て覚えているのは, 記憶力のいい人か<strong>艦これ廃人</strong>のいずれかだと思います.<br/>
-おそらく多くの方は<a href="http://wikiwiki.jp/kancolle/?%B1%F3%C0%AC">｢艦隊これくしょん -艦これ- 攻略Wiki｣の遠征ページ</a>とかで確認しているのではないでしょうか.</p>
-
-<p>今回は, 艦これの遠征に関する情報をコマンドラインで確認できるツール, ｢App::Nakachan｣というものを作ってみたので, 紹介したいと思います.<br/>
-余談ですが, ここのところ学会論文や修士論文の執筆に追われていて, App::Nakachanを完成させる為に久々に2時間程度コーディングをしたのですが, <strong>とても楽しかったです.</strong></p>
-
-<h2>App::Nakachanのインストール</h2>
-
-<p>App::Nakachanのコードは, githubで公開しています.</p>
-
-<p><a href="https://github.com/papix/App-Nakachan">https://github.com/papix/App-Nakachan</a></p>
-
-<p>Perlで書いているので, <strong>よしなにインストールしましょう.</strong></p>
-
-<h2>App::Nakachanの使い方</h2>
-
-<p>App::Nakachanをインストールすると, <code>nakachan</code>コマンドが使えるようになります.<br/>
-とりあえず今日のアドベントカレンダーに間に合わせる為に機能はあまりありません.</p>
-
-<p><code>nakachan --id 4</code>と打ち込むと, 遠征IDが4である遠征の情報が表示されます.</p>
-
-<pre><code>$ nakachan --id 4  
-Select: Expedition - ID: 4  
-========================================  
-04 - [D] 対潜警戒任務 (鎮守府海域) / 要求Lv 3 / 所要時間 00:50:00  
-  報酬: 石油 0 / 弾薬 60 / 鋼材 0 / ボーキ 0  
-        高速修復材 0,1  
-  編成: 全3隻 軽1隻, 駆2隻  
-  消費: 燃料 5目盛り / 弾薬 0目盛り  
-</code></pre>
-
-<p>また, <code>nakachan --area [0-4]</code>と打ち込むと, 該当する海域の遠征を全て見ることができます.<br/>
-ちなみに, 0が鎮守府海域, 1が南西諸島海域, 2が北方海域, 3が西方海域, 4が南方海域です.</p>
-
-<pre><code>$ perl -Ilib bin/nakachan --area 4  
-Select: Expedition - Area ID: 4  
-========================================  
-33 - [E] 前衛支援任務 (南方海域) / 要求Lv unknown / 所要時間 00:15:00  
-  報酬: 石油 0 / 弾薬 0 / 鋼材 0 / ボーキ 0  
-  編成: 全2隻 駆2隻  
-  消費: 燃料 5目盛り / 弾薬 4,8目盛り  
-========================================  
-34 - [E] 艦隊決戦支援任務 (南方海域) / 要求Lv unknown / 所要時間 00:30:00  
-  報酬: 石油 0 / 弾薬 0 / 鋼材 0 / ボーキ 0  
-  編成: 全2隻 駆2隻  
-  消費: 燃料 5目盛り / 弾薬 4,8目盛り  
-========================================  
-35 - [S] MO作戦 (南方海域) / 要求Lv 40 / 所要時間 07:00:00  
-  報酬: 石油 0 / 弾薬 0 / 鋼材 240 / ボーキ 280  
-        (開発資材 0,1)  
-  編成: 全6隻 空母2隻, 駆1隻, 重1隻  
-  消費: 燃料 8目盛り / 弾薬 8目盛り  
-========================================  
-36 - [S] 水上機基地建設 (南方海域) / 要求Lv 30 / 所要時間 09:00:00  
-  報酬: 石油 300 / 弾薬 0 / 鋼材 150 / ボーキ 150  
-        (高速修復材 0,1)  
-  編成: 全6隻 水母2隻, 軽1隻, 駆1隻  
-  消費: 燃料 8目盛り / 弾薬 8目盛り  
-========================================  
-</code></pre>
-
-<p>便利... なのか...?<br/>
-将来的には, ｢あるを効率良く獲得できる遠征一覧｣とかを出せるようにすれば, もっと便利になりそうです.</p>
-
-<h2>まとめ</h2>
-
-<p>艦これの遠征情報をコマンドラインで確認するツール, ｢App::Nakachan｣を作ってみました.<br/>
-今日のアドベントカレンダーに間に合わせるために2時間でガサっと実装した機能だけでは, 正直そこまでありがたみがないので, 細かい検索を出来るようにしたり, あるいは艦娘のステータス情報とかも検索･表示できるようになればいいなー, と思っています.</p>
-
-<p>というわけで, 明日の艦これアドベントカレンダーは@pugiemonnさん, 明日のHachioji.pm Advent Calendarは@hirobanexさんの予定です. お楽しみに!</p>
-]]></content>
-<id>tag:hachiojipm.github.io,2013-12-06:entry-2013-12-06-nakachan.html</id>
-<published>2013-12-06T36:36:45+0900</published>
-<updated>2013-12-06T00:44:30+09:00</updated>
 </entry>
 </feed>
